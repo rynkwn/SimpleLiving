@@ -7,13 +7,18 @@ public class Person {
 	private String name;
 	private String faction;
 	private boolean gender; // T == Fe, F == M
-	private double happiness;
-	private double strength;
+	private double happiness; // -100 - 100
+	private double strength; // 0 - 20
 	
-	
-	
+	/*
+	 * Default constructor - intended to be an easy test person.
+	 */
 	public Person(){
 		name = "Bitzy";
+		faction = "Testers";
+		gender = false;
+		happiness = 100;
+		strength = 20;
 	}
 	
 	// Standard setters.
