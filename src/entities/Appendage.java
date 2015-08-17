@@ -1,4 +1,4 @@
-package base;
+package entities;
 
 public class Appendage {
 	private String name;
