@@ -8,3 +8,8 @@
 
 # Excel Backup File
 *.xlk
+
+# Eclipse residues
+.project
+.settings/
+.loadpath
