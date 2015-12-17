@@ -7,6 +7,19 @@ public abstract class Item {
 	protected double weight;
 	protected double condition; // From 0-100. 0 is ruined. 100 is pristine
 	
+	public Item(){
+		name = "TestItem";
+		value = 10;
+		weight = 1;
+		condition = 100;
+	}
+	
+	public Item(String name, double val, double weight, double cond){
+		this.name = name;
+		this.value = val;
+		this.weight = weight;
+		this.condition = cond;
+	}
 	
 	// Setters
 	public void setName(String name) { this.name = name; }
