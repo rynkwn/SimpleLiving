@@ -47,6 +47,12 @@ public class Appendage {
 		}
 	}
 	
+	public boolean canWear(Clothing cover){
+		if(cover.appendage().equalsIgnoreCase(name))
+			return true;
+		return false;
+	}
+	
 	// Returns a brief one line description of the appendage.
 	public String toString(){
 		String output = "";

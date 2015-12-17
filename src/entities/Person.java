@@ -42,7 +42,7 @@ public class Person {
 	// A string description of the user's inventory.
 	// If empty, states "Nothing is being carried!"
 	public String inventory(){
-		String output = "";
+		String output = "Inventory:\n";
 		if(inventory.size() == 0){
 			return "Empty";
 		} else {
@@ -56,11 +56,30 @@ public class Person {
 	// A String description of all the Person's body parts and the name of
 	// the covering object.
 	public String wearing(){
-		String output = "";
+		String output = "Body:\n";
 		for(int i=0; i < appendages.size(); i++){
 			output += appendages.get(i).toString() + "\n";
 		}
 		return output;
+	}
+	
+	public void wear(int appendageIndex, int inventoryIndex){
+		Item item = inventory.get(inventoryIndex);
+		Appendage appen = appendages.get(appendageIndex);
+		
+		if(item instanceof Clothing){
+			if(appen.canWear((Clothing) item)){
+				Clothing old = appen.wear((Clothing) item);
+				if(old != null)
+					inventory.add(old);
+				inventory.remove(inventoryIndex);
+			} else {
+				System.out.println(item.name() + " won't fit there!");
+			}
+		} else {
+			System.out.println(item.name() + " is not wearable!");
+		}
+		
 	}
 	
 	public Clothing wear(Appendage bodypart, Clothing cloth){
