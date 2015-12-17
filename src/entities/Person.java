@@ -33,18 +33,28 @@ public class Person {
 		inventory = new ArrayList<Item>();
 	}
 	
-	// Methods to interact with Items
+	/*
+	 * Methods to interact with items.
+	 */
 	public void pickUp(Item item) { inventory.add(item); }
 	public Item drop(int index) { return inventory.remove(index);}
 	
+	// A string description of the user's inventory.
+	// If empty, states "Nothing is being carried!"
 	public String inventory(){
 		String output = "";
-		for(int i=0; i < inventory.size(); i++){
-			output += inventory.get(i).toString() + "\n";
+		if(inventory.size() == 0){
+			return "Empty";
+		} else {
+			for(int i=0; i < inventory.size(); i++){
+				output += inventory.get(i).toString() + "\n";
+			}
+			return output;			
 		}
-		return output;
 	}
 	
+	// A String description of all the Person's body parts and the name of
+	// the covering object.
 	public String wearing(){
 		String output = "";
 		for(int i=0; i < appendages.size(); i++){
@@ -55,6 +65,23 @@ public class Person {
 	
 	public Clothing wear(Appendage bodypart, Clothing cloth){
 		return bodypart.wear(cloth);
+	}
+	
+	/*
+	 * Methods to interact with appendages.
+	 */
+	public Appendage getAppendage(int index){
+		return appendages.get(index);
+	}
+	
+	// Returns the first appendage that matches the passed in String.
+	// Case insensitive.
+	public Appendage getAppendage(String bodypart){
+		for(int i = 0; i < appendages.size(); i++){
+			if(appendages.get(i).name().equalsIgnoreCase(bodypart))
+				return appendages.get(i);
+		}
+		return null;
 	}
 	
 	// Standard setters.
