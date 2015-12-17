@@ -47,6 +47,13 @@ public class Appendage {
 		}
 	}
 	
+	// Returns a brief one line description of the appendage.
+	public String toString(){
+		String output = "";
+		output += name + "\t" + health + "\t" + cover.name();
+		return output;
+	}
+	
 	// Setters
 	public void setName(String name) { this.name = name; }
 	public void setHealth(int health) { this.health = health; }

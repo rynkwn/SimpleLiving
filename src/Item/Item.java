@@ -21,6 +21,12 @@ public abstract class Item {
 		this.condition = cond;
 	}
 	
+	public String toString(){
+		String output = "";
+		output += name + "\t" + value + "\t" + weight + "\t" + condition;
+		return output;
+	}
+	
 	// Setters
 	public void setName(String name) { this.name = name; }
 	public void setValue(double value) { this.value = value; }

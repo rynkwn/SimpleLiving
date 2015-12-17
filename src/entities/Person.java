@@ -40,7 +40,7 @@ public class Person {
 	public String inventory(){
 		String output = "";
 		for(int i=0; i < inventory.size(); i++){
-			output += inventory.get(i).name() + "\n";
+			output += inventory.get(i).toString() + "\n";
 		}
 		return output;
 	}

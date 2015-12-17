@@ -20,6 +20,12 @@ public class Clothing extends Item {
 		warmth = 1;
 	}
 	
+	public String toString(){
+		String output = "";
+		output += super.toString() + "\t" + appendage + "\t" + armor + "\t" + warmth;
+		return output;
+	}
+	
 	// Setters
 	public void setAppendage(String appendage) { this.appendage = appendage; }
 	public void setArmor(double armor) { this.armor = armor; }
