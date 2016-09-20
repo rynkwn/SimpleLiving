@@ -1,12 +1,16 @@
 package base;
 
+import organization.Village;
+
 import Item.*;
 import entities.*;
 
 public class Main {
 
 	public static void main(String [] args){
+		/*
 		Person tester = new Person();
+		
 		Clothing shirt = new Clothing("shirt");
 		System.out.println("Shirt's toString: " + shirt.toString());
 		tester.pickUp(shirt);
@@ -14,5 +18,9 @@ public class Main {
 		tester.wear(0, 0);
 		System.out.println(tester.appendages());
 		System.out.println(tester.inventory());
+		*/
+		
+		Village vl = new Village();
+		vl.iterate();
 	}
 }

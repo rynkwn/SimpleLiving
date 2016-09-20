@@ -7,8 +7,6 @@ import Item.Clothing;
 import Item.Item;
 
 public class Person {
-	
-	public static final double CALORIES_NEEDED_PER_DAY = 2000;
 
 	private String name;
 	private String faction;
@@ -18,6 +16,7 @@ public class Person {
 	private ArrayList<Appendage> appendages;
 	private ArrayList<Item> inventory;
 	private long ID = new Random().nextLong();
+	private int labor = 0;
 	
 	/*
 	 * Default constructor - intended to be an easy test person.
@@ -40,6 +39,14 @@ public class Person {
 	 */
 	public void pickUp(Item item) { inventory.add(item); }
 	public Item drop(int index) { return inventory.remove(index);}
+	public void destroy(String itemName) {
+		for(int i = 0; i < inventory.size(); i++) {
+			if(itemName.equals(inventory.get(i).name())) {
+				inventory.remove(i);
+				break;
+			}
+		} 
+	}
 	
 	// A string description of the user's inventory.
 	// If empty, states "Nothing is being carried!"
@@ -99,6 +106,11 @@ public class Person {
 				return appendages.get(i);
 		}
 		return null;
+	}
+	
+	public void act() {
+		labor = (int) strength;
+		
 	}
 	
 	// Standard setters.

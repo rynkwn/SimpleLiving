@@ -25,6 +25,8 @@ public class Village {
 	}
 	
 	public void iterate() {
-		
+		for(Person p : inhabitants) {
+			p.act();
+		}
 	}
 }
