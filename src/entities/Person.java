@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import Item.Clothing;
 import Item.Item;
@@ -16,6 +17,7 @@ public class Person {
 	private double strength; // 0 - 20
 	private ArrayList<Appendage> appendages;
 	private ArrayList<Item> inventory;
+	private long ID = new Random().nextLong();
 	
 	/*
 	 * Default constructor - intended to be an easy test person.
@@ -82,10 +84,6 @@ public class Person {
 		
 	}
 	
-	public Clothing wear(Appendage bodypart, Clothing cloth){
-		return bodypart.wear(cloth);
-	}
-	
 	/*
 	 * Methods to interact with appendages.
 	 */
@@ -118,5 +116,6 @@ public class Person {
 	public double happiness(){ return happiness; }
 	public double strength(){ return strength; }
 	public ArrayList<Appendage> appendages(){ return appendages; }
+	public long getID(){ return ID; }
 	
 }
