@@ -20,7 +20,7 @@ public class ComponentsReader {
 		scan = new Scanner(new File("components.txt"));
 		
 		String name = scan.nextLine();
-		while(!name.equals("")) {
+		while(scan.hasNextLine()) {
 		
 			double weight = scan.nextDouble();
 			int numSpecialEffects = scan.nextInt();
@@ -39,7 +39,7 @@ public class ComponentsReader {
 			components.put(name, abstractComp);
 			
 			if(!scan.hasNextLine())
-				name = "";			
+				break;	
 			name = scan.nextLine();
 		}
 		
