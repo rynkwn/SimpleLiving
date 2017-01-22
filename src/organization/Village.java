@@ -11,7 +11,7 @@ public class Village {
 	
 	private ArrayList<Person> inhabitants;
 	private ArrayList<Item> market;
-	private ArrayList<Workbloc> workplaces;
+	//private ArrayList<Workbloc> workplaces;
 	
 	public Village() {
 		name = "Solace";
