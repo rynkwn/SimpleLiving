@@ -1,6 +1,4 @@
-package data;
-
-import item.Component;
+package item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +18,7 @@ public class ComponentsReader {
 		Scanner scan;
 		
 		try {
-		scan = new Scanner(new File("components.txt"));
+		scan = new Scanner(new File("data/components.txt"));
 		
 		String name = scan.nextLine();
 		while(scan.hasNextLine()) {
