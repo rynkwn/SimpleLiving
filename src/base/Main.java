@@ -1,13 +1,15 @@
 package base;
 
+import item.*;
 import organization.Village;
-
-import Item.*;
 import entities.*;
+import data.*;
 
 public class Main {
 
 	public static void main(String [] args){
+		ComponentsReader.readComponentData();
+		
 		/*
 		Person tester = new Person();
 		

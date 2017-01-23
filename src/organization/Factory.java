@@ -1,10 +1,10 @@
 package organization;
 
 
+import item.*;
+
 import java.util.HashMap;
 import java.util.ArrayList;
-
-import Item.*;
 
 public class Factory {
 	// A mechanism that translates Inputs -> Outputs

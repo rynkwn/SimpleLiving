@@ -1,8 +1,11 @@
 package data;
 
+import item.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -50,14 +53,21 @@ public class ComponentsReader {
 	}
 	
 	// I want a list containing the abstract components available.
-	
-	// I want to check if an item matches a given AbstractComponent.
-	public static boolean instanceOfAbstractComponent() {
-		return true;
+	public Set<String> getAbstractComponentNames() {
+		return components.keySet();
 	}
 	
-	// I want to instantiate an item that matches a description.
+	// Creates an instance of a component.
+	public static Component makeComponent(String name, int quantity) {
+		Component comp = components.get(name).makeComponent();
+		comp.setQuantity(quantity);
+		return comp;
+	}
 	
+	// Returns the special effects associated with a component.
+	public static Set<String> getSpecialEffects(String name) {
+		return components.get(name).getSpecialEffects();
+	}
 }
 
 
@@ -89,4 +99,14 @@ class AbstractComponent {
 		return true;
 	}
 	
+	/*
+	 * Makes a component that matches this pattern.
+	 */
+	public Component makeComponent() {
+		return new Component(name, weight);
+	}
+	
+	public Set<String> getSpecialEffects() {
+		return special.keySet();
+	}
 }
