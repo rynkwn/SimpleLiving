@@ -5,6 +5,7 @@ import item.*;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Factory {
 	// A mechanism that translates Inputs -> Outputs
@@ -13,45 +14,50 @@ public class Factory {
 	public int time; // Time requirement?
 	public int manpower; // How much work is required as input?
 	
-	public ArrayList<FactoryDescription> inputs;
-	public ArrayList<FactoryDescription> outputs;
+	public HashSet<FactoryDescription> inputs = new HashSet<FactoryDescription>();
+	public ArrayList<FactoryDescription> outputs = new ArrayList<FactoryDescription>();
 	
 	// Need a description of Inputs
 	// Need a description of Outputs
 	// How do we construct a given item from the above maps?
 	
 	public Factory() {
+		outputs.add(new FactoryDescription("Water", 2));
+	}
+
+	/*
+	public ArrayList<Component> produce() {
 		
+	}
+	*/
+	
+	// Checks to see if the inputs are satisfied.
+	public boolean satisfied() {
+		for(FactoryDescription fd : inputs) {
+			if(! fd.satisfied())
+				return false;
+		}
+		
+		return true;
 	}
 	
 	// A class that handles describing a given object.
 	// Used in the Factory class to specify inputs/outputs reasonably.
-	class FactoryDescription {		
-		public String itemClass; // Clothing, Consumable, Item, e.t.c.
+	class FactoryDescription {
 		
-		public long amount;
-		public long storedAmount;
 		public String name;
-		public double weight;
-		public double condition;
+		public int amount; // The amount we need to satisfy.
+		public int storedAmount;
 		
-		public String details;
-		
-		public FactoryDescription(String itemClass, long amount, String name) {
-			this.itemClass = itemClass;
+		public FactoryDescription(String name, int amount) {
 			this.amount = amount;
 			this.name = name;
 		}
 		
 		// Determines if the specific Item matches
 		// the itemClass and name.
-		public boolean match(Item input) {
-			// Match is mostly going to be used when seeing if an input item is correct.
-			// Therefore, let's try to simply match on name and itemClass.
-			
-			// TODO: MATCH ON CLASS? FOR SIMPLICITY SAKE FOR RIGHT NOW, LET'S JUST MATCH ON NAME.
-			
-			return input.name().equalsIgnoreCase(name);
+		public boolean match(String name) {
+			return this.name.equalsIgnoreCase(name);
 		}
 		
 		// Checks to see if this input is satisfied.
@@ -59,9 +65,23 @@ public class Factory {
 			return amount == storedAmount;
 		}
 		
-		// Produces the item described by the FactoryDescription.
-		public Item produce() {
-			return new Clothing();
+		// Adds an amount to storage, and if too much have been added in,
+		// returns the leftover amount.
+		public int add(int amnt) {
+			int diff = amount - storedAmount;
+			storedAmount += amnt;
+			
+			if(amnt > diff) {
+				storedAmount = amount;
+				return amnt - diff;
+			}
+			
+			return 0;
+		}
+		
+		// Empties the amount stored.
+		public void empty() {
+			storedAmount = 0;
 		}
 	}
 }
