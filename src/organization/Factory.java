@@ -12,7 +12,9 @@ public class Factory {
 	
 	public String name;
 	public int time; // Time requirement?
+	public int timePassed;
 	public int manpower; // How much work is required as input?
+	public int manpowerStored;
 	
 	public HashSet<FactoryDescription> inputs = new HashSet<FactoryDescription>();
 	public ArrayList<FactoryDescription> outputs = new ArrayList<FactoryDescription>();
@@ -22,14 +24,23 @@ public class Factory {
 	// How do we construct a given item from the above maps?
 	
 	public Factory() {
+		name = "Simple Well";
+		time = 0;
+		timePassed = 0;
+		manpower = 0;
+		manpowerStored = 0;
 		outputs.add(new FactoryDescription("Water", 2));
 	}
 
-	/*
 	public ArrayList<Component> produce() {
+		ArrayList<Component> components = new ArrayList<Component>();
 		
+		for(FactoryDescription fd : outputs) {
+			components.add(ComponentsReader.makeComponent(fd.name, fd.amount));
+		}
+		
+		return components;
 	}
-	*/
 	
 	// Checks to see if the inputs are satisfied.
 	public boolean satisfied() {
