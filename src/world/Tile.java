@@ -2,6 +2,9 @@ package world;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.ArrayList;
+
+import organization.Factory;
 
 public class Tile {
 	
@@ -9,6 +12,8 @@ public class Tile {
 	int width;
 	double fertility;
 	double mineral;
+	ArrayList<Factory> factories;
+	
 	// HashSet<Minerals> mineralsPresent
 }
 
