@@ -1,5 +1,7 @@
 package world;
 
+import item.Inventory;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ public class Tile {
 	double fertility;
 	double mineral;
 	ArrayList<Factory> factories;
+	Inventory localItems;
 	
 	// HashSet<Minerals> mineralsPresent
 }
