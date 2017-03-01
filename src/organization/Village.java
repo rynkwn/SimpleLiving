@@ -1,9 +1,8 @@
 package organization;
 
-import item.Item;
-
 import java.util.ArrayList;
 
+import deprecated.Item;
 import entities.Person;
 
 public class Village {

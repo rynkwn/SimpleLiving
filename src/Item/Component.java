@@ -27,4 +27,10 @@ public class Component {
 		quantity = quant;
 	}
 	
+	public void addQuantity(int quant) {
+		quantity += quant;
+	}
+	
+	public String getName() { return name; }
+	public int getQuantity() { return quantity; }
 }

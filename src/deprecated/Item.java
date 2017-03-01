@@ -1,4 +1,4 @@
-package item;
+package deprecated;
 
 public abstract class Item {
 

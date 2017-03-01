@@ -1,10 +1,10 @@
 package entities;
 
-import item.Clothing;
-import item.Item;
-
 import java.util.ArrayList;
 import java.util.Random;
+
+import deprecated.Clothing;
+import deprecated.Item;
 
 public class Person {
 
