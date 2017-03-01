@@ -18,6 +18,10 @@ public class Tile {
 	Inventory localItems;
 	
 	// HashSet<Minerals> mineralsPresent
+	
+	public Tile() {
+		
+	}
 }
 
 /*
