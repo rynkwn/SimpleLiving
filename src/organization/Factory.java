@@ -15,6 +15,8 @@ public class Factory {
 	public int timePassed;
 	public int manpower; // How much work is required as input?
 	public int manpowerStored;
+	public int length;
+	public int width;
 	
 	public HashSet<FactoryDescription> inputs = new HashSet<FactoryDescription>();
 	public ArrayList<FactoryDescription> outputs = new ArrayList<FactoryDescription>();

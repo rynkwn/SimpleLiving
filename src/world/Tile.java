@@ -6,10 +6,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ArrayList;
 
+import data.Constants;
 import organization.Factory;
 
 public class Tile {
 	
+	// Constants
+	public static final int DEFAULT_LENGTH = 20;
+	public static final int DEFAULT_WIDTH = 20;
+	
+	// We'll consider the square tiles as 0 - (length - 1) and similarly for width.
 	int length;
 	int width;
 	double fertility;
@@ -19,8 +25,44 @@ public class Tile {
 	
 	// HashSet<Minerals> mineralsPresent
 	
+	// Default constructor for tests.
 	public Tile() {
+		length = DEFAULT_LENGTH;
+		width = DEFAULT_WIDTH;
+		fertility = 1;
+		mineral = 1;
+		factories = new ArrayList<Factory>();
+		localItems = new Inventory();
+	}
+	
+	
+	// Add a factory if possible.
+	// Return a boolean signal notifying if action was completed.
+	public boolean addFactory(int x, int y, Factory fact) {
+		if(canFit(x, y, fact.length, fact.width)) {
+			factories.add(fact);
+			return true;
+		}
 		
+		return false;
+	}
+	
+	// Check to see if something of a given length and width can fit,
+	// with its top-left corner in the coordinates (X, Y).
+	public boolean canFit(int x, int y, int length, int width) {
+		if(this.length - x + length > this.length)
+			return false;
+		
+		if(this.length - x < 0)
+			return false;
+		
+		if (this.width - y + width > this.width)
+			return false;
+		
+		if(this.width - y < 0) 
+			return false;
+		
+		return true;
 	}
 }
 
