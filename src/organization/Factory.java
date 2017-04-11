@@ -33,6 +33,13 @@ public class Factory {
 		manpowerStored = 0;
 		outputs.add(new FactoryDescription("Water", 2));
 	}
+	
+	// If sufficient inputs, then produce outputs.
+	public ArrayList<Component> turn() {
+		if(satisfied())
+			return produce();
+		return new ArrayList<Component>();
+	}
 
 	public ArrayList<Component> produce() {
 		ArrayList<Component> components = new ArrayList<Component>();

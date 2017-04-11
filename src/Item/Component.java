@@ -33,4 +33,8 @@ public class Component {
 	
 	public String getName() { return name; }
 	public int getQuantity() { return quantity; }
+	
+	public String toString() {
+		return name + "\n\t" + quantity + "\n\t" + weight;
+	}
 }

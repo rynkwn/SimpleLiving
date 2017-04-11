@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.ArrayList;
 
 import data.Constants;
+import entities.Person;
 import organization.Factory;
 
 public class Tile {
@@ -16,12 +17,12 @@ public class Tile {
 	public static final int DEFAULT_WIDTH = 20;
 	
 	// We'll consider the square tiles as 0 - (length - 1) and similarly for width.
-	int length;
-	int width;
-	double fertility;
-	double mineral;
-	ArrayList<Factory> factories;
-	Inventory localItems;
+	public int length;
+	public int width;
+	public double fertility;
+	public double mineral;
+	public ArrayList<Factory> factories;
+	public Inventory localItems;
 	
 	// HashSet<Minerals> mineralsPresent
 	
@@ -33,6 +34,13 @@ public class Tile {
 		mineral = 1;
 		factories = new ArrayList<Factory>();
 		localItems = new Inventory();
+	}
+	
+	// Simulate a turn.
+	public void turn() {
+		for (Factory fact : factories) {
+			localItems.addList(fact.turn());
+		}
 	}
 	
 	

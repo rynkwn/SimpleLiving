@@ -18,7 +18,7 @@ public class ComponentsReader {
 		Scanner scan;
 		
 		try {
-		scan = new Scanner(new File("data/components.txt"));
+		scan = new Scanner(new File("src/data/components.txt"));
 		
 		String name = scan.nextLine();
 		while(scan.hasNextLine()) {
@@ -32,7 +32,9 @@ public class ComponentsReader {
 			for(int i = 0; i < numSpecialEffects; i++) {
 				String specialEffect = scan.nextLine().substring(1);
 				long effectValue = scan.nextLong();
-				scan.nextLine();
+				
+				if(scan.hasNextLine())
+					scan.nextLine();
 				
 				abstractComp.addSpecial(specialEffect, effectValue);
 			}

@@ -4,6 +4,8 @@ import item.*;
 import organization.Village;
 import entities.*;
 import data.*;
+import organization.*;
+import world.*;
 
 public class Main {
 
@@ -22,7 +24,14 @@ public class Main {
 		System.out.println(tester.inventory());
 		*/
 		
-		Village vl = new Village();
-		vl.iterate();
+		//Village vl = new Village();
+		//vl.iterate();
+		
+		Tile tile = new Tile();
+		Factory fact = new Factory();
+		tile.addFactory(0, 0, fact);
+		tile.turn();
+		
+		tile.localItems.printDetailedContents();
 	}
 }
