@@ -28,7 +28,7 @@ public class Main {
 		//vl.iterate();
 		
 		Tile tile = new Tile();
-		Factory fact = new Factory();
+		Building fact = new Building();
 		tile.addFactory(0, 0, fact);
 		tile.turn();
 		

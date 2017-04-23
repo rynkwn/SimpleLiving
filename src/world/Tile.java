@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import data.Constants;
 import entities.Person;
-import organization.Factory;
+import organization.Building;
 
 public class Tile {
 	
@@ -21,7 +21,7 @@ public class Tile {
 	public int width;
 	public double fertility;
 	public double mineral;
-	public ArrayList<Factory> factories;
+	public ArrayList<Building> factories;
 	public Inventory localItems;
 	
 	// HashSet<Minerals> mineralsPresent
@@ -32,13 +32,13 @@ public class Tile {
 		width = DEFAULT_WIDTH;
 		fertility = 1;
 		mineral = 1;
-		factories = new ArrayList<Factory>();
+		factories = new ArrayList<Building>();
 		localItems = new Inventory();
 	}
 	
 	// Simulate a turn.
 	public void turn() {
-		for (Factory fact : factories) {
+		for (Building fact : factories) {
 			localItems.addList(fact.turn());
 		}
 	}
@@ -46,7 +46,7 @@ public class Tile {
 	
 	// Add a factory if possible.
 	// Return a boolean signal notifying if action was completed.
-	public boolean addFactory(int x, int y, Factory fact) {
+	public boolean addFactory(int x, int y, Building fact) {
 		if(canFit(x, y, fact.length, fact.width)) {
 			factories.add(fact);
 			return true;

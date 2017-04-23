@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Factory {
+public class Building {
 	// A mechanism that translates Inputs -> Outputs
 	
 	public String name;
@@ -25,7 +25,7 @@ public class Factory {
 	// Need a description of Outputs
 	// How do we construct a given item from the above maps?
 	
-	public Factory() {
+	public Building() {
 		name = "Simple Well";
 		time = 0;
 		timePassed = 0;
