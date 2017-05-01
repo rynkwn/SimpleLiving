@@ -3,12 +3,13 @@ package base;
 import item.*;
 import entities.*;
 import data.*;
-import organization.*;
+//import organization.*;
 import world.*;
 
 public class Main {
 
 	public static void main(String [] args){
+		SpeciesReader.readSpeciesData("src/data/");
 		ComponentsReader.readComponentData();
 		
 		/*
