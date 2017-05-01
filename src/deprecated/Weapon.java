@@ -1,4 +1,4 @@
-package Item;
+package deprecated;
 
 public class Weapon extends Item {
 

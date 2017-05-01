@@ -1,6 +1,6 @@
 package entities;
 
-import Item.Clothing;
+import deprecated.Clothing;
 
 public class Appendage {
 	private String name;

@@ -1,13 +1,12 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-import Item.Clothing;
-import Item.Item;
+import deprecated.Clothing;
+import deprecated.Item;
 
 public class Person {
-	
-	public static final double CALORIES_NEEDED_PER_DAY = 2000;
 
 	private String name;
 	private String faction;
@@ -16,6 +15,8 @@ public class Person {
 	private double strength; // 0 - 20
 	private ArrayList<Appendage> appendages;
 	private ArrayList<Item> inventory;
+	private long ID = new Random().nextLong();
+	private int labor = 0;
 	
 	/*
 	 * Default constructor - intended to be an easy test person.
@@ -38,6 +39,14 @@ public class Person {
 	 */
 	public void pickUp(Item item) { inventory.add(item); }
 	public Item drop(int index) { return inventory.remove(index);}
+	public void destroy(String itemName) {
+		for(int i = 0; i < inventory.size(); i++) {
+			if(itemName.equals(inventory.get(i).name())) {
+				inventory.remove(i);
+				break;
+			}
+		} 
+	}
 	
 	// A string description of the user's inventory.
 	// If empty, states "Nothing is being carried!"
@@ -82,10 +91,6 @@ public class Person {
 		
 	}
 	
-	public Clothing wear(Appendage bodypart, Clothing cloth){
-		return bodypart.wear(cloth);
-	}
-	
 	/*
 	 * Methods to interact with appendages.
 	 */
@@ -103,6 +108,11 @@ public class Person {
 		return null;
 	}
 	
+	public void act() {
+		labor = (int) strength;
+		
+	}
+	
 	// Standard setters.
 	public void setName(String name){ this.name = name; }
 	public void setFaction(String faction){ this.faction = faction; }
@@ -118,5 +128,6 @@ public class Person {
 	public double happiness(){ return happiness; }
 	public double strength(){ return strength; }
 	public ArrayList<Appendage> appendages(){ return appendages; }
+	public long getID(){ return ID; }
 	
 }

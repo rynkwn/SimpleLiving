@@ -1,0 +1,5 @@
+Water
+	1.0
+	1
+	Drinkable
+	1
