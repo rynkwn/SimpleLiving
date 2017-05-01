@@ -1,7 +1,6 @@
 package base;
 
 import item.*;
-import organization.Village;
 import entities.*;
 import data.*;
 import organization.*;
@@ -27,11 +26,14 @@ public class Main {
 		//Village vl = new Village();
 		//vl.iterate();
 		
+		
+		/*
 		Tile tile = new Tile();
 		Building fact = new Building();
 		tile.addFactory(0, 0, fact);
 		tile.turn();
 		
 		tile.localItems.printDetailedContents();
+		*/
 	}
 }
