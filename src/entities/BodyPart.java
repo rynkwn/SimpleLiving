@@ -7,20 +7,20 @@ import java.util.*;
  */
 public class BodyPart {
 	
-	String name;
-	int health;
-	int maxHealth;
+	public String name;
+	public int health;
+	public int maxHealth;
 	
-	int size;
+	public int size;
 	
 	// The attributes this body part contributes to.
-	int moving;
-	boolean eating;
-	boolean talking;
-	boolean consciousness;
-	int sight;
-	boolean manipulation;
-	boolean breathing;
+	public int moving;
+	public boolean eating;
+	public boolean talking;
+	public boolean consciousness;
+	public int sight;
+	public boolean manipulation;
+	public boolean breathing;
 	
 	
 	ArrayList<BodyPart> containedParts; // E.g., a head contains a mouth and eyes.
@@ -60,6 +60,9 @@ public class BodyPart {
 			maxHealth = 10;
 			size = 8;
 			breathing = true;			
+		} else if (name.equals("Segment")) {
+			maxHealth = 40;
+			size = 30;
 		}
 		
 		health = maxHealth;
