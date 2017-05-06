@@ -25,17 +25,25 @@ public class Body {
 		bodyparts = new ArrayList<BodyPart>();
 	}
 	
+	public void calcTraitsRecursively(BodyPart bp) {
+		double pctEffective = bp.health / bp.maxHealth;
+		moving += (bp.moving * pctEffective);
+		eating = Math.max(eating, (bp.eating ? 1 : 0) * pctEffective);
+		talking = Math.max(talking, (bp.talking ? 1 : 0) * pctEffective);
+		consciousness = Math.max(consciousness, (bp.consciousness ? 1 : 0) * pctEffective);
+		sight += (bp.sight * pctEffective);
+		manipulation = Math.max(manipulation, (bp.manipulation ? 1 : 0) * pctEffective);
+		breathing = Math.max(breathing, (bp.breathing ? 1 : 0) * pctEffective);
+		mass += bp.size;
+		
+		for(BodyPart organ : bp.containedParts) {
+			calcTraitsRecursively(organ);
+		}
+	}
+	
 	public void calculateTraits() {
 		for (BodyPart bp : bodyparts) {
-			double pctEffective = bp.health / bp.maxHealth;
-			moving += (bp.moving * pctEffective);
-			eating = Math.max(eating, (bp.eating ? 1 : 0) * pctEffective);
-			talking = Math.max(talking, (bp.talking ? 1 : 0) * pctEffective);
-			consciousness = Math.max(consciousness, (bp.consciousness ? 1 : 0) * pctEffective);
-			sight += (bp.sight * pctEffective);
-			manipulation = Math.max(manipulation, (bp.manipulation ? 1 : 0) * pctEffective);
-			breathing = Math.max(breathing, (bp.breathing ? 1 : 0) * pctEffective);
-			mass += bp.size;
+			calcTraitsRecursively(bp);
 		}
 	}
 	

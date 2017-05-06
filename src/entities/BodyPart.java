@@ -69,6 +69,12 @@ public class BodyPart {
 		health = maxHealth;
 	}
 	
+	public void addOrgans(ArrayList<BodyPart> organs) {
+		for(BodyPart organ : organs) {
+			containedParts.add(organ);
+		}
+	}
+	
 	public void addOrgan(BodyPart organ) {
 		containedParts.add(organ);
 	}
