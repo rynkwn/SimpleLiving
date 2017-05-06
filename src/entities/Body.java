@@ -62,4 +62,25 @@ public class Body {
 		
 		updateTraits();
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Caloric Needs: " + caloricNeeds + "\n");
+		sb.append("Mass: " + mass + "\n");
+		sb.append("Moving: " + moving + "\n");
+		sb.append("Eating: " + eating + "\n");
+		sb.append("Talking: " + talking + "\n");
+		sb.append("Consciousness: " + consciousness + "\n");
+		sb.append("Sight: " + sight + "\n");
+		sb.append("Manipulation: " + manipulation + "\n");
+		sb.append("Breathing: " + breathing + "\n");
+		sb.append("Bodyparts:\n");
+		
+		for(BodyPart bp : bodyparts) {
+			sb.append(bp.toString());
+		}
+		
+		return sb.toString();
+	}
 }

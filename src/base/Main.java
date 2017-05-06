@@ -12,6 +12,8 @@ public class Main {
 		SpeciesReader.readSpeciesData("src/data/");
 		ComponentsReader.readComponentData();
 		
+		System.out.println(SpeciesReader.debugDump());
+		
 		/*
 		Person tester = new Person();
 		

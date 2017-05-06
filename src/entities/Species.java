@@ -36,4 +36,20 @@ class Species {
 		this.behaviorFile = behaviorFile;
 		this.tags = tags;
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("name: " + name + "\n");
+		sb.append("gestationPeriod: " + gestationPeriod + "\n");
+		sb.append("numberOffspringProduced: " + numberOffspringProduced.toString() + "\n");
+		sb.append("initialSize: " + initialSize + "\n");
+		sb.append("finalSize: " + finalSize + "\n");
+		sb.append("offspring: " + offspring.toString() + "\n");
+		sb.append("initialBodyStructure: " + initialBodyStructure.toString() + "\n");
+		sb.append("behaviorFile: " + behaviorFile + "\n");
+		sb.append("tags: " + tags.toString() + "\n");
+		
+		return sb.toString();
+	}
 }

@@ -68,10 +68,10 @@ public class SpeciesReader {
 			nextLine = scan.nextLine();
 			Body initialBodyStructure = new Body();
 			
-			if(nextLine.equals("body")) {
+			if(nextLine.contains("body")) {
 				String partsString = scan.nextLine();
 				
-				while(!partsString.equals("End")) {
+				while(!partsString.contains("End")) {
 					String[] bodypartNames = partsString.split("\\s+");
 					
 					BodyPart bp = new BodyPart(bodypartNames[0]);
@@ -87,8 +87,11 @@ public class SpeciesReader {
 			
 			// Now get tags.
 			String[] tagsLine = scan.nextLine().split(";");
+			ArrayList<String> tags = new ArrayList<String>();
 			
-			ArrayList<String> tags = (ArrayList<String>) Arrays.asList(tagsLine);
+			for(String tag : tagsLine) {
+				tags.add(tag);
+			}
 			
 			// Now make the Species object
 			Species species = new Species(name,
@@ -107,5 +110,19 @@ public class SpeciesReader {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// Dumps the structure of SpeciesReader.
+	public static String debugDump() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Beginning debugDump for SpeciesReader..." + "\n\n");
+		
+		for(String speciesName : speciesInfo.keySet()) {
+			sb.append(speciesName + "\n" + "_______________________" + "\n");
+			sb.append(speciesInfo.get(speciesName).toString());
+		}
+		
+		return sb.toString();
 	}
 }

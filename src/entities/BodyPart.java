@@ -78,5 +78,16 @@ public class BodyPart {
 	public void addOrgan(BodyPart organ) {
 		containedParts.add(organ);
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(name + " ");
+		for(BodyPart bp : containedParts) {
+			sb.append(bp.toString());
+		}
+		
+		return sb.toString();
+	}
 
 }

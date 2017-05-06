@@ -42,4 +42,14 @@ public class ChanceOutcomes<T> {
 		
 		return null;
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for(Double chance : events.keySet()) {
+			sb.append(chance + " - " + events.get(chance) + "\n");
+		}
+		
+		return sb.toString();
+	}
 }

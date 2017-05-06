@@ -18,4 +18,8 @@ public class Range {
 	public int getRandomNumberInRange() {
 		return rand.nextInt(max - min) + min;
 	}
+	
+	public String toString() {
+		return "[" + min + "," + max + "]";
+	}
 }
