@@ -23,10 +23,20 @@ public class Body {
 	
 	public Body() {
 		bodyparts = new ArrayList<BodyPart>();
+		caloricNeeds = 0;
+		mass = 0;
+		moving = 0;
+		eating = 0;
+		talking = 0;
+		consciousness = 0;
+		sight = 0;
+		manipulation = 0;
+		breathing = 0;
 	}
 	
 	public void calcTraitsRecursively(BodyPart bp) {
 		double pctEffective = bp.health / bp.maxHealth;
+		
 		moving += (bp.moving * pctEffective);
 		eating = Math.max(eating, (bp.eating ? 1 : 0) * pctEffective);
 		talking = Math.max(talking, (bp.talking ? 1 : 0) * pctEffective);

@@ -72,7 +72,7 @@ public class SpeciesReader {
 				String partsString = scan.nextLine();
 				
 				while(!partsString.contains("End")) {
-					String[] bodypartNames = partsString.split("\\s+");
+					String[] bodypartNames = partsString.trim().split("\\s+");
 					
 					BodyPart bp = new BodyPart(bodypartNames[0]);
 					
