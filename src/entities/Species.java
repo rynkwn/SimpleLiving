@@ -37,6 +37,15 @@ class Species {
 		this.tags = tags;
 	}
 	
+	/*
+	 * Makes an instance of the entity.
+	 */
+	public Entity makeInstanceOf() {
+		Random rand = new Random();
+		
+		return new Entity("TEST" + rand.nextInt(10000), name, gestationPeriod, initialBodyStructure.copyStructure());
+	}
+	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		

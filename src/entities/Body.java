@@ -93,4 +93,23 @@ public class Body {
 		
 		return sb.toString();
 	}
+	
+	/*
+	 * Copies the structure of the body.
+	 * TODO: Need/want a better way of doing this. For lots of entities, this seems pretty excessive.
+	 */
+	public Body copyStructure() {
+		
+		Body copy = new Body();
+		
+		for(BodyPart bp : bodyparts) {
+			BodyPart b = new BodyPart(bp.name);
+			
+			for(BodyPart organ : b.containedParts) {
+				b.addOrgan(new BodyPart(organ.name));
+			}
+		}
+		
+		return copy;
+	}
 }

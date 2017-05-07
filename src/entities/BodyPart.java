@@ -62,8 +62,8 @@ public class BodyPart {
 			breathing = true;			
 		} else if (name.equals("Segment")) {
 			maxHealth = 40;
-			size = 30;
-			moving = 1;
+			size = 50;
+			moving = .5;
 		}
 		
 		health = maxHealth;
