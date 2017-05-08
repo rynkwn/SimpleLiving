@@ -17,6 +17,9 @@ public class World {
 	public World(int length, int width) {
 		map = new BigTile[length][width];
 		
+		this.length = length;
+		this.width = width;
+		
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {
 				map[i][j] = new BigTile();
@@ -24,6 +27,32 @@ public class World {
 		}
 		
 		groups = new HashMap<String, Group>();
+	}
+	
+	public void turn() {
+		for(int i = 0; i < length; i++) {
+			for(int j = 0; j < width; j++) {
+				map[i][j].turn(1);
+			}
+		}
+		
+		for(String id : groups.keySet()) {
+			groups.get(id).turn();
+		}
+	}
+	
+	public String display() {
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i = 0; i < length; i++) {
+			for(int j = 0; j < width; j++) {
+				sb.append(map[i][j].display());
+			}
+			
+			sb.append("\n");
+		}
+		
+		return sb.toString();
 	}
 	
 	/*

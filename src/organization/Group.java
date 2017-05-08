@@ -11,12 +11,12 @@ import world.*;
  */
 
 public class Group {
-	String id;
-	String name;
+	public String id;
+	public String name;
 	
 	// Where is the group in the world?
-	World world;
-	BigTile residentTile;
+	public World world;
+	public BigTile residentTile;
 	int x;
 	int y;
 	
@@ -36,6 +36,10 @@ public class Group {
 		
 		members = new ArrayList<Entity>();
 		inventory = new Inventory();
+	}
+	
+	public void turn() {
+		
 	}
 	
 }

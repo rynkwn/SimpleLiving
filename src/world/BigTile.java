@@ -24,6 +24,7 @@ public class BigTile {
 	// For initial tests.
 	public BigTile() {
 		water = nitrogen = phosphorus = potassium = biomass = 70000;
+		residentGroups = new HashSet<Group>();
 	}
 	
 	public BigTile(double w, double n, double p, double k, double bm) {
@@ -55,7 +56,7 @@ public class BigTile {
 	}
 	
 	public String display() {
-		String displayChar = residentGroups.size() > 0 ? residentGroups.size() + "" : " ";
+		String displayChar = residentGroups.size() + "";
 		
 		return "[" + displayChar + "]";
 	}
