@@ -36,7 +36,7 @@ class AbstractItem {
 	 * Makes a component that matches this pattern.
 	 */
 	public Item makeItem() {
-		if(type == "FOOD") {
+		if(type.equalsIgnoreCase("FOOD")) {
 			return new Food(name, base_weight, 1, thirst_quenching, nitrogen, phosphorus, potassium, biomass);
 		}
 		
