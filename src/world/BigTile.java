@@ -11,17 +11,17 @@ import organization.*;
 public class BigTile {
 	
 	// Summary levels.
-	public long water; // Total liters of water present in the BigTile
-	public long nitrogen; // Total nitrogen in kg.
-	public long phosphorus; // Total phosphorus in kg
-	public long potassium; // Total potassium in kg
-	public long biomass; // Total biomass in kg. 
+	public double water; // Total liters of water present in the BigTile
+	public double nitrogen; // Total nitrogen in kg.
+	public double phosphorus; // Total phosphorus in kg
+	public double potassium; // Total potassium in kg
+	public double biomass; // Total biomass in kg. 
 	
 	// Also need weather.
 	
 	public ArrayList<Group> residentGroups;
 	
-	public BigTile(long w, long n, long p, long k, long bm) {
+	public BigTile(double w, double n, double p, double k, double bm) {
 		water = w;
 		nitrogen = n;
 		phosphorus = p;
@@ -29,6 +29,16 @@ public class BigTile {
 		biomass = bm;
 		
 		residentGroups = new ArrayList<Group>();
+	}
+	
+	/*
+	 * Over time, this tile will gradually regenerate its properties.
+	 */
+	public void turn(int numTurnsPassed) {
+		water = 1.05 * water;
+		nitrogen = 1.05 * nitrogen;
+		phosphorus = 1.05 * phosphorus;
+		biomass = 1.05 * biomass;
 	}
 	
 	public String display() {

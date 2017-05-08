@@ -104,7 +104,7 @@ public class SpeciesReader {
 			
 			// Now get tags.
 			String[] tagsLine = scan.nextLine().split(";");
-			ArrayList<String> tags = new ArrayList<String>();
+			HashSet<String> tags = new HashSet<String>();
 			
 			for(String tag : tagsLine) {
 				tags.add(tag);

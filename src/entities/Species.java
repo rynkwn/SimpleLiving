@@ -15,7 +15,7 @@ class Species {
 	public Body initialBodyStructure;
 	public String behaviorFile;
 	public HashMap<String, BiologicalProduct> products;
-	public ArrayList<String> tags;
+	public HashSet<String> tags;
 	
 	public Species(String name,
 				   int gestationPeriod,
@@ -26,7 +26,7 @@ class Species {
 				   Body initialBodyStructure,
 				   String behaviorFile,
 				   HashMap<String, BiologicalProduct> products,
-				   ArrayList<String> tags) {
+				   HashSet<String> tags) {
 		
 		this.name = name;
 		this.gestationPeriod = gestationPeriod;
