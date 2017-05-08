@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String [] args){
 		SpeciesReader.readSpeciesData("src/data/");
-		ComponentsReader.readComponentData();
+		//ItemsReader.readItemData("src/data/");
 		
 		System.out.println(SpeciesReader.debugDump());
 		

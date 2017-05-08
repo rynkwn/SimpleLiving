@@ -7,7 +7,7 @@ Locust
 Locust .75
 Locust_Minor .25
 generic_pastoral.behavior
-body
+BODY
 	Head Brain Mandible Eye Eye Eye Eye
 	Thorax Lungs
 	Leg
@@ -18,5 +18,7 @@ body
 	Leg
 	Claw
 	Claw
-	End
+	END
+PRODUCES
+	END
 CAN_GROW_NEW_LIMBS;INTELLIGENT

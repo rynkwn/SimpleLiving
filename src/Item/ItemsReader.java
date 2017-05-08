@@ -11,14 +11,34 @@ import java.io.FileNotFoundException;
  * ComponentsReader reads in the Components data file and offers an interface to parse and
  * interact with the data.
  */
-public class ComponentsReader {
-	private static HashMap<String, AbstractComponent> components = new HashMap<String, AbstractComponent>();
+public class ItemsReader {
+	private static HashMap<String, AbstractComponent> items;
 	
-	public static void readComponentData() {
+	public static void readItemData(String dir) {
+		initializeReader();
+		readAllItemFiles(dir);
+	}
+	
+	public static void initializeReader() {
+		items = new HashMap<String, AbstractComponent>();
+	}
+	
+	public static void readAllItemFiles(String dirPath) {
+		File dir = new File(dirPath);
+		File[] files = dir.listFiles();
+		
+		for(File file : files) {
+			if(file.getName().endsWith(".item")) {
+				readItemFile(file);
+			}
+		}
+	}
+	
+	public static void readItemFile(File file) {
 		Scanner scan;
 		
 		try {
-		scan = new Scanner(new File("src/data/components.txt"));
+		scan = new Scanner(file);
 		
 		String name = scan.nextLine();
 		while(scan.hasNextLine()) {
@@ -39,7 +59,7 @@ public class ComponentsReader {
 				abstractComp.addSpecial(specialEffect, effectValue);
 			}
 			
-			components.put(name, abstractComp);
+			items.put(name, abstractComp);
 			
 			if(!scan.hasNextLine())
 				break;	
@@ -54,19 +74,19 @@ public class ComponentsReader {
 	
 	// I want a list containing the abstract components available.
 	public Set<String> getAbstractComponentNames() {
-		return components.keySet();
+		return items.keySet();
 	}
 	
 	// Creates an instance of a component.
-	public static Component makeComponent(String name, int quantity) {
-		Component comp = components.get(name).makeComponent();
+	public static Item makeComponent(String name, int quantity) {
+		Item comp = items.get(name).makeComponent();
 		comp.setQuantity(quantity);
 		return comp;
 	}
 	
 	// Returns the special effects associated with a component.
 	public static Set<String> getSpecialEffects(String name) {
-		return components.get(name).getSpecialEffects();
+		return items.get(name).getSpecialEffects();
 	}
 }
 
@@ -102,8 +122,8 @@ class AbstractComponent {
 	/*
 	 * Makes a component that matches this pattern.
 	 */
-	public Component makeComponent() {
-		return new Component(name, weight);
+	public Item makeComponent() {
+		return new Item(name, weight);
 	}
 	
 	public Set<String> getSpecialEffects() {

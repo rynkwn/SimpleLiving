@@ -8,14 +8,14 @@ import java.util.List;
  */
 
 public class Inventory {
-	public HashMap<String, Component> items;
+	public HashMap<String, Item> items;
 	
 	public Inventory() {
-		items = new HashMap<String, Component>();
+		items = new HashMap<String, Item>();
 	}
 	
 	// Add a component to inventory.
-	public void add(Component comp) {
+	public void add(Item comp) {
 		if(items.containsKey(comp.getName())) {
 			items.get(comp.getName()).addQuantity(comp.getQuantity());
 		} else {
@@ -24,14 +24,14 @@ public class Inventory {
 	}
 	
 	// Add a list of components to inventory.
-	public void addList(List<Component> components) {
-		for(Component comp : components) {
+	public void addList(List<Item> components) {
+		for(Item comp : components) {
 			add(comp);
 		}
 	}
 	
 	public void printDetailedContents() {
-		for(Component c : items.values()) {
+		for(Item c : items.values()) {
 			System.out.println(c.toString());
 		}
 	}

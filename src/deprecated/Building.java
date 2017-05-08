@@ -35,17 +35,17 @@ public class Building {
 	}
 	
 	// If sufficient inputs, then produce outputs.
-	public ArrayList<Component> turn() {
+	public ArrayList<Item> turn() {
 		if(satisfied())
 			return produce();
-		return new ArrayList<Component>();
+		return new ArrayList<Item>();
 	}
 
-	public ArrayList<Component> produce() {
-		ArrayList<Component> components = new ArrayList<Component>();
+	public ArrayList<Item> produce() {
+		ArrayList<Item> components = new ArrayList<Item>();
 		
 		for(FactoryDescription fd : outputs) {
-			components.add(ComponentsReader.makeComponent(fd.name, fd.amount));
+			components.add(ItemsReader.makeComponent(fd.name, fd.amount));
 		}
 		
 		return components;

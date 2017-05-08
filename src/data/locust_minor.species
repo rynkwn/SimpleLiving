@@ -6,7 +6,7 @@ Locust_Minor
 3000
 Locust 1.00
 generic_pastoral.behavior
-body
+BODY
 	Head Brain Mandible Eye Eye Eye Eye
 	Segment Lungs
 	Segment
@@ -15,5 +15,8 @@ body
 	Segment
 	Segment
 	Segment
-	End
+	END
+PRODUCES
+	Goop:.01:4
+	END
 STERILE

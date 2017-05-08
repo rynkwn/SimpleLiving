@@ -68,10 +68,10 @@ public class SpeciesReader {
 			nextLine = scan.nextLine();
 			Body initialBodyStructure = new Body();
 			
-			if(nextLine.contains("body")) {
+			if(nextLine.contains("BODY")) {
 				String partsString = scan.nextLine();
 				
-				while(!partsString.contains("End")) {
+				while(!partsString.contains("END")) {
 					String[] bodypartNames = partsString.trim().split("\\s+");
 					
 					BodyPart bp = new BodyPart(bodypartNames[0]);
@@ -82,6 +82,23 @@ public class SpeciesReader {
 					
 					initialBodyStructure.addPart(bp);
 					partsString = scan.nextLine();
+				}
+			}
+			
+			ArrayList<BiologicalProduct> products = new ArrayList<BiologicalProduct>();
+			
+			// Now we parse biological products for this species.
+			if(scan.nextLine().contains("PRODUCES")) {
+				String productString = scan.nextLine();
+				
+				while(!productString.contains("END")) {
+					String[] product = productString.trim().split(":");
+					
+					BiologicalProduct bioprod = new BiologicalProduct(product[0], 
+																	  Double.parseDouble(product[1]),
+																	  Integer.parseInt(product[2]));
+					products.add(bioprod);
+					productString = scan.nextLine();
 				}
 			}
 			
@@ -102,6 +119,7 @@ public class SpeciesReader {
 										  offspring,
 										  initialBodyStructure,
 										  behaviorFile,
+										  products,
 										  tags
 										 );
 			

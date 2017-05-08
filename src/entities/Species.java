@@ -14,6 +14,7 @@ class Species {
 	public ChanceOutcomes<String> offspring;
 	public Body initialBodyStructure;
 	public String behaviorFile;
+	public ArrayList<BiologicalProduct> products;
 	public ArrayList<String> tags;
 	
 	public Species(String name,
@@ -24,6 +25,7 @@ class Species {
 				   ChanceOutcomes<String> offspring,
 				   Body initialBodyStructure,
 				   String behaviorFile,
+				   ArrayList<BiologicalProduct> products,
 				   ArrayList<String> tags) {
 		
 		this.name = name;
@@ -34,16 +36,27 @@ class Species {
 		this.offspring = offspring;
 		this.initialBodyStructure = initialBodyStructure;
 		this.behaviorFile = behaviorFile;
+		this.products = products;
 		this.tags = tags;
 	}
 	
 	/*
-	 * Makes an instance of the entity.
+	 * Makes an instance of this species.
 	 */
 	public Entity makeInstanceOf() {
 		Random rand = new Random();
 		
-		return new Entity("TEST" + rand.nextInt(10000), name, gestationPeriod, initialBodyStructure.copyStructure());
+		HashMap<String, Integer> progressTowardsBioProducts = new HashMap<String, Integer>();
+		
+		for(BiologicalProduct bioProd : products) {
+			progressTowardsBioProducts.put(bioProd.name, bioProd.timeToProduce);
+		}
+		
+		return new Entity("TEST" + rand.nextInt(10000), 
+				name, 
+				gestationPeriod,
+				progressTowardsBioProducts,
+				initialBodyStructure.copyStructure());
 	}
 	
 	public String toString() {
@@ -57,6 +70,7 @@ class Species {
 		sb.append("offspring: " + offspring.toString() + "\n");
 		sb.append("initialBodyStructure: " + initialBodyStructure.toString() + "\n");
 		sb.append("behaviorFile: " + behaviorFile + "\n");
+		sb.append("bio products: " + products.toString() + "\n");
 		sb.append("tags: " + tags.toString() + "\n");
 		
 		return sb.toString();
