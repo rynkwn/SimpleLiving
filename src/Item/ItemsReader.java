@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
  * interact with the data.
  */
 public class ItemsReader {
-	private static HashMap<String, AbstractComponent> items;
+	private static HashMap<String, AbstractItem> items;
 	
 	public static void readItemData(String dir) {
 		initializeReader();
@@ -20,7 +20,7 @@ public class ItemsReader {
 	}
 	
 	public static void initializeReader() {
-		items = new HashMap<String, AbstractComponent>();
+		items = new HashMap<String, AbstractItem>();
 	}
 	
 	public static void readAllItemFiles(String dirPath) {
@@ -38,37 +38,21 @@ public class ItemsReader {
 		Scanner scan;
 		
 		try {
-		scan = new Scanner(file);
-		
-		String name = scan.nextLine();
-		while(scan.hasNextLine()) {
-		
-			double weight = scan.nextDouble();
-			int numSpecialEffects = scan.nextInt();
-			scan.nextLine(); // Clear the newline character.
-		
-			AbstractComponent abstractComp = new AbstractComponent(name, weight);
+			scan = new Scanner(file);
 			
-			for(int i = 0; i < numSpecialEffects; i++) {
-				String specialEffect = scan.nextLine().substring(1);
-				long effectValue = scan.nextLong();
-				
-				if(scan.hasNextLine())
-					scan.nextLine();
-				
-				abstractComp.addSpecial(specialEffect, effectValue);
-			}
+			String name = scan.nextLine();
+			String type = scan.nextLine();
+			double base_weight = Double.parseDouble(scan.nextLine());
+			double thirst_quenching = Double.parseDouble(scan.nextLine());
+			double nitrogen = Double.parseDouble(scan.nextLine());
+			double phosphorus = Double.parseDouble(scan.nextLine());
+			double potassium = Double.parseDouble(scan.nextLine());
+			double biomass = Double.parseDouble(scan.nextLine());
 			
-			items.put(name, abstractComp);
+			items.put(name, new AbstractItem(name, type, base_weight, thirst_quenching, nitrogen, phosphorus, potassium, biomass));
 			
-			if(!scan.hasNextLine())
-				break;	
-			name = scan.nextLine();
-		}
-		
-		scan.close();
-		} catch(FileNotFoundException ex) {
-			ex.printStackTrace();
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -79,54 +63,22 @@ public class ItemsReader {
 	
 	// Creates an instance of a component.
 	public static Item makeComponent(String name, int quantity) {
-		Item comp = items.get(name).makeComponent();
+		Item comp = items.get(name).makeItem();
 		comp.setQuantity(quantity);
 		return comp;
 	}
 	
-	// Returns the special effects associated with a component.
-	public static Set<String> getSpecialEffects(String name) {
-		return items.get(name).getSpecialEffects();
-	}
-}
-
-
-/*
- * AbstractComponent stores the information held in the Components data file in an
- * easy way.
- */
-class AbstractComponent {
-	public String name;
-	public double weight;
-	public HashMap<String, Long> special;
-	
-	public AbstractComponent(String name, double weight) {
-		this.name = name;
-		this.weight = weight;
-		special = new HashMap<String, Long>();
-	}
-	
-	/*
-	 * Adds a special. We expect these to be unique. So if our hashmap already
-	 * contains the Special Effect, we return false without adding anything.
-	 */
-	public boolean addSpecial(String effect, long effectValue) {
-		if(special.containsKey(effect)) {
-			return false;
+	// Dumps the structure of ItemsReader.
+	public static String debugDump() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Beginning debugDump for ItemsReader..." + "\n\n");
+		
+		for(String itemName : items.keySet()) {
+			sb.append(itemName + "\n" + "_______________________" + "\n");
+			sb.append(items.get(itemName).toString());
 		}
 		
-		special.put(effect, effectValue);
-		return true;
-	}
-	
-	/*
-	 * Makes a component that matches this pattern.
-	 */
-	public Item makeComponent() {
-		return new Item(name, weight);
-	}
-	
-	public Set<String> getSpecialEffects() {
-		return special.keySet();
+		return sb.toString();
 	}
 }

@@ -11,6 +11,12 @@ public class Item {
 	public double weight;
 	public int quantity;
 	
+	public Item() {
+		name = "TEST_ITEM";
+		weight = 1.0;
+		quantity = 1;
+	}
+	
 	public Item(String name, double weight) {
 		this.name = name;
 		this.weight = weight;

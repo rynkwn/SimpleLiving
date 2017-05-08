@@ -10,9 +10,12 @@ public class Main {
 
 	public static void main(String [] args){
 		SpeciesReader.readSpeciesData("src/data/");
-		//ItemsReader.readItemData("src/data/");
+		ItemsReader.readItemData("src/data/");
 		
 		System.out.println(SpeciesReader.debugDump());
+		
+		System.out.println("\n\n\n");
+		System.out.println(ItemsReader.debugDump());
 		
 		/*
 		Person tester = new Person();

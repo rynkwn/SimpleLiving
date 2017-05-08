@@ -30,6 +30,12 @@ public class Inventory {
 		}
 	}
 	
+	public Item remove(String itemName) {
+		Item item = items.get(itemName);
+		
+		return item;
+	}
+	
 	public void printDetailedContents() {
 		for(Item c : items.values()) {
 			System.out.println(c.toString());
