@@ -19,7 +19,12 @@ public class BigTile {
 	
 	// Also need weather.
 	
-	public ArrayList<Group> residentGroups;
+	public HashSet<Group> residentGroups;
+	
+	// For initial tests.
+	public BigTile() {
+		water = nitrogen = phosphorus = potassium = biomass = 70000;
+	}
 	
 	public BigTile(double w, double n, double p, double k, double bm) {
 		water = w;
@@ -28,7 +33,15 @@ public class BigTile {
 		potassium = k;
 		biomass = bm;
 		
-		residentGroups = new ArrayList<Group>();
+		residentGroups = new HashSet<Group>();
+	}
+	
+	public void addGroup(Group grp) {
+		residentGroups.add(grp);
+	}
+	
+	public void removeGroup(Group grp) {
+		residentGroups.remove(grp);
 	}
 	
 	/*
