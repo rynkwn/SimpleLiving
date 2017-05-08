@@ -14,7 +14,7 @@ class Species {
 	public ChanceOutcomes<String> offspring;
 	public Body initialBodyStructure;
 	public String behaviorFile;
-	public ArrayList<BiologicalProduct> products;
+	public HashMap<String, BiologicalProduct> products;
 	public ArrayList<String> tags;
 	
 	public Species(String name,
@@ -25,7 +25,7 @@ class Species {
 				   ChanceOutcomes<String> offspring,
 				   Body initialBodyStructure,
 				   String behaviorFile,
-				   ArrayList<BiologicalProduct> products,
+				   HashMap<String, BiologicalProduct> products,
 				   ArrayList<String> tags) {
 		
 		this.name = name;
@@ -48,7 +48,7 @@ class Species {
 		
 		HashMap<String, Integer> progressTowardsBioProducts = new HashMap<String, Integer>();
 		
-		for(BiologicalProduct bioProd : products) {
+		for(BiologicalProduct bioProd : products.values()) {
 			progressTowardsBioProducts.put(bioProd.name, bioProd.timeToProduce);
 		}
 		

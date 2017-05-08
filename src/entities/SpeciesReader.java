@@ -85,7 +85,7 @@ public class SpeciesReader {
 				}
 			}
 			
-			ArrayList<BiologicalProduct> products = new ArrayList<BiologicalProduct>();
+			HashMap<String, BiologicalProduct> products = new HashMap<String, BiologicalProduct>();
 			
 			// Now we parse biological products for this species.
 			if(scan.nextLine().contains("PRODUCES")) {
@@ -97,7 +97,7 @@ public class SpeciesReader {
 					BiologicalProduct bioprod = new BiologicalProduct(product[0], 
 																	  Double.parseDouble(product[1]),
 																	  Integer.parseInt(product[2]));
-					products.add(bioprod);
+					products.put(product[0], bioprod);
 					productString = scan.nextLine();
 				}
 			}
