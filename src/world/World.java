@@ -55,6 +55,16 @@ public class World {
 		return sb.toString();
 	}
 	
+	public String dumpGroups() {
+		StringBuilder sb = new StringBuilder();
+		
+		for(String id : groups.keySet()) {
+			sb.append(groups.get(id).toString() + "\n");
+		}
+		
+		return sb.toString();
+	}
+	
 	/*
 	 * Adds a group at a specified location
 	 */

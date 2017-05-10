@@ -130,6 +130,10 @@ public class SpeciesReader {
 		}
 	}
 	
+	public static Species getSpecies(String name) {
+		return speciesInfo.get(name);
+	}
+	
 	// Dumps the structure of SpeciesReader.
 	public static String debugDump() {
 		StringBuilder sb = new StringBuilder();

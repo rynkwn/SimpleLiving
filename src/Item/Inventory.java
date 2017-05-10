@@ -36,6 +36,16 @@ public class Inventory {
 		return item;
 	}
 	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for(Item c : items.values()) {
+			sb.append(c.toString() + "\n");
+		}
+		
+		return sb.toString();
+	}
+	
 	public void printDetailedContents() {
 		for(Item c : items.values()) {
 			System.out.println(c.toString());

@@ -5,7 +5,7 @@ import java.util.*;
 import util.Range;
 import util.ChanceOutcomes;
 
-class Species {
+public class Species {
 	public String name;
 	public int gestationPeriod;
 	public Range numberOffspringProduced;

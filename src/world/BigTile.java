@@ -56,7 +56,12 @@ public class BigTile {
 	}
 	
 	public String display() {
-		String displayChar = residentGroups.size() + "";
+		int totalEntitySize = 0;
+		for(Group grp : residentGroups) {
+			totalEntitySize += grp.members.size();
+		}
+		
+		String displayChar = totalEntitySize + "";
 		
 		return "[" + displayChar + "]";
 	}

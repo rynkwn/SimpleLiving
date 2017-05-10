@@ -22,6 +22,16 @@ public class Entity {
 		this.body = body;
 	}
 	
+	public void turn() {
+		Species entitySpecies = SpeciesReader.getSpecies(species);
+		
+		
+	}
+	
+	public String toString() {
+		return name + " - " + species;
+	}
+	
 	public boolean isDead() {
 		return false;
 	}

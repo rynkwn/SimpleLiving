@@ -38,8 +38,27 @@ public class Group {
 		inventory = new Inventory();
 	}
 	
+	public void addMember(Entity e) {
+		members.add(e);
+	}
+	
 	public void turn() {
 		
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(id + " - " + name + "\n");
+		sb.append("Members:\n________________________________\n");
+		for(Entity e : members) {
+			sb.append(e.toString() + "\n");
+		}
+		
+		sb.append("\n\nItems:\n_____________________________\n");
+		sb.append(inventory.toString());
+		
+		return sb.toString();
 	}
 	
 }
