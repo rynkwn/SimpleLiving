@@ -20,7 +20,7 @@ public class Food extends Item {
 			double potassium,
 			double biomass) {
 		
-		super(name, weight, quantity);
+		super(name, "FOOD", weight, quantity);
 		this.thirst = thirst;
 		this.nitrogen = nitrogen;
 		this.phosphorus = phosphorus;

@@ -2,6 +2,7 @@ package item;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.*;
 
 /*
  * Essentially a container class for a list of items.
@@ -30,8 +31,31 @@ public class Inventory {
 		}
 	}
 	
-	public Item remove(String itemName) {
+	/*
+	 * Returns a list of all items of a specific type.
+	 */
+	public ArrayList<Item> getItemsWithType(String type) {
+		ArrayList<Item> matches = new ArrayList<Item>();
+		
+		for(Item item : items.values()) {
+			if(item.type.equals(type)) {
+				matches.add(item);
+			}
+		}
+		
+		return matches;
+	}
+	
+	/*
+	 * This is a bad implementation.
+	 */
+	public Item remove(String itemName, int quantity) {
 		Item item = items.get(itemName);
+		item.removeQuantity(quantity);
+		
+		if(item.quantity == 0) {
+			items.remove(item.name);
+		}
 		
 		return item;
 	}

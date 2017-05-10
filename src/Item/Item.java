@@ -8,23 +8,34 @@ import java.util.HashMap;
  */
 public class Item {
 	public String name;
+	public String type;
 	public double weight;
 	public int quantity;
 	
 	public Item() {
 		name = "TEST_ITEM";
+		type = "DEBUG";
 		weight = 1.0;
 		quantity = 1;
 	}
 	
 	public Item(String name, double weight) {
 		this.name = name;
+		type = "DEBUG";
 		this.weight = weight;
 		quantity = 1;
 	}
 	
 	public Item(String name, double weight, int quantity) {
 		this.name = name;
+		type = "DEBUG";
+		this.weight = weight;
+		this.quantity = quantity;
+	}
+	
+	public Item(String name, String type, double weight, int quantity) {
+		this.name = name;
+		this.type = type;
 		this.weight = weight;
 		this.quantity = quantity;
 	}
@@ -35,6 +46,19 @@ public class Item {
 	
 	public void addQuantity(int quant) {
 		quantity += quant;
+	}
+	
+	/*
+	 * Removes some amount of the item if possible.
+	 * Returns a boolean if process was successful or not.
+	 */
+	public boolean removeQuantity(int quant) {
+		if(quantity >= quant) {
+			quantity -= quant;
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public String getName() { return name; }

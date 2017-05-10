@@ -43,7 +43,11 @@ public class Group {
 	}
 	
 	public void turn() {
-		
+		for(Entity e : members) {
+			long caloricNeeds = e.body.caloricNeeds;
+			
+			
+		}
 	}
 	
 	public String toString() {
