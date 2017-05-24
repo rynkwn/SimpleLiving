@@ -30,7 +30,8 @@ public class Nutrition {
 	}
 	
 	// Explicitly defined Nutrition to be used by Food/Items.
-	public Nutrition(double calories, double vitaminC) {
+	public Nutrition(double water, double calories, double vitaminC) {
+		this.water = water;
 		this.calories = calories;
 		this.vitaminC = vitaminC;
 	}
@@ -47,6 +48,7 @@ public class Nutrition {
 	public Nutrition(Nutrition n) {
 		this.type = n.type;
 		this.mass = n.mass;
+		this.water = n.water;
 		this.calories = n.calories;
 		this.vitaminC = n.vitaminC;
 		
@@ -92,6 +94,10 @@ public class Nutrition {
 	public double needsSatisfied(double pctEffectiveness, Food fd) {
 		
 		return 0;
+	}
+	
+	public String toString() {
+		return nutrition().toString();
 	}
 	
 }

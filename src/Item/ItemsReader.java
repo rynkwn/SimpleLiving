@@ -1,5 +1,7 @@
 package item;
 
+import entities.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -40,14 +42,24 @@ public class ItemsReader {
 		try {
 			scan = new Scanner(file);
 			
-			String name = scan.nextLine();
-			String type = scan.nextLine();
-			double base_weight = Double.parseDouble(scan.nextLine());
-			double thirst_quenching = Double.parseDouble(scan.nextLine());
-			double calories = Double.parseDouble(scan.nextLine());
-			double vitaminC = Double.parseDouble(scan.nextLine());
+			HashMap<String, String> properties = new HashMap<String, String>();
 			
-			items.put(name, new AbstractItem(name, type, base_weight, thirst_quenching, calories, vitaminC));
+			while(scan.hasNextLine()) {
+				String[] property = scan.nextLine().trim().split(":");
+				properties.put(property[0], property[1]);
+			}
+			
+			if(properties.get("TYPE").equals("FOOD")) {
+				double water = Double.parseDouble(properties.get("WATER"));
+				double calories = Double.parseDouble(properties.get("CALORIES"));
+				double vitaminC = Double.parseDouble(properties.get("VITAMIN_C"));
+				Nutrition nutr = new Nutrition(water, calories, vitaminC);
+				
+				items.put(properties.get("NAME"), new AbstractItem(properties.get("NAME"), 
+																	properties.get("TYPE"),
+																	Double.parseDouble(properties.get("BASE_WEIGHT")),
+																	nutr));
+			}
 			
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
