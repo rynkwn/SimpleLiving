@@ -44,12 +44,10 @@ public class ItemsReader {
 			String type = scan.nextLine();
 			double base_weight = Double.parseDouble(scan.nextLine());
 			double thirst_quenching = Double.parseDouble(scan.nextLine());
-			double nitrogen = Double.parseDouble(scan.nextLine());
-			double phosphorus = Double.parseDouble(scan.nextLine());
-			double potassium = Double.parseDouble(scan.nextLine());
-			double biomass = Double.parseDouble(scan.nextLine());
+			double calories = Double.parseDouble(scan.nextLine());
+			double vitaminC = Double.parseDouble(scan.nextLine());
 			
-			items.put(name, new AbstractItem(name, type, base_weight, thirst_quenching, nitrogen, phosphorus, potassium, biomass));
+			items.put(name, new AbstractItem(name, type, base_weight, thirst_quenching, calories, vitaminC));
 			
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
