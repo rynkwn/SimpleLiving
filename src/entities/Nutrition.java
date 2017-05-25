@@ -9,7 +9,6 @@ import java.util.*;
  */
 public class Nutrition {
 	String type = "ABSTRACT"; // values: ABSTRACT, ANIMAL, PLANT 
-	public long mass;
 	
 	// Needs
 	public double water;
@@ -24,9 +23,8 @@ public class Nutrition {
 	public double potassium;
 	public double biomass;
 	
-	public Nutrition(String type, long mass) {
+	public Nutrition(String type) {
 		this.type = type;
-		this.mass = mass;
 	}
 	
 	// Explicitly defined Nutrition to be used by Food/Items.
@@ -47,7 +45,6 @@ public class Nutrition {
 	// Essentially a clone method.
 	public Nutrition(Nutrition n) {
 		this.type = n.type;
-		this.mass = n.mass;
 		this.water = n.water;
 		this.calories = n.calories;
 		this.vitaminC = n.vitaminC;
@@ -56,6 +53,26 @@ public class Nutrition {
 		this.phosphorus = n.phosphorus;
 		this.potassium = n.potassium;
 		this.biomass = n.biomass;
+	}
+	
+	// Updates needs based on a new mass value.
+	public void updateNeeds(long mass) {
+		
+		if(type.equals("ANIMAL")) {
+			
+			water = .1 * mass;
+			calories = .1 * mass;
+			vitaminC = .01 * mass;
+			
+		} else if(type.equals("PLANT")) {
+			
+			water = .1 * mass;
+			nitrogen = .05 * mass;
+			phosphorus = .01 * mass;
+			potassium = .01 * mass;
+			biomass = .1 * mass;
+			
+		}
 	}
 	
 	public HashMap<String, Double> nutrition() {
@@ -91,8 +108,7 @@ public class Nutrition {
 	}
 	
 	// pctEffectiveness is the efficiency of whatever part is mechanically performing the consumption.
-	public double needsSatisfied(double pctEffectiveness, Food fd) {
-		
+	public double eat(double pctEffectiveness, Food fd) {
 		return 0;
 	}
 	

@@ -7,8 +7,6 @@ import java.util.*;
  */
 public class Body {
 	
-	public long caloricNeeds; // Based on total mass.
-	
 	public long mass;
 	
 	public double moving; // Number of squares individual can move. 
@@ -21,9 +19,10 @@ public class Body {
 	
 	ArrayList<BodyPart> bodyparts;
 	
+	public Nutrition nutrition;
+	
 	public Body() {
 		bodyparts = new ArrayList<BodyPart>();
-		caloricNeeds = 0;
 		mass = 0;
 		moving = 0;
 		eating = 0;
@@ -32,6 +31,8 @@ public class Body {
 		sight = 0;
 		manipulation = 0;
 		breathing = 0;
+		
+		nutrition = new Nutrition("ANIMAL");
 	}
 	
 	public void calcTraitsRecursively(BodyPart bp) {
@@ -58,7 +59,7 @@ public class Body {
 	}
 	
 	public void calculateCaloricNeeds() {
-		caloricNeeds = mass;
+		nutrition.updateNeeds(mass);
 	}
 	
 	public void updateTraits() {
@@ -76,7 +77,6 @@ public class Body {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("Caloric Needs: " + caloricNeeds + "\n");
 		sb.append("Mass: " + mass + "\n");
 		sb.append("Moving: " + moving + "\n");
 		sb.append("Eating: " + eating + "\n");

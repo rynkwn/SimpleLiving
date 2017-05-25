@@ -24,8 +24,6 @@ public class Entity {
 	
 	public void turn() {
 		Species entitySpecies = SpeciesReader.getSpecies(species);
-		
-		
 	}
 	
 	public String toString() {

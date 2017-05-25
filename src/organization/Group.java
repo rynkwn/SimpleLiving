@@ -44,7 +44,7 @@ public class Group {
 	
 	public void turn() {
 		for(Entity e : members) {
-			long caloricNeeds = e.body.caloricNeeds;
+			HashMap<String, Double> nutritionalNeeds = e.body.nutrition.nutrition();
 			
 			
 		}
