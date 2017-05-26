@@ -37,6 +37,12 @@ public class Entity {
 	}
 	
 	public boolean isDead() {
+		Species entitySpecies = SpeciesReader.getSpecies(species);
+		
+		if((double) body.mass / entitySpecies.finalSize <= .7) {
+			return true;
+		}
+		
 		return false;
 	}
 	
