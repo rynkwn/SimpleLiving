@@ -21,7 +21,8 @@ public class Body {
 	
 	public Nutrition nutrition;
 	
-	public Body() {
+	public Body(String nutritionType, double metabolism) {
+		
 		bodyparts = new ArrayList<BodyPart>();
 		mass = 0;
 		moving = 0;
@@ -32,7 +33,21 @@ public class Body {
 		manipulation = 0;
 		breathing = 0;
 		
-		nutrition = new Nutrition("ANIMAL");
+		nutrition = new Nutrition(nutritionType, metabolism);
+	}
+	
+	public Body(Nutrition nutr) {
+		bodyparts = new ArrayList<BodyPart>();
+		mass = 0;
+		moving = 0;
+		eating = 0;
+		talking = 0;
+		consciousness = 0;
+		sight = 0;
+		manipulation = 0;
+		breathing = 0;
+		
+		nutrition = new Nutrition(nutr);
 	}
 	
 	public void calcTraitsRecursively(BodyPart bp) {
@@ -91,6 +106,9 @@ public class Body {
 			sb.append(bp.toString());
 		}
 		
+		sb.append("\n");
+		sb.append("Nutrition: " + nutrition.toString() + "\n");
+		
 		return sb.toString();
 	}
 	
@@ -100,7 +118,7 @@ public class Body {
 	 */
 	public Body copyStructure() {
 		
-		Body copy = new Body();
+		Body copy = new Body(nutrition);
 		
 		for(BodyPart bp : bodyparts) {
 			BodyPart b = new BodyPart(bp.name);

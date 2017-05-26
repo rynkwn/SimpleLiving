@@ -70,7 +70,7 @@ public class SpeciesReader {
 			String behaviorFile = reader.getSingle("BEHAVIOR");
 			
 			// Building up the body.
-			Body initialBodyStructure = new Body();
+			Body initialBodyStructure = new Body(reader.getSingle("NUTRITION_TYPE"), reader.getDouble("METABOLISM"));
 			for(List<String> bodySection : reader.get("BODY")) {
 				BodyPart bp = new BodyPart(bodySection.get(0));
 				

@@ -82,10 +82,12 @@ public class BodyPart {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(name + " ");
+		sb.append(name + "{");
 		for(BodyPart bp : containedParts) {
 			sb.append(bp.toString());
 		}
+		
+		sb.append("}, ");
 		
 		return sb.toString();
 	}

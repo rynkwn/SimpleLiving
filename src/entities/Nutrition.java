@@ -8,7 +8,9 @@ import java.util.*;
  * Mostly an interface for nutrition.
  */
 public class Nutrition {
-	String type = "ABSTRACT"; // values: ABSTRACT, ANIMAL, PLANT 
+	public String type = "ABSTRACT"; // values: ABSTRACT, ANIMAL, PLANT 
+	
+	public double metabolism; // A modifier to nutritional needs.
 	
 	// Needs
 	public double water;
@@ -23,8 +25,9 @@ public class Nutrition {
 	public double potassium;
 	public double biomass;
 	
-	public Nutrition(String type) {
+	public Nutrition(String type, double metabolism) {
 		this.type = type;
+		this.metabolism = metabolism;
 	}
 	
 	// Explicitly defined Nutrition to be used by Food/Items.
@@ -45,6 +48,7 @@ public class Nutrition {
 	// Essentially a clone method.
 	public Nutrition(Nutrition n) {
 		this.type = n.type;
+		this.metabolism = n.metabolism;
 		this.water = n.water;
 		this.calories = n.calories;
 		this.vitaminC = n.vitaminC;
@@ -60,17 +64,17 @@ public class Nutrition {
 		
 		if(type.equals("ANIMAL")) {
 			
-			water = .1 * mass;
-			calories = .1 * mass;
-			vitaminC = .01 * mass;
+			water = .1 * mass * metabolism;
+			calories = .1 * mass * metabolism;
+			vitaminC = .01 * mass * metabolism;
 			
 		} else if(type.equals("PLANT")) {
 			
-			water = .1 * mass;
-			nitrogen = .05 * mass;
-			phosphorus = .01 * mass;
-			potassium = .01 * mass;
-			biomass = .1 * mass;
+			water = .1 * mass * metabolism;
+			nitrogen = .05 * mass * metabolism;
+			phosphorus = .01 * mass * metabolism;
+			potassium = .01 * mass * metabolism;
+			biomass = .1 * mass * metabolism;
 			
 		}
 	}

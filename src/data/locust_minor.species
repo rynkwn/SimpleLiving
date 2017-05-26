@@ -4,6 +4,8 @@ MIN_OFFSPRING: 1
 MAX_OFFSPRING: 1
 INITIAL_SIZE: 30
 FINAL_SIZE: 3000
+NUTRITION_TYPE: PLANT
+METABOLISM: 1
 OFFSPRING: Locust=1.00
 BEHAVIOR: generic_pastoral.behavior
 BODY: Head, Brain, Mandible, Eye, Eye, Eye, Eye; Segment, Lungs; Segment; Segment; Segment; Segment; Segment; Segment

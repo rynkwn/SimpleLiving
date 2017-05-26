@@ -1,5 +1,6 @@
 package organization;
 
+import java.awt.Window.Type;
 import java.util.*;
 
 import entities.*;
@@ -44,9 +45,12 @@ public class Group {
 	
 	public void turn() {
 		for(Entity e : members) {
+			String nutritionType = e.body.nutrition.type;
 			HashMap<String, Double> nutritionalNeeds = e.body.nutrition.nutrition();
 			
-			
+			if(nutritionType.equals("ANIMAL")) {
+				
+			}
 		}
 	}
 	
