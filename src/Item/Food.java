@@ -18,6 +18,14 @@ public class Food extends Item {
 		this.nutrition = nutrition;
 	}
 	
+	public Food split(int quant) {
+		if(removeQuantity(quant)) {
+			return new Food(name, weight, quant, nutrition);
+		}
+		
+		return null;
+	}
+	
 	public String toString() {
 		StringBuilder sb = new StringBuilder(super.toString());
 		

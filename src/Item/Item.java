@@ -40,6 +40,17 @@ public class Item {
 		this.quantity = quantity;
 	}
 	
+	/*
+	 * Try to split off the item.
+	 */
+	public Item split(int quant) {
+		if(removeQuantity(quant)) {
+			return new Item(name, type, weight, quant);
+		}
+		
+		return null;
+	}
+	
 	public void setQuantity(int quant) {
 		quantity = quant;
 	}

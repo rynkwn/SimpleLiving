@@ -47,6 +47,53 @@ public class Inventory {
 	}
 	
 	/*
+	 * Returns all food items.
+	 */
+	public ArrayList<Food> getFoods() {
+		ArrayList<Food> matches = new ArrayList<Food>();
+		
+		for(Item item : items.values()) {
+			if(item.type.equals("FOOD")) {
+				matches.add((Food) item);
+			}
+		}
+		
+		return matches;
+	}
+	
+	/*
+	 * Returns food items needed to satisfy a set of needs.
+	 */
+	public ArrayList<Food> findThingsToEat(HashMap<String, Double> needs) {
+		
+		// What do I need to do here?
+		// For each food item, we need to check if there's enough to satisfy the entity.
+		// If so, we remove enough to satisfy.
+		// Otherwise, we gobble it up, and then look for the next item.
+		
+		ArrayList<Food> meal = new ArrayList<Food>();
+		
+		double caloriesNeeded = needs.get("calories");
+		double waterNeeded = needs.get("water");
+		double vitaminCNeeded = needs.get("vitaminC");
+		
+		for(Food food : getFoods()) {
+			
+			int numNeeded = (int) Math.ceil(Math.max(food.nutrition.calories / caloriesNeeded,
+										Math.max(food.nutrition.water / waterNeeded, 
+												food.nutrition.vitaminC / vitaminCNeeded)));
+			
+			if(numNeeded <= food.getQuantity()) {
+				meal.add(food.split(numNeeded));
+			} else {
+				meal.add((Food) remove(food.name, food.getQuantity()));
+			}
+		}
+		
+		return new ArrayList<Food>();
+	}
+	
+	/*
 	 * This is a bad implementation.
 	 */
 	public Item remove(String itemName, int quantity) {
