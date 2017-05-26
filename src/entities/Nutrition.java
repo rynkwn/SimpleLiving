@@ -1,6 +1,7 @@
 package entities;
 
 import item.*;
+import util.*;
 
 import java.util.*;
 
@@ -112,8 +113,21 @@ public class Nutrition {
 	}
 	
 	// pctEffectiveness is the efficiency of whatever part is mechanically performing the consumption.
-	public double eat(double pctEffectiveness, Food fd) {
-		return 0;
+	public double eat(double pctEffectiveness, ArrayList<Food> meal) {
+		
+		double[] needs = {
+				water,
+				calories,
+				vitaminC
+		};
+		
+		for(Food fd : meal) {
+			needs[0] -= (fd.nutrition.water * pctEffectiveness);
+			needs[1] -= (fd.nutrition.calories * pctEffectiveness);
+			needs[2] -= (fd.nutrition.vitaminC * pctEffectiveness);
+		}
+		
+		return MathUtils.min(needs);
 	}
 	
 	public String toString() {

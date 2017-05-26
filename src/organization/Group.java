@@ -49,6 +49,7 @@ public class Group {
 			HashMap<String, Double> nutritionalNeeds = e.body.nutrition.nutrition();
 			
 			if(nutritionType.equals("ANIMAL")) {
+				ArrayList<Food> meal = inventory.findThingsToEat(nutritionalNeeds);
 				
 			}
 		}

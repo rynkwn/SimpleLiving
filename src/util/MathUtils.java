@@ -13,5 +13,12 @@ public class MathUtils {
 		
 		return min;
 	}
+	
+	/*
+	 * A modified sigmoid formula.
+	 */
+	public static double sigmoid(double x, double bound) {
+		return bound / (1 + Math.pow(Math.E, (-x)));
+	}
 
 }

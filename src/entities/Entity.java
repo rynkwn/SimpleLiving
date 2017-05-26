@@ -2,6 +2,8 @@ package entities;
 
 import java.util.*;
 
+import item.*;
+
 public class Entity {
 	public String name;
 	public String species;
@@ -24,6 +26,10 @@ public class Entity {
 	
 	public void turn() {
 		Species entitySpecies = SpeciesReader.getSpecies(species);
+	}
+	
+	public void eat(ArrayList<Food> meal) {
+		body.eat(meal);
 	}
 	
 	public String toString() {

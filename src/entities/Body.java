@@ -1,5 +1,8 @@
 package entities;
 
+import item.*;
+import util.*;
+
 import java.util.*;
 
 /*
@@ -48,6 +51,16 @@ public class Body {
 		breathing = 0;
 		
 		nutrition = new Nutrition(nutr);
+	}
+	
+	/*
+	 * Eats a meal and updates mass.
+	 */
+	public void eat(ArrayList<Food> meal) {
+		double needsSatisfied = nutrition.eat(eating, meal);
+		
+		mass *= MathUtils.sigmoid(needsSatisfied, .10);
+		calculateCaloricNeeds();
 	}
 	
 	public void calcTraitsRecursively(BodyPart bp) {
