@@ -1,22 +1,11 @@
-Locust_Minor
-80
-1
-1
-30
-3000
-Locust 1.00
-generic_pastoral.behavior
-BODY
-	Head Brain Mandible Eye Eye Eye Eye
-	Segment Lungs
-	Segment
-	Segment
-	Segment
-	Segment
-	Segment
-	Segment
-	END
-PRODUCES
-	Bud:.05:4
-	END
-STERILE;CAN_FILTER_FEED
+NAME: Locust_Minor
+GESTATION_PERIOD: 80
+MIN_OFFSPRING: 1
+MAX_OFFSPRING: 1
+INITIAL_SIZE: 30
+FINAL_SIZE: 3000
+OFFSPRING: Locust=1.00
+BEHAVIOR: generic_pastoral.behavior
+BODY: Head, Brain, Mandible, Eye, Eye, Eye, Eye; Segment, Lungs; Segment; Segment; Segment; Segment; Segment; Segment
+PRODUCTS: Bud=.05=4
+TAGS: STERILE, CAN_FILTER_FEED

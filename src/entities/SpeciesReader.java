@@ -1,5 +1,6 @@
 package entities;
 
+import util.KeyValueReader;
 import util.ChanceOutcomes;
 import util.Range;
 
@@ -35,85 +36,72 @@ public class SpeciesReader {
 	}
 	
 	public static void readSpeciesFile(File speciesFile) {
+		
+		KeyValueReader reader = new KeyValueReader();
 		Scanner scan;
 		
 		try {
 			scan = new Scanner(speciesFile);
 			
-			String name = scan.nextLine();
-			int gestationPeriod = Integer.parseInt(scan.nextLine());
-			int minOffspringProduced = Integer.parseInt(scan.nextLine());
-			int maxOffspringProduced = Integer.parseInt(scan.nextLine());
-			Range numberOffspringProduced = new Range(minOffspringProduced, maxOffspringProduced);
-			long initialSize = Long.parseLong(scan.nextLine());
-			long finalSize = Long.parseLong(scan.nextLine());
+			while(scan.hasNextLine()) {
+				reader.readLine(scan.nextLine());
+			}
 			
-			// Get offspring species probabilities.
+			String name = reader.getSingle("NAME");
+			int gestationPeriod = reader.getInt("GESTATION_PERIOD");
+			int minOffspring = reader.getInt("MIN_OFFSPRING");
+			int maxOffspring = reader.getInt("MAX_OFFSPRING");
+			Range numberOffspring = new Range(minOffspring, maxOffspring);
+			long initialSize = reader.getLong("INITIAL_SIZE");
+			long finalSize = reader.getLong("FINAL_SIZE");
+			
+			// Setting up offspring probabilities.
 			TreeMap<Double, String> offspringProbabilities = new TreeMap<Double, String>();
-			String nextLine = scan.nextLine();
-			while(! nextLine.contains(".behavior")) {
-				int indexOfSpace = nextLine.indexOf(' ');
-				String speciesName = nextLine.substring(0, indexOfSpace);
-				String probability = nextLine.substring(indexOfSpace + 1);
+			for(String offspring : reader.getList("OFFSPRING")) {
+				int indexOfSpace = offspring.indexOf('=');
+				String speciesName = offspring.substring(0, indexOfSpace);
+				String probability = offspring.substring(indexOfSpace + 1);
 				
 				offspringProbabilities.put(Double.parseDouble(probability), speciesName);
-				nextLine = scan.nextLine();
 			}
 			
 			ChanceOutcomes<String> offspring = new ChanceOutcomes<String>(offspringProbabilities);
 			
-			// nextLine is now the behavior file.
-			String behaviorFile = nextLine;
+			String behaviorFile = reader.getSingle("BEHAVIOR");
 			
-			nextLine = scan.nextLine();
+			// Building up the body.
 			Body initialBodyStructure = new Body();
-			
-			if(nextLine.contains("BODY")) {
-				String partsString = scan.nextLine();
+			for(List<String> bodySection : reader.get("BODY")) {
+				BodyPart bp = new BodyPart(bodySection.get(0));
 				
-				while(!partsString.contains("END")) {
-					String[] bodypartNames = partsString.trim().split("\\s+");
-					
-					BodyPart bp = new BodyPart(bodypartNames[0]);
-					
-					for(int i = 1; i < bodypartNames.length; i++) {
-						bp.addOrgan(new BodyPart(bodypartNames[i]));
-					}
-					
-					initialBodyStructure.addPart(bp);
-					partsString = scan.nextLine();
+				for(int i = 1; i < bodySection.size(); i++) {
+					bp.addOrgan(new BodyPart(bodySection.get(i)));
 				}
+				
+				initialBodyStructure.addPart(bp);
 			}
 			
+			// Now get biological products.
 			HashMap<String, BiologicalProduct> products = new HashMap<String, BiologicalProduct>();
-			
-			// Now we parse biological products for this species.
-			if(scan.nextLine().contains("PRODUCES")) {
-				String productString = scan.nextLine();
+			for(String productString : reader.getList("PRODUCTS")) {
+				String[] product = productString.trim().split("=");
 				
-				while(!productString.contains("END")) {
-					String[] product = productString.trim().split(":");
-					
-					BiologicalProduct bioprod = new BiologicalProduct(product[0], 
-																	  Double.parseDouble(product[1]),
-																	  Integer.parseInt(product[2]));
-					products.put(product[0], bioprod);
-					productString = scan.nextLine();
-				}
+				BiologicalProduct bioprod = new BiologicalProduct(product[0], 
+																  Double.parseDouble(product[1]),
+																  Integer.parseInt(product[2]));
+				products.put(product[0], bioprod);
 			}
 			
-			// Now get tags.
-			String[] tagsLine = scan.nextLine().split(";");
+			// Now get tags
 			HashSet<String> tags = new HashSet<String>();
-			
-			for(String tag : tagsLine) {
+			for(String tag : reader.getList("TAGS")) {
 				tags.add(tag);
 			}
 			
 			// Now make the Species object
 			Species species = new Species(name,
 										  gestationPeriod,
-										  numberOffspringProduced,
+										  numberOffspring,
 										  initialSize,
 										  finalSize,
 										  offspring,

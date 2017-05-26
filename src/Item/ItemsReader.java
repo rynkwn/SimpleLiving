@@ -1,6 +1,7 @@
 package item;
 
 import entities.*;
+import util.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,23 +43,23 @@ public class ItemsReader {
 		try {
 			scan = new Scanner(file);
 			
-			HashMap<String, String> properties = new HashMap<String, String>();
+			KeyValueReader reader = new KeyValueReader();
 			
 			while(scan.hasNextLine()) {
-				String[] property = scan.nextLine().trim().split(":");
-				properties.put(property[0], property[1]);
+				reader.readLine(scan.nextLine());
 			}
 			
-			if(properties.get("TYPE").equals("FOOD")) {
-				double water = Double.parseDouble(properties.get("WATER"));
-				double calories = Double.parseDouble(properties.get("CALORIES"));
-				double vitaminC = Double.parseDouble(properties.get("VITAMIN_C"));
+			if(reader.getSingle("TYPE").equals("FOOD")) {
+				double water = reader.getDouble("WATER");
+				double calories = reader.getDouble("CALORIES"); 
+				double vitaminC = reader.getDouble("VITAMIN_C"); 
 				Nutrition nutr = new Nutrition(water, calories, vitaminC);
 				
-				items.put(properties.get("NAME"), new AbstractItem(properties.get("NAME"), 
-																	properties.get("TYPE"),
-																	Double.parseDouble(properties.get("BASE_WEIGHT")),
-																	nutr));
+				items.put(reader.getSingle("NAME"), new AbstractItem(reader.getSingle("NAME"),
+															   reader.getSingle("TYPE"),
+															   reader.getDouble("BASE_WEIGHT"),
+															   nutr
+						));
 			}
 			
 		} catch(FileNotFoundException e) {
