@@ -43,6 +43,9 @@ public class Group {
 		members.add(e);
 	}
 	
+	/*
+	 * Group passes a turn.
+	 */
 	public void turn() {
 		for(Entity e : members) {
 			String nutritionType = e.body.nutrition.type;
@@ -50,7 +53,19 @@ public class Group {
 			
 			if(nutritionType.equals("ANIMAL")) {
 				ArrayList<Food> meal = inventory.findThingsToEat(nutritionalNeeds);
+				e.eat(meal);
+			} else if(nutritionType.equals("PLANT")) {
 				
+				// TODO: PLANT SETUP IS PRETTY UNSATISFYING.
+				
+				double water = nutritionalNeeds.get("water");
+				double nit = nutritionalNeeds.get("nitrogen");
+				double phos = nutritionalNeeds.get("phosphorus");
+				double potas = nutritionalNeeds.get("potassium");
+				double bio = nutritionalNeeds.get("biomass");
+				double satisfaction = residentTile.takeMaterials(water, nit, phos, potas, bio);
+				
+				e.absorb(satisfaction);
 			}
 		}
 	}

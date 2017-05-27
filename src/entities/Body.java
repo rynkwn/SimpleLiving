@@ -59,7 +59,11 @@ public class Body {
 	public void eat(ArrayList<Food> meal) {
 		double needsSatisfied = nutrition.eat(eating, meal);
 		
-		mass *= MathUtils.sigmoid(needsSatisfied, .10);
+		grow(needsSatisfied);
+	}
+	
+	public void grow(double pctNeedsSatisfied) {
+		mass *= MathUtils.tan(pctNeedsSatisfied, -.95);
 		calculateCaloricNeeds();
 	}
 	

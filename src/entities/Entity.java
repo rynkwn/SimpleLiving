@@ -28,8 +28,18 @@ public class Entity {
 		Species entitySpecies = SpeciesReader.getSpecies(species);
 	}
 	
+	/*
+	 * Consume a set of food items as an ANIMAL nutrition type.
+	 */
 	public void eat(ArrayList<Food> meal) {
 		body.eat(meal);
+	}
+	
+	/*
+	 * Used with the PLANT nutrition type.
+	 */
+	public void absorb(double needsSatisfied) {
+		body.grow(needsSatisfied);
 	}
 	
 	public String toString() {
@@ -39,6 +49,8 @@ public class Entity {
 	public boolean isDead() {
 		Species entitySpecies = SpeciesReader.getSpecies(species);
 		
+		// Simple starvation check. If mass drops to .7 of expected final size,
+		// entity dies of starvation.
 		if((double) body.mass / entitySpecies.finalSize <= .7) {
 			return true;
 		}

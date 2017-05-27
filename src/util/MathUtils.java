@@ -20,5 +20,12 @@ public class MathUtils {
 	public static double sigmoid(double x, double bound) {
 		return bound / (1 + Math.pow(Math.E, (-x)));
 	}
+	
+	/*
+	 * Slightly modified tan formula
+	 */
+	public static double tan(double x, double horizShift) {
+		return Math.tan(x + horizShift);
+	}
 
 }
