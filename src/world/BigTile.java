@@ -84,6 +84,10 @@ public class BigTile {
 		return minRatio;
 	}
 	
+	public String toString() {
+		return "water: " + water + ", nitrogen: " + nitrogen + ", phosphorus: " + phosphorus + ", potassium: " + potassium + ", biomass: " + biomass;
+	}
+	
 	public String display() {
 		int totalEntitySize = 0;
 		for(Group grp : residentGroups) {

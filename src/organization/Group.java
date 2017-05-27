@@ -85,6 +85,9 @@ public class Group {
 			sb.append(e.toString() + "\n");
 		}
 		
+		sb.append("\n\nTile:\n_____________________________\n");
+		sb.append(residentTile.toString());
+		
 		sb.append("\n\nItems:\n_____________________________\n");
 		sb.append(inventory.toString());
 		
