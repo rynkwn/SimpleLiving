@@ -16,7 +16,9 @@ public class Range {
 	}
 	
 	public int getRandomNumberInRange() {
-		return rand.nextInt(max - min) + min;
+		int randValue = (max - min == 0) ? 0 : rand.nextInt(max - min);
+		
+		return randValue + min;
 	}
 	
 	public String toString() {

@@ -44,6 +44,18 @@ public class Entity {
 			timeUntilCompletion --;
 			progressTowardsBioProduct.put(productName, timeUntilCompletion);
 		}
+		
+		
+		// Reproduce
+		if(timeSinceLastBirth == entitySpecies.gestationPeriod) {
+			timeSinceLastBirth = 0;
+			
+			group.addMembers(entitySpecies.reproduce());
+			
+		} else {
+			timeSinceLastBirth ++;
+		}
+		
 	}
 	
 	/*

@@ -40,6 +40,17 @@ public class Species {
 		this.tags = tags;
 	}
 	
+	public ArrayList<Entity> reproduce() {
+		ArrayList<Entity> children = new ArrayList<Entity>();
+		
+		int numChildren = numberOffspringProduced.getRandomNumberInRange();
+		for(int i = 0; i < numChildren; i++) {
+			children.add(SpeciesReader.getSpecies(offspring.getRandomOutcome()).makeInstanceOf());
+		}
+		
+		return children;
+	}
+	
 	/*
 	 * Makes an instance of this species.
 	 */
@@ -54,7 +65,7 @@ public class Species {
 		
 		return new Entity("TEST" + rand.nextInt(10000), 
 				name, 
-				gestationPeriod,
+				0,
 				progressTowardsBioProducts,
 				initialBodyStructure.copyStructure());
 	}

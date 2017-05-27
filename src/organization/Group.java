@@ -44,6 +44,12 @@ public class Group {
 		e.group = this;
 	}
 	
+	public void addMembers(List<Entity> entities) {
+		for(Entity e : entities) {
+			addMember(e);
+		}
+	}
+	
 	public void addItem(Item item) {
 		inventory.add(item);
 	}
