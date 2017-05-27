@@ -121,10 +121,17 @@ public class Nutrition {
 				vitaminC
 		};
 		
+		double[] satisfied = new double[needs.length];
+		
+		
 		for(Food fd : meal) {
-			needs[0] -= (fd.nutrition.water * pctEffectiveness);
-			needs[1] -= (fd.nutrition.calories * pctEffectiveness);
-			needs[2] -= (fd.nutrition.vitaminC * pctEffectiveness);
+			satisfied[0] += fd.nutrition.water * pctEffectiveness;
+			satisfied[1] += fd.nutrition.calories * pctEffectiveness;
+			satisfied[2] += fd.nutrition.vitaminC * pctEffectiveness;
+		}
+		
+		for(int i = 0; i < needs.length; i++) {
+			needs[i] = satisfied[i] / needs[i];
 		}
 		
 		return MathUtils.min(needs);

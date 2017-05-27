@@ -43,7 +43,10 @@ public class Entity {
 	}
 	
 	public String toString() {
-		return name + " - " + species;
+		StringBuilder sb = new StringBuilder();
+		sb.append(name + " - " + species);
+		sb.append("\t" + body.toString());
+		return sb.toString();
 	}
 	
 	public boolean isDead() {

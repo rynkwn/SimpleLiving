@@ -63,7 +63,7 @@ public class Body {
 	}
 	
 	public void grow(double pctNeedsSatisfied) {
-		mass *= MathUtils.tan(pctNeedsSatisfied, -.95);
+		mass *= MathUtils.sigmoid(pctNeedsSatisfied, 1.0, 1, .5);
 		calculateCaloricNeeds();
 	}
 	
@@ -140,9 +140,12 @@ public class Body {
 		for(BodyPart bp : bodyparts) {
 			BodyPart b = new BodyPart(bp.name);
 			
-			for(BodyPart organ : b.containedParts) {
+			for(BodyPart organ : bp.containedParts) {
+				
 				b.addOrgan(new BodyPart(organ.name));
 			}
+			
+			copy.addPart(b);
 		}
 		
 		return copy;

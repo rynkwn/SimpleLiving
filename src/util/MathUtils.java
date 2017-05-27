@@ -17,15 +17,15 @@ public class MathUtils {
 	/*
 	 * A modified sigmoid formula.
 	 */
-	public static double sigmoid(double x, double bound) {
-		return bound / (1 + Math.pow(Math.E, (-x)));
+	public static double sigmoid(double x, double bound, double horizShift, double vertiShift) {
+		return bound / (1 + Math.pow(Math.E, (-x + horizShift))) + vertiShift;
 	}
 	
 	/*
 	 * Slightly modified tan formula
 	 */
-	public static double tan(double x, double horizShift) {
-		return Math.tan(x + horizShift);
+	public static double tan(double x, double horizShift, double vertiShift) {
+		return Math.tan(x + horizShift) + vertiShift;
 	}
 
 }

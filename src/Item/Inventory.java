@@ -90,7 +90,7 @@ public class Inventory {
 			}
 		}
 		
-		return new ArrayList<Food>();
+		return meal;
 	}
 	
 	/*

@@ -47,7 +47,8 @@ public class Group {
 	 * Group passes a turn.
 	 */
 	public void turn() {
-		for(Entity e : members) {
+		for(int i = 0; i < members.size(); i++) {
+			Entity e = members.get(i);
 			String nutritionType = e.body.nutrition.type;
 			HashMap<String, Double> nutritionalNeeds = e.body.nutrition.nutrition();
 			
@@ -66,6 +67,11 @@ public class Group {
 				double satisfaction = residentTile.takeMaterials(water, nit, phos, potas, bio);
 				
 				e.absorb(satisfaction);
+			}
+			
+			if(e.isDead()) {
+				members.remove(i);
+				i--;
 			}
 		}
 	}

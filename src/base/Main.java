@@ -22,11 +22,18 @@ public class Main {
 		System.out.println("\n\n\n");
 		System.out.println(ItemsReader.debugDump());
 		
-		/*
+		
 		World world = new World(10, 10);
 		
+		Group testGroup = null;
+		
 		for(int i = 0; i <= 9; i += 2) {
+			
 			Group grp = new Group(world, i, i);
+			
+			if(i == 0) {
+				testGroup = grp; 
+			}
 			
 			Entity a = SpeciesReader.getSpecies("Locust").makeInstanceOf();
 			Entity b = SpeciesReader.getSpecies("Locust").makeInstanceOf();
@@ -51,10 +58,12 @@ public class Main {
 			System.out.println("\n\n\n");
 			System.out.println(world.display());
 			
+			System.out.println(testGroup.toString());
+			
 			world.turn();
 		}
 		
 		//scan.close();
-		*/
+		
 	}
 }
