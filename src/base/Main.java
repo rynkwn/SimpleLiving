@@ -45,7 +45,7 @@ public class Main {
 			grp.addMember(c);
 			grp.addMember(d);
 			
-			grp.inventory.add(ItemsReader.makeComponent("Bud", 120));
+			grp.addItem(ItemsReader.makeComponent("Bud", 120));
 			
 			world.addGroup(grp.id, grp, i, i);
 		}

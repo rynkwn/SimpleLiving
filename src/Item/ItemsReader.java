@@ -74,8 +74,7 @@ public class ItemsReader {
 	
 	// Creates an instance of a component.
 	public static Item makeComponent(String name, int quantity) {
-		Item comp = items.get(name).makeItem();
-		comp.setQuantity(quantity);
+		Item comp = items.get(name).makeItem(quantity);
 		return comp;
 	}
 	

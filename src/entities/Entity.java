@@ -3,6 +3,7 @@ package entities;
 import java.util.*;
 
 import item.*;
+import organization.*;
 
 public class Entity {
 	public String name;
@@ -11,6 +12,8 @@ public class Entity {
 	public int timeSinceLastBirth; // How long it's been since this entity has last reproduced.
 	public HashMap<String, Integer> progressTowardsBioProduct; // Progress towards bioProduct. Counting down.
 	public Body body;
+	
+	public Group group;
 	
 	public Entity(String name, 
 			String species, 
@@ -26,6 +29,21 @@ public class Entity {
 	
 	public void turn() {
 		Species entitySpecies = SpeciesReader.getSpecies(species);
+		
+		// Produce any biological products.
+		for(String productName : progressTowardsBioProduct.keySet()) {
+			int timeUntilCompletion = progressTowardsBioProduct.get(productName);
+			
+			if(timeUntilCompletion == 0) {
+				BiologicalProduct bioprod = entitySpecies.products.get(productName);
+				
+				group.addItem(bioprod.produce(body.mass));
+				timeUntilCompletion = bioprod.timeToProduce;
+			}
+			
+			timeUntilCompletion --;
+			progressTowardsBioProduct.put(productName, timeUntilCompletion);
+		}
 	}
 	
 	/*
@@ -42,13 +60,9 @@ public class Entity {
 		body.grow(needsSatisfied);
 	}
 	
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(name + " - " + species);
-		sb.append("\t" + body.toString());
-		return sb.toString();
-	}
-	
+	/*
+	 * Checks to see if this entity is dead.
+	 */
 	public boolean isDead() {
 		Species entitySpecies = SpeciesReader.getSpecies(species);
 		
@@ -61,5 +75,11 @@ public class Entity {
 		return false;
 	}
 	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(name + " - " + species);
+		sb.append("\t" + body.toString());
+		return sb.toString();
+	}	
 	
 }

@@ -9,5 +9,5 @@ METABOLISM: 1
 OFFSPRING: Locust=1.00
 BEHAVIOR: generic_pastoral.behavior
 BODY: Head, Brain, Mandible, Eye, Eye, Eye, Eye; Segment, Lungs; Segment; Segment; Segment; Segment; Segment; Segment
-PRODUCTS: Bud=.05=4
+PRODUCTS: Bud=.01=4
 TAGS: STERILE, CAN_FILTER_FEED

@@ -25,9 +25,9 @@ class AbstractItem {
 	/*
 	 * Makes a component that matches this pattern.
 	 */
-	public Item makeItem() {
+	public Item makeItem(int quantity) {
 		if(type.equalsIgnoreCase("FOOD")) {
-			return new Food(name, base_weight, 1, new Nutrition(nutrition));
+			return new Food(name, base_weight, quantity, new Nutrition(nutrition));
 		}
 		
 		return new Item();

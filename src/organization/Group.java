@@ -41,6 +41,11 @@ public class Group {
 	
 	public void addMember(Entity e) {
 		members.add(e);
+		e.group = this;
+	}
+	
+	public void addItem(Item item) {
+		inventory.add(item);
 	}
 	
 	/*
