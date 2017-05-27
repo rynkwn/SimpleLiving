@@ -49,6 +49,9 @@ public class Group {
 	public void turn() {
 		for(int i = 0; i < members.size(); i++) {
 			Entity e = members.get(i);
+			
+			e.turn();
+			
 			String nutritionType = e.body.nutrition.type;
 			HashMap<String, Double> nutritionalNeeds = e.body.nutrition.nutrition();
 			

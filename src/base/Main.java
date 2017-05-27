@@ -56,6 +56,7 @@ public class Main {
 		while(true){
 			Thread.sleep(1000);
 			System.out.println("\n\n\n");
+			//System.out.println(world.map[4][2].toString());
 			System.out.println(world.display());
 			
 			System.out.println(testGroup.toString());

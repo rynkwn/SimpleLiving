@@ -63,7 +63,7 @@ public class Body {
 	}
 	
 	public void grow(double pctNeedsSatisfied) {
-		mass *= MathUtils.sigmoid(pctNeedsSatisfied, 1.0, .6, .5);
+		mass *= MathUtils.sigmoid(pctNeedsSatisfied, 1.0, .6, .5, 1);
 		calculateCaloricNeeds();
 	}
 	

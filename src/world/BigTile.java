@@ -24,7 +24,7 @@ public class BigTile {
 	
 	// For initial tests.
 	public BigTile() {
-		water = nitrogen = phosphorus = potassium = biomass = 70000;
+		water = nitrogen = phosphorus = potassium = biomass = 5000;
 		residentGroups = new HashSet<Group>();
 	}
 	
@@ -50,10 +50,16 @@ public class BigTile {
 	 * Over time, this tile will gradually regenerate its properties.
 	 */
 	public void turn(int numTurnsPassed) {
-		water = 1.05 * water;
-		nitrogen = 1.05 * nitrogen;
-		phosphorus = 1.05 * phosphorus;
-		biomass = 1.05 * biomass;
+		
+		double maxValue = 10000;
+		double growthRate = .01;
+		
+		water += (growthRate * water) * (1 - water / maxValue);
+		nitrogen += (growthRate * nitrogen) * (1 - nitrogen / maxValue);
+		phosphorus += (growthRate * phosphorus) * (1 - phosphorus / maxValue);
+		potassium += (growthRate * potassium) * (1 - potassium / maxValue);
+		biomass += (growthRate * biomass) * (1 - biomass / maxValue);
+		
 	}
 	
 	/*

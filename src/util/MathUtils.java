@@ -17,8 +17,8 @@ public class MathUtils {
 	/*
 	 * A modified sigmoid formula.
 	 */
-	public static double sigmoid(double x, double bound, double horizShift, double vertiShift) {
-		return bound / (1 + Math.pow(Math.E, (-x + horizShift))) + vertiShift;
+	public static double sigmoid(double x, double carryingCapacity, double midpoint, double vertiShift, double steepness) {
+		return carryingCapacity / (1 + Math.pow(Math.E, steepness * (-x + midpoint))) + vertiShift;
 	}
 	
 	/*
