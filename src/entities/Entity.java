@@ -47,7 +47,7 @@ public class Entity {
 		
 		
 		// Reproduce
-		if(timeSinceLastBirth == entitySpecies.gestationPeriod) {
+		if(canReproduce() && timeSinceLastBirth == entitySpecies.gestationPeriod) {
 			timeSinceLastBirth = 0;
 			
 			group.addMembers(entitySpecies.reproduce());
@@ -85,6 +85,10 @@ public class Entity {
 		}
 		
 		return false;
+	}
+	
+	public boolean canReproduce() {
+		return ! SpeciesReader.getSpecies(species).tags.contains("STERILE");
 	}
 	
 	public String toString() {
