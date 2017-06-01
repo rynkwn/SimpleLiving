@@ -50,8 +50,42 @@ public class Group {
 		}
 	}
 	
+	public Entity removeMember(int i) {
+		return members.remove(i);
+	}
+	
 	public void addItem(Item item) {
 		inventory.add(item);
+	}
+	
+	/*
+	 * Creates a new group in the same square, according to some proportion.
+	 * Splits by members.
+	 */
+	public Group split(double pct) {
+		int numRemoved = (int) Math.floor(members.size() * pct);
+		
+		Group grp = new Group(world, x, y);
+		
+		for(int i = 0; i < numRemoved; i++) {
+			grp.addMember(removeMember(0));
+		}
+		
+		return grp;
+	}
+	
+	/*
+	 * Gives some items to a specified group.
+	 */
+	public void give(Group grp) {
+		
+	}
+	
+	/*
+	 * Return the relationship towards a particular group.
+	 */
+	public int relations(Group grp) {
+		return -100;
 	}
 	
 	/*
