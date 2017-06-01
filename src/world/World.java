@@ -90,4 +90,22 @@ public class World {
 		
 		return false;
 	}
+	
+	public boolean groupPresentAtCoord(Group grp, int x, int y) {
+		return map[x][y].containsGroup(grp);
+	}
+	
+	/*
+	 * Tries to move a group, located at X and Y, to new coordinates newX and newY.
+	 */
+	public boolean move(Group grp, int x, int y, int newX, int newY) {
+		if(inBounds(x, y) && groupPresentAtCoord(grp, x, y) && inBounds(newX, newY)) {
+			map[x][y].removeGroup(grp);
+			map[newX][newY].addGroup(grp);
+			
+			return true;
+		}
+		
+		return false;
+	}
 }

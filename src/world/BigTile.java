@@ -46,6 +46,10 @@ public class BigTile {
 		residentGroups.remove(grp);
 	}
 	
+	public boolean containsGroup(Group grp) {
+		return residentGroups.contains(grp);
+	}
+	
 	/*
 	 * Over time, this tile will gradually regenerate its properties.
 	 */

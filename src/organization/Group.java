@@ -55,6 +55,25 @@ public class Group {
 	}
 	
 	/*
+	 * Tries to move in a specified direction.
+	 */
+	public boolean move(Direction d) {
+		
+		switch(d) {
+		case NORTH:
+			return world.move(this, x, y, x, y - 1);
+		case EAST:
+			return world.move(this, x, y, x + 1, y);
+		case WEST:
+			return world.move(this, x, y, x - 1, y);
+		case SOUTH:
+			return world.move(this, x, y, x, y + 1);
+		}
+		
+		return false;
+	}
+	
+	/*
 	 * Group passes a turn.
 	 */
 	public void turn() {
