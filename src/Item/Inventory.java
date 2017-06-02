@@ -98,13 +98,13 @@ public class Inventory {
 	 */
 	public Item remove(String itemName, int quantity) {
 		Item item = items.get(itemName);
-		item.removeQuantity(quantity);
+		Item removedItem = item.split(quantity);
 		
 		if(item.quantity == 0) {
 			items.remove(item.name);
 		}
 		
-		return item;
+		return removedItem;
 	}
 	
 	public String toString() {

@@ -75,10 +75,16 @@ public class Group {
 	}
 	
 	/*
-	 * Gives some items to a specified group.
+	 * Tries to give a set of items to a specified group.
 	 */
-	public void give(Group grp) {
+	public void give(Group grp, HashMap<String, Integer> itemsToGive) {
+		ArrayList<Item> items = new ArrayList<Item>();
 		
+		for(String itemName : itemsToGive.keySet()) {
+			items.add(inventory.remove(itemName, itemsToGive.get(itemName)));
+		}
+		
+		grp.inventory.addList(items);
 	}
 	
 	/*
