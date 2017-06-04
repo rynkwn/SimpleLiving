@@ -7,24 +7,31 @@ import java.util.*;
 public class GroupBehaviorBlock {
 	
 	private String name;
-	private ArrayList<String> parameters;
+	private Object parameter;
 	private Group group;
-	private ArrayList<GroupBehaviorBlock> nodes;
 	
-	public GroupBehaviorBlock(String name, ArrayList<String> parameters, Group grp) {
+	public GroupBehaviorBlock(String name, Object parameter, Group grp) {
+		this.name = name;
 		group = grp;
-		nodes = new ArrayList<GroupBehaviorBlock>();
+		this.parameter = parameter;
 	}
 	
 	// Do something
 	public void act() {
-		if(name.equals("generic_nomad")) {
-			
+		switch(name) {
+		case "CHECK_FERTILITY":
+			break;
+		case "END_TURN":
+			break;
+		case "CHECK_SIZE":
+			break;
+		case "ATTACK_HOSTILE_GROUPS":
+			break;
 		}
 	}
 
-	public GroupBehaviorBlock next() {
-		return nodes.get(nextBlock());
+	public int next() {
+		return 0;
 	}
 	
 	public int nextBlock() {

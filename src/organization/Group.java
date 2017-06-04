@@ -6,6 +6,7 @@ import java.util.*;
 import entities.*;
 import item.*;
 import world.*;
+import behavior.*;
 
 /*
  * A single organized clump of entities.
@@ -23,6 +24,7 @@ public class Group {
 	
 	public ArrayList<Entity> members;
 	public Inventory inventory;
+	public GroupBehaviorBlock behavior;
 	
 	public Group(World world, int x, int y) {
 		Random rand = new Random();
@@ -111,6 +113,36 @@ public class Group {
 		}
 		
 		return false;
+	}
+	
+	/*
+	 * Randomly moves to an adjacent square.
+	 */
+	public void randomMove() {
+		Random rand = new Random();
+		
+		boolean moved = false;
+		int dir = rand.nextInt(4);
+		
+		while(!moved) {
+			switch(dir) {
+			case 0:
+				moved = move(Direction.NORTH);
+				break;
+			case 1:
+				moved = move(Direction.EAST);
+				break;
+			case 2:
+				moved = move(Direction.SOUTH);
+				break;
+			case 3:
+				moved = move(Direction.WEST);
+				break;
+			}
+			
+			dir = rand.nextInt(4);
+		}
+			
 	}
 	
 	/*
