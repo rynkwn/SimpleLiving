@@ -24,7 +24,7 @@ public class Group {
 	
 	public ArrayList<Entity> members;
 	public Inventory inventory;
-	public GroupBehaviorBlock behavior;
+	public GroupBehaviorTree behavior;
 	
 	public Group(World world, int x, int y) {
 		Random rand = new Random();
@@ -39,6 +39,7 @@ public class Group {
 		
 		members = new ArrayList<Entity>();
 		inventory = new Inventory();
+		
 	}
 	
 	public void addMember(Entity e) {
@@ -60,6 +61,10 @@ public class Group {
 		inventory.add(item);
 	}
 	
+	public void setBehavior(GroupBehaviorTree behavior) {
+		this.behavior = behavior;
+	}
+	
 	/*
 	 * Creates a new group in the same square, according to some proportion.
 	 * Splits by members.
@@ -68,6 +73,7 @@ public class Group {
 		int numRemoved = (int) Math.floor(members.size() * pct);
 		
 		Group grp = new Group(world, x, y);
+		grp.setBehavior(new GroupBehaviorTree(grp, behavior));
 		
 		for(int i = 0; i < numRemoved; i++) {
 			grp.addMember(removeMember(0));

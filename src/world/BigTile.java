@@ -11,6 +11,8 @@ import util.*;
 
 public class BigTile {
 	
+	public static double maxValue = 10000;
+	
 	// Summary levels.
 	public double water; // Total liters of water present in the BigTile
 	public double nitrogen; // Total nitrogen in kg.
@@ -55,7 +57,6 @@ public class BigTile {
 	 */
 	public void turn(int numTurnsPassed) {
 		
-		double maxValue = 10000;
 		double growthRate = .01;
 		
 		water += (growthRate * water) * (1 - water / maxValue);
@@ -64,6 +65,21 @@ public class BigTile {
 		potassium += (growthRate * potassium) * (1 - potassium / maxValue);
 		biomass += (growthRate * biomass) * (1 - biomass / maxValue);
 		
+	}
+	
+	/*
+	 * Returns the minimum ratio of ELEMENT / MAX_VALUE
+	 */
+	public double minRatio() {
+		double[] ratios = {
+			water / maxValue,
+			nitrogen / maxValue,
+			phosphorus / maxValue,
+			potassium / maxValue,
+			biomass / maxValue
+		};
+		
+		return MathUtils.min(ratios);
 	}
 	
 	/*

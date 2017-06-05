@@ -1,33 +1,49 @@
 package behavior;
 
 import organization.*;
+import util.*;
 
 import java.util.*;
 
 public class GroupBehaviorBlock {
 	
 	private String name;
-	private Object parameter;
+	private String parameter;
 	private Group group;
 	
-	public GroupBehaviorBlock(String name, Object parameter, Group grp) {
+	public GroupBehaviorBlock(String name, String parameter, Group grp) {
 		this.name = name;
 		group = grp;
 		this.parameter = parameter;
 	}
 	
-	// Do something
-	public void act() {
+	// Returns <INDEX OF NEXT BLOCK TO EXECUTE (Normally 0 or 1 for IF blocks), END_TURN>
+	public Pair<Integer, Boolean> act() {
 		switch(name) {
 		case "CHECK_FERTILITY":
-			break;
+			double threshold = Double.parseDouble(parameter);
+			
+			if(group.residentTile.minRatio() <= threshold) {
+				return new Pair<Integer, Boolean>(1, false);				
+			}
+			
+			return new Pair<Integer, Boolean>(0, false);
+			
+		case "MOVE_RANDOM":
+			group.randomMove();
+			return new Pair<Integer, Boolean>(0, false);
+		case "SKIP":
+			
+			return new Pair<Integer, Boolean>(0, false);
 		case "END_TURN":
-			break;
+			return new Pair<Integer, Boolean>(0, true);
 		case "CHECK_SIZE":
-			break;
+			return new Pair<Integer, Boolean>(0, false);
 		case "ATTACK_HOSTILE_GROUPS":
-			break;
+			return new Pair<Integer, Boolean>(0, false);
 		}
+		
+		return new Pair<Integer, Boolean>(0, false);
 	}
 
 	public int next() {
