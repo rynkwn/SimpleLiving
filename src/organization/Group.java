@@ -109,13 +109,25 @@ public class Group {
 		
 		switch(d) {
 		case NORTH:
-			return world.move(this, x, y, x, y - 1);
+			if(world.move(this, x, y, x, y - 1)) {
+				y = y -1;
+				return true;
+			}
 		case EAST:
-			return world.move(this, x, y, x + 1, y);
+			if(world.move(this, x, y, x + 1, y)) {
+				x = x + 1;
+				return true;
+			}
 		case WEST:
-			return world.move(this, x, y, x - 1, y);
+			if(world.move(this, x, y, x - 1, y)) {
+				x = x - 1;
+				return true;
+			}
 		case SOUTH:
-			return world.move(this, x, y, x, y + 1);
+			if(world.move(this, x, y, x, y + 1)) {
+				y = y + 1;
+				return true;
+			}
 		}
 		
 		return false;
@@ -185,6 +197,8 @@ public class Group {
 				i--;
 			}
 		}
+		
+		behavior.execute();
 	}
 	
 	public String toString() {

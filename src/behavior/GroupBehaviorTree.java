@@ -35,24 +35,27 @@ public class GroupBehaviorTree {
 		next = 0;
 		index = 0;
 		blocks = tree.blocks;
+		
+		currentAction = blocks.get(0)[0];
+		
 	}
 	
 	// Executes until an END_TURN.
 	public void execute() {
 		
-		while(! act()) {
-			//Pair<Integer, Boolean> actionResults = blocks.get(index)[next].act();
-			//keepExecuting = ! actionResults.right();
-			//next = actionResults.left();
-			index = index + 1 % blocks.size();
+		do {
+			index = (index + 1) % blocks.size();
 			currentAction = blocks.get(index)[next];
-		}
-		
+		} while (! act());		
 	}
 	
 	public boolean act() {
 		
-		String parameter = currentAction.substring(currentAction.indexOf('='));
+		String parameter = "";
+		if(currentAction.indexOf('=') > -1) {
+			parameter = currentAction.substring(currentAction.indexOf('='));
+		}
+		
 		
 		switch(currentAction) {
 			case "CHECK_FERTILITY":
@@ -75,7 +78,7 @@ public class GroupBehaviorTree {
 			return false;
 		case "END_TURN":
 			next = 0;
-			return false;
+			return true;
 		}
 		
 		return false;
