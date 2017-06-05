@@ -111,21 +111,25 @@ public class Group {
 		case NORTH:
 			if(world.move(this, x, y, x, y - 1)) {
 				y = y -1;
+				residentTile = world.map[x][y];
 				return true;
 			}
 		case EAST:
 			if(world.move(this, x, y, x + 1, y)) {
 				x = x + 1;
+				residentTile = world.map[x][y];
 				return true;
 			}
 		case WEST:
 			if(world.move(this, x, y, x - 1, y)) {
 				x = x - 1;
+				residentTile = world.map[x][y];
 				return true;
 			}
 		case SOUTH:
 			if(world.move(this, x, y, x, y + 1)) {
 				y = y + 1;
+				residentTile = world.map[x][y];
 				return true;
 			}
 		}

@@ -52,10 +52,11 @@ public class GroupBehaviorTree {
 	public boolean act() {
 		
 		String parameter = "";
-		if(currentAction.indexOf('=') > -1) {
-			parameter = currentAction.substring(currentAction.indexOf('='));
+		int parameterIndex = currentAction.indexOf('=');
+		if(parameterIndex > -1) {
+			parameter = currentAction.substring(parameterIndex + 1);
+			currentAction = currentAction.substring(0, parameterIndex);
 		}
-		
 		
 		switch(currentAction) {
 			case "CHECK_FERTILITY":

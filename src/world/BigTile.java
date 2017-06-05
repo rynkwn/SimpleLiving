@@ -122,6 +122,10 @@ public class BigTile {
 		
 		String displayChar = totalEntitySize + "";
 		
-		return "[" + displayChar + "]";
+		int numLeftSpaces = 3 - displayChar.length();
+		int numRightSpaces = 2;
+		
+		return "[" + StringUtils.repeat(" ", numLeftSpaces) + displayChar + StringUtils.repeat(" ", numRightSpaces) + "]"; 
+		
 	}
 }
