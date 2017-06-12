@@ -45,7 +45,7 @@ public class Main {
 			
 			Entity a = SpeciesReader.getSpecies("Locust").makeInstanceOf(1000);
 			Entity b = SpeciesReader.getSpecies("Locust").makeInstanceOf(1000);
-			Entity c = SpeciesReader.getSpecies("Locust").makeInstanceOf(1000);
+			Entity c = SpeciesReader.getSpecies("Locust").makeInstanceOf(0);
 			Entity d = SpeciesReader.getSpecies("Locust_Minor").makeInstanceOf(1000);
 			
 			grp.addMember(a);
@@ -62,12 +62,12 @@ public class Main {
 		
 		//while(!scan.nextLine().equalsIgnoreCase("q")) {
 		while(true){
-			Thread.sleep(100);
+			Thread.sleep(1000);
 			System.out.println("\n\n\n");
 			//System.out.println(world.map[4][2].toString());
 			System.out.println(world.display());
 			
-			//System.out.println(testGroup.toString());
+			System.out.println(testGroup.toString());
 			
 			world.turn();
 		}

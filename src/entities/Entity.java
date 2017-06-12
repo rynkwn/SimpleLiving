@@ -76,15 +76,7 @@ public class Entity {
 	 * Checks to see if this entity is dead.
 	 */
 	public boolean isDead() {
-		Species entitySpecies = SpeciesReader.getSpecies(species);
-		
-		// Simple starvation check. If mass drops to .7 of expected final size,
-		// entity dies of starvation.
-		if((double) body.mass / entitySpecies.finalSize <= .7) {
-			return true;
-		}
-		
-		return false;
+		return body.isDead();
 	}
 	
 	public boolean canReproduce() {

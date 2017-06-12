@@ -76,8 +76,12 @@ public class BodyPart {
 	}
 	
 	public void scale(double pct) {
-		size *= pct;
-		mass *= pct;
+		size = Math.max(size * pct, 1.0);
+		mass = (long) Math.max(mass * pct, 1);
+		
+		for(BodyPart organ : containedParts) {
+			organ.scale(pct);
+		}
 	}
 	
 	public void addOrgans(ArrayList<BodyPart> organs) {

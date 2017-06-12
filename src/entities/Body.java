@@ -13,6 +13,8 @@ public class Body {
 	public int age;
 	public int timeTillMaturation;
 	
+	public double nutritionalHealth = 1.0;
+	
 	public long mass;
 	
 	public double moving; // Number of squares individual can move. 
@@ -58,6 +60,13 @@ public class Body {
 	}
 	
 	/*
+	 * Checks to see if the body is dead.
+	 */
+	public boolean isDead() {
+		return nutritionalHealth <= .7; // Checks to see if the entity has starved
+	}
+	
+	/*
 	 * Eats a meal and updates mass.
 	 */
 	public void eat(ArrayList<Food> meal) {
@@ -67,9 +76,19 @@ public class Body {
 	}
 	
 	public void grow(double pctNeedsSatisfied) {
-		MathUtils.sigmoid(pctNeedsSatisfied, 1.0, .6, .5, 1);
+		double factorGrow = growthFactor(pctNeedsSatisfied);
+		nutritionalHealth = Math.min(nutritionalHealth * factorGrow, 1.4);
+		
+		for(BodyPart bp : bodyparts) {
+			bp.scale(factorGrow);
+		}
 		
 		calculateCaloricNeeds();
+	}
+	
+	// Returns the growth factor given what pct of needs were satisfied.
+	public double growthFactor(double pctNeedsSatisfied) {
+		return MathUtils.sigmoid(pctNeedsSatisfied, 1.0, .6, .5, 1);
 	}
 	
 	public void calcTraitsRecursively(BodyPart bp) {
@@ -99,6 +118,8 @@ public class Body {
 		nutrition.updateNeeds(mass);
 	}
 	
+	// Update sense/action traits.
+	// Also calculate CaloricNeeds.
 	public void updateTraits() {
 		moving = eating = talking = consciousness = sight = manipulation = breathing = 0;
 		calculateTraits();
@@ -111,7 +132,10 @@ public class Body {
 		updateTraits();
 	}
 	
-	public String nutritionType() { return nutrition.type; }
+	public String nutritionType() { 
+		return nutrition.type; 
+	}
+	
 	public HashMap<String, Double> nutritionalNeeds() {
 		
 		double growthModifier = 1.0;
@@ -131,12 +155,23 @@ public class Body {
 		return nutritionNeeds;
 	}
 	
+	public double currentSize() {
+		double size = 0;
+		
+		for(BodyPart bp : bodyparts) {
+			size += bp.size;
+		}
+		
+		return size;
+	}
+	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Age: " + age + "\n");
 		sb.append("Maturity at: " + timeTillMaturation + "\n");
 		sb.append("Mass: " + mass + "\n");
+		sb.append("Nutritional Health: " + nutritionalHealth + "\n");
 		sb.append("Moving: " + moving + "\n");
 		sb.append("Eating: " + eating + "\n");
 		sb.append("Talking: " + talking + "\n");
@@ -166,7 +201,13 @@ public class Body {
 		copy.age = age;
 		copy.timeTillMaturation = timeTillMaturation;
 		
-		double scale = (((double) initialSize) / finalSize) * Math.min(((double) age) / timeTillMaturation, 1.0);
+		// TODO: SCALE IS INCREDIBLY BROKEN. NOT A (MORE OR LESS) LINEAR GROWTH FROM JUNIOR-HOOD TO
+		// ADULTHOOD. REDO.
+		double currentSize = current;
+		
+		double scale = ((double) finalSize / initialSize) * Math.min(((double) age) / timeTillMaturation, 1.0);
+		
+		System.out.println(scale);
 		
 		for(BodyPart bp : bodyparts) {
 			BodyPart b = new BodyPart(bp.name);
