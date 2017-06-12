@@ -11,7 +11,11 @@ public class BodyPart {
 	public double health;
 	public double maxHealth;
 	
+	public double adultSize;
+	public double adultMass;
+	
 	public double size;
+	public long mass;
 	
 	// The attributes this body part contributes to.
 	public double moving = 0;
@@ -32,41 +36,48 @@ public class BodyPart {
 		
 		if(name.equals("Eye")) {
 			maxHealth = 5;
-			size = 1;
+			adultSize = 1;
 			sight = 50;
 		} else if (name.equals("Head")) {
 			maxHealth = 20;
-			size = 8;
+			adultSize = 8;
 		} else if (name.equals("Mandible")) {
 			maxHealth = 10;
-			size = 2;
+			adultSize = 2;
 			eating = true;
 			talking = true;
 		} else if (name.equals("Claw")) {
 			maxHealth = 30;
-			size = 30;
+			adultSize = 30;
 			manipulation = true;
 		} else if (name.equals("Thorax")) {
 			maxHealth = 50;
-			size = 40;
+			adultSize = 40;
 		} else if (name.equals("Leg")) {
 			maxHealth = 20;
-			size = 15;
+			adultSize = 15;
 			moving = 1;
 		} else if (name.equals("Brain")) {
 			maxHealth = 15;
-			size = 6;
+			adultSize = 6;
 		} else if (name.equals("Lungs")) {
 			maxHealth = 10;
-			size = 8;
-			breathing = true;			
+			adultSize = 8;
+			breathing = true;
 		} else if (name.equals("Segment")) {
 			maxHealth = 40;
-			size = 50;
+			adultSize = 50;
 			moving = .5;
 		}
 		
 		health = maxHealth;
+		size = adultSize;
+		mass = (long) size;
+	}
+	
+	public void scale(double pct) {
+		size *= pct;
+		mass *= pct;
 	}
 	
 	public void addOrgans(ArrayList<BodyPart> organs) {

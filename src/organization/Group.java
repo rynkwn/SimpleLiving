@@ -176,8 +176,8 @@ public class Group {
 			
 			e.turn();
 			
-			String nutritionType = e.body.nutrition.type;
-			HashMap<String, Double> nutritionalNeeds = e.body.nutrition.nutrition();
+			String nutritionType = e.body.nutritionType();
+			HashMap<String, Double> nutritionalNeeds = e.body.nutritionalNeeds();
 			
 			if(nutritionType.equals("ANIMAL")) {
 				ArrayList<Food> meal = inventory.findThingsToEat(nutritionalNeeds);

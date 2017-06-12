@@ -54,6 +54,7 @@ public class SpeciesReader {
 			Range numberOffspring = new Range(minOffspring, maxOffspring);
 			long initialSize = reader.getLong("INITIAL_SIZE");
 			long finalSize = reader.getLong("FINAL_SIZE");
+			int timeTillMaturation = reader.getInt("TIME_TILL_MATURATION");
 			
 			// Setting up offspring probabilities.
 			TreeMap<Double, String> offspringProbabilities = new TreeMap<Double, String>();
@@ -70,7 +71,9 @@ public class SpeciesReader {
 			String behaviorFile = reader.getSingle("BEHAVIOR");
 			
 			// Building up the body.
-			Body initialBodyStructure = new Body(reader.getSingle("NUTRITION_TYPE"), reader.getDouble("METABOLISM"));
+			Body initialBodyStructure = new Body(reader.getSingle("NUTRITION_TYPE"), 
+												 reader.getDouble("METABOLISM"),
+												 timeTillMaturation);
 			for(List<String> bodySection : reader.get("BODY")) {
 				BodyPart bp = new BodyPart(bodySection.get(0));
 				
@@ -104,6 +107,7 @@ public class SpeciesReader {
 										  numberOffspring,
 										  initialSize,
 										  finalSize,
+										  timeTillMaturation,
 										  offspring,
 										  initialBodyStructure,
 										  behaviorFile,

@@ -17,7 +17,7 @@ public class Entity {
 	
 	public Entity(String name, 
 			String species, 
-			int timeSinceLastBirth, 
+			int timeSinceLastBirth,
 			HashMap<String, Integer> progressTowardsBioProduct, 
 			Body body) {
 		this.name = name;

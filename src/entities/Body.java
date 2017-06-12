@@ -10,6 +10,9 @@ import java.util.*;
  */
 public class Body {
 	
+	public int age;
+	public int timeTillMaturation;
+	
 	public long mass;
 	
 	public double moving; // Number of squares individual can move. 
@@ -24,7 +27,7 @@ public class Body {
 	
 	public Nutrition nutrition;
 	
-	public Body(String nutritionType, double metabolism) {
+	public Body(String nutritionType, double metabolism, int timeTillMaturation) {
 		
 		bodyparts = new ArrayList<BodyPart>();
 		mass = 0;
@@ -37,6 +40,7 @@ public class Body {
 		breathing = 0;
 		
 		nutrition = new Nutrition(nutritionType, metabolism);
+		this.timeTillMaturation = timeTillMaturation;
 	}
 	
 	public Body(Nutrition nutr) {
@@ -63,7 +67,8 @@ public class Body {
 	}
 	
 	public void grow(double pctNeedsSatisfied) {
-		mass *= MathUtils.sigmoid(pctNeedsSatisfied, 1.0, .6, .5, 1);
+		MathUtils.sigmoid(pctNeedsSatisfied, 1.0, .6, .5, 1);
+		
 		calculateCaloricNeeds();
 	}
 	
@@ -77,7 +82,7 @@ public class Body {
 		sight += (bp.sight * pctEffective);
 		manipulation = Math.max(manipulation, (bp.manipulation ? 1 : 0) * pctEffective);
 		breathing = Math.max(breathing, (bp.breathing ? 1 : 0) * pctEffective);
-		mass += bp.size;
+		mass += bp.mass;
 		
 		for(BodyPart organ : bp.containedParts) {
 			calcTraitsRecursively(organ);
@@ -106,9 +111,31 @@ public class Body {
 		updateTraits();
 	}
 	
+	public String nutritionType() { return nutrition.type; }
+	public HashMap<String, Double> nutritionalNeeds() {
+		
+		double growthModifier = 1.0;
+		
+		if(age < timeTillMaturation) {
+			// Parabola open downwards with zeroes at -1 and timeTillMaturation
+			// TODO: Modify parabola such that the nutritional needs curve is smoother. Right now,
+			// not clear what apex value is. So we cap it.
+			growthModifier = 1 + Math.max(- ((double)(age + 1)) * (age - timeTillMaturation) + 1, .8);
+		}
+		
+		HashMap<String, Double> nutritionNeeds = nutrition.nutrition();
+		for(String need : nutritionNeeds.keySet()) {
+			nutritionNeeds.put(need, nutritionNeeds.get(need) * growthModifier);
+		}
+		
+		return nutritionNeeds;
+	}
+	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("Age: " + age + "\n");
+		sb.append("Maturity at: " + timeTillMaturation + "\n");
 		sb.append("Mass: " + mass + "\n");
 		sb.append("Moving: " + moving + "\n");
 		sb.append("Eating: " + eating + "\n");
@@ -133,16 +160,22 @@ public class Body {
 	 * Copies the structure of the body.
 	 * TODO: Need/want a better way of doing this. For lots of entities, this seems pretty excessive.
 	 */
-	public Body copyStructure() {
+	public Body copyStructure(int age, int timeTillMaturation, long initialSize, long finalSize) {
 		
 		Body copy = new Body(nutrition);
+		copy.age = age;
+		copy.timeTillMaturation = timeTillMaturation;
+		
+		double scale = (((double) initialSize) / finalSize) * Math.min(((double) age) / timeTillMaturation, 1.0);
 		
 		for(BodyPart bp : bodyparts) {
 			BodyPart b = new BodyPart(bp.name);
+			b.scale(scale);
 			
 			for(BodyPart organ : bp.containedParts) {
-				
-				b.addOrgan(new BodyPart(organ.name));
+				BodyPart org = new BodyPart(organ.name);
+				org.scale(scale);
+				b.addOrgan(org);
 			}
 			
 			copy.addPart(b);

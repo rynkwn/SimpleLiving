@@ -11,6 +11,7 @@ public class Species {
 	public Range numberOffspringProduced;
 	public long initialSize;
 	public long finalSize;
+	public int timeTillMaturation;
 	public ChanceOutcomes<String> offspring;
 	public Body initialBodyStructure;
 	public String behaviorFile;
@@ -22,6 +23,7 @@ public class Species {
 				   Range numberOffspringProduced,
 				   long initialSize,
 				   long finalSize,
+				   int timeTillMaturation,
 				   ChanceOutcomes<String> offspring,
 				   Body initialBodyStructure,
 				   String behaviorFile,
@@ -33,6 +35,7 @@ public class Species {
 		this.numberOffspringProduced = numberOffspringProduced;
 		this.initialSize = initialSize;
 		this.finalSize = finalSize;
+		this.timeTillMaturation = timeTillMaturation;
 		this.offspring = offspring;
 		this.initialBodyStructure = initialBodyStructure;
 		this.behaviorFile = behaviorFile;
@@ -45,7 +48,7 @@ public class Species {
 		
 		int numChildren = numberOffspringProduced.getRandomNumberInRange();
 		for(int i = 0; i < numChildren; i++) {
-			children.add(SpeciesReader.getSpecies(offspring.getRandomOutcome()).makeInstanceOf());
+			children.add(SpeciesReader.getSpecies(offspring.getRandomOutcome()).makeInstanceOf(0));
 		}
 		
 		return children;
@@ -54,7 +57,7 @@ public class Species {
 	/*
 	 * Makes an instance of this species.
 	 */
-	public Entity makeInstanceOf() {
+	public Entity makeInstanceOf(int age) {
 		Random rand = new Random();
 		
 		HashMap<String, Integer> progressTowardsBioProducts = new HashMap<String, Integer>();
@@ -67,7 +70,7 @@ public class Species {
 				name, 
 				0,
 				progressTowardsBioProducts,
-				initialBodyStructure.copyStructure());
+				initialBodyStructure.copyStructure(age, timeTillMaturation, initialSize, finalSize));
 	}
 	
 	public String toString() {
