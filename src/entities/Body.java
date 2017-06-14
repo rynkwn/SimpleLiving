@@ -16,6 +16,7 @@ public class Body {
 	public double nutritionalHealth = 1.0;
 	
 	public long mass;
+	public long size;
 	
 	public double moving; // Number of squares individual can move. 
 	public double eating; // Between 0 - 1.
@@ -102,6 +103,7 @@ public class Body {
 		manipulation = Math.max(manipulation, (bp.manipulation ? 1 : 0) * pctEffective);
 		breathing = Math.max(breathing, (bp.breathing ? 1 : 0) * pctEffective);
 		mass += bp.mass;
+		size += bp.size;
 		
 		for(BodyPart organ : bp.containedParts) {
 			calcTraitsRecursively(organ);
@@ -201,13 +203,14 @@ public class Body {
 		copy.age = age;
 		copy.timeTillMaturation = timeTillMaturation;
 		
-		// TODO: SCALE IS INCREDIBLY BROKEN. NOT A (MORE OR LESS) LINEAR GROWTH FROM JUNIOR-HOOD TO
-		// ADULTHOOD. REDO.
-		double currentSize = current;
+		double scale = Math.min((double) age / timeTillMaturation, 1.0);
+		if(age == 0) {
+			scale = (double) initialSize / size; 
+		} else {
+			scale *= (double) finalSize / size;
+		}
 		
-		double scale = ((double) finalSize / initialSize) * Math.min(((double) age) / timeTillMaturation, 1.0);
-		
-		System.out.println(scale);
+		//System.out.println("age: " + age + " - " + " (" + timeTillMaturation + ", " + initialSize + ", " + finalSize + ") " + scale);
 		
 		for(BodyPart bp : bodyparts) {
 			BodyPart b = new BodyPart(bp.name);
