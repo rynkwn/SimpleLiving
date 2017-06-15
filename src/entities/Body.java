@@ -72,7 +72,6 @@ public class Body {
 	 */
 	public void eat(ArrayList<Food> meal) {
 		double needsSatisfied = nutrition.eat(eating, meal);
-		
 		grow(needsSatisfied);
 	}
 	
@@ -84,7 +83,7 @@ public class Body {
 			bp.scale(factorGrow);
 		}
 		
-		calculateCaloricNeeds();
+		updateTraits();
 	}
 	
 	// Returns the growth factor given what pct of needs were satisfied.
@@ -101,7 +100,7 @@ public class Body {
 		consciousness = Math.max(consciousness, (bp.consciousness ? 1 : 0) * pctEffective);
 		sight += (bp.sight * pctEffective);
 		manipulation = Math.max(manipulation, (bp.manipulation ? 1 : 0) * pctEffective);
-		breathing = Math.max(breathing, (bp.breathing ? 1 : 0) * pctEffective);
+		breathing = Math.max(breathing, (bp.breathing ? 1 : 0) * pctEffective);		
 		mass += bp.mass;
 		size += bp.size;
 		
