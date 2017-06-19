@@ -72,8 +72,7 @@ public class SpeciesReader {
 			
 			// Building up the body.
 			Body initialBodyStructure = new Body(reader.getSingle("NUTRITION_TYPE"), 
-												 reader.getDouble("METABOLISM"),
-												 timeTillMaturation);
+												 reader.getDouble("METABOLISM"));
 			for(List<String> bodySection : reader.get("BODY")) {
 				BodyPart bp = new BodyPart(bodySection.get(0));
 				
@@ -115,6 +114,7 @@ public class SpeciesReader {
 										  tags
 										 );
 			
+			initialBodyStructure.species = species;
 			speciesInfo.put(name, species);
 			
 		} catch (FileNotFoundException e) {

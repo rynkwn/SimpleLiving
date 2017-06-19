@@ -16,7 +16,7 @@ public class BiologicalProduct {
 		this.timeToProduce = timeToProduce;
 	}
 	
-	public Item produce(long mass) {
+	public Item produce(double mass) {
 		return ItemsReader.makeComponent(name, (int) Math.floor(mass * productionRatio));
 	}
 	

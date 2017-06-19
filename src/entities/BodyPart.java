@@ -15,7 +15,7 @@ public class BodyPart {
 	public double adultMass;
 	
 	public double size;
-	public long mass;
+	public double mass;
 	
 	// The attributes this body part contributes to.
 	public double moving = 0;
@@ -77,7 +77,7 @@ public class BodyPart {
 	
 	public void scale(double pct) {
 		size = Math.max(size * pct, 1.0);
-		mass = (long) Math.max(mass * pct, 1);
+		mass = Math.max(mass * pct, 1);
 		
 		for(BodyPart organ : containedParts) {
 			organ.scale(pct);

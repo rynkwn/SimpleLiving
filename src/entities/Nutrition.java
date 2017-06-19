@@ -61,7 +61,7 @@ public class Nutrition {
 	}
 	
 	// Updates needs based on a new mass value.
-	public void updateNeeds(long mass) {
+	public void updateNeeds(double mass) {
 		
 		if(type.equals("ANIMAL")) {
 			

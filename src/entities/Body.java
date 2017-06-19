@@ -10,13 +10,14 @@ import java.util.*;
  */
 public class Body {
 	
+	Species species;
+	
 	public int age;
-	public int timeTillMaturation;
 	
 	public double nutritionalHealth = 1.0;
 	
-	public long mass;
-	public long size;
+	public double mass;
+	public double size;
 	
 	public double moving; // Number of squares individual can move. 
 	public double eating; // Between 0 - 1.
@@ -30,7 +31,7 @@ public class Body {
 	
 	public Nutrition nutrition;
 	
-	public Body(String nutritionType, double metabolism, int timeTillMaturation) {
+	public Body(String nutritionType, double metabolism) {
 		
 		bodyparts = new ArrayList<BodyPart>();
 		mass = 0;
@@ -43,7 +44,6 @@ public class Body {
 		breathing = 0;
 		
 		nutrition = new Nutrition(nutritionType, metabolism);
-		this.timeTillMaturation = timeTillMaturation;
 	}
 	
 	public Body(Nutrition nutr) {
@@ -67,6 +67,10 @@ public class Body {
 		return nutritionalHealth <= .7; // Checks to see if the entity has starved
 	}
 	
+	public void age(int numTurnsPassed) {
+		age += numTurnsPassed;
+	}
+	
 	/*
 	 * Eats a meal and updates mass.
 	 */
@@ -79,9 +83,13 @@ public class Body {
 		double factorGrow = growthFactor(pctNeedsSatisfied);
 		nutritionalHealth = Math.min(nutritionalHealth * factorGrow, 1.4);
 		
-		for(BodyPart bp : bodyparts) {
-			bp.scale(factorGrow);
+		if(age < species.timeTillMaturation) {
+			double normalGrowth = growthDerivativeEstimate();
+			double newSize = size + normalGrowth;
+			
+			growToSize(newSize);
 		}
+		 
 		
 		updateTraits();
 	}
@@ -123,6 +131,7 @@ public class Body {
 	// Also calculate CaloricNeeds.
 	public void updateTraits() {
 		moving = eating = talking = consciousness = sight = manipulation = breathing = 0;
+		mass = size = 0;
 		calculateTraits();
 		calculateCaloricNeeds();
 	}
@@ -141,11 +150,8 @@ public class Body {
 		
 		double growthModifier = 1.0;
 		
-		if(age < timeTillMaturation) {
-			// Parabola open downwards with zeroes at -1 and timeTillMaturation
-			// TODO: Modify parabola such that the nutritional needs curve is smoother. Right now,
-			// not clear what apex value is. So we cap it.
-			growthModifier = 1 + Math.max(- ((double)(age + 1)) * (age - timeTillMaturation) + 1, .8);
+		if(age < species.timeTillMaturation) {
+			growthModifier = 1 + (growthDerivativeEstimate() / species.finalSize);
 		}
 		
 		HashMap<String, Double> nutritionNeeds = nutrition.nutrition();
@@ -156,21 +162,34 @@ public class Body {
 		return nutritionNeeds;
 	}
 	
-	public double currentSize() {
-		double size = 0;
+	/*
+	 * Returns an estimate for the expected derivative of: growthFunction(now + 1) - growthFunction(now) 
+	 */
+	public double growthDerivativeEstimate() {
+		return growthFunction(age + 1) - growthFunction(age);
+	}
+	
+	/*
+	 * Returns the expected size at a given age. 
+	 */
+	public double growthFunction(int age) {
+		return (species.finalSize - species.initialSize) * Math.sin((age + (Math.PI/2)) / species.timeTillMaturation) + species.initialSize;
+	}
+	
+	public void growToSize(double targetSize) {
+		
+		double ratioToScaleBy = targetSize / size;
 		
 		for(BodyPart bp : bodyparts) {
-			size += bp.size;
+			bp.scale(ratioToScaleBy);
 		}
-		
-		return size;
 	}
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Age: " + age + "\n");
-		sb.append("Maturity at: " + timeTillMaturation + "\n");
+		sb.append("Maturity at: " + species.timeTillMaturation + "\n");
 		sb.append("Mass: " + mass + "\n");
 		sb.append("Nutritional Health: " + nutritionalHealth + "\n");
 		sb.append("Moving: " + moving + "\n");
@@ -196,20 +215,18 @@ public class Body {
 	 * Copies the structure of the body.
 	 * TODO: Need/want a better way of doing this. For lots of entities, this seems pretty excessive.
 	 */
-	public Body copyStructure(int age, int timeTillMaturation, long initialSize, long finalSize) {
+	public Body copyStructure(int age, Species species) {
 		
 		Body copy = new Body(nutrition);
 		copy.age = age;
-		copy.timeTillMaturation = timeTillMaturation;
+		copy.species = species;
 		
-		double scale = Math.min((double) age / timeTillMaturation, 1.0);
+		double scale = Math.min((double) age / species.timeTillMaturation, 1.0);
 		if(age == 0) {
-			scale = (double) initialSize / size; 
+			scale = (double) species.initialSize / size; 
 		} else {
-			scale *= (double) finalSize / size;
+			scale *= (double) species.finalSize / size;
 		}
-		
-		//System.out.println("age: " + age + " - " + " (" + timeTillMaturation + ", " + initialSize + ", " + finalSize + ") " + scale);
 		
 		for(BodyPart bp : bodyparts) {
 			BodyPart b = new BodyPart(bp.name);

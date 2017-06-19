@@ -30,6 +30,8 @@ public class Entity {
 	public void turn() {
 		Species entitySpecies = SpeciesReader.getSpecies(species);
 		
+		body.age(1);
+		
 		// Produce any biological products.
 		for(String productName : progressTowardsBioProduct.keySet()) {
 			int timeUntilCompletion = progressTowardsBioProduct.get(productName);
