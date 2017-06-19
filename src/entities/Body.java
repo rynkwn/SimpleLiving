@@ -84,7 +84,7 @@ public class Body {
 		nutritionalHealth = Math.min(nutritionalHealth * factorGrow, 1.4);
 		
 		if(age < species.timeTillMaturation) {
-			double normalGrowth = growthDerivativeEstimate();
+			double normalGrowth = growthDerivativeEstimate() * nutritionalHealth;
 			double newSize = size + normalGrowth;
 			
 			growToSize(newSize);
@@ -206,7 +206,7 @@ public class Body {
 		}
 		
 		sb.append("\n");
-		sb.append("Nutrition: " + nutrition.toString() + "\n");
+		sb.append("Nutrition: " + nutritionalNeeds().toString() + "\n");
 		
 		return sb.toString();
 	}
