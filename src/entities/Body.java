@@ -67,6 +67,10 @@ public class Body {
 		return nutritionalHealth <= .7; // Checks to see if the entity has starved
 	}
 	
+	public boolean isAdult() {
+		return age >= species.timeTillMaturation;
+	}
+	
 	public void age(int numTurnsPassed) {
 		age += numTurnsPassed;
 	}

@@ -82,7 +82,8 @@ public class Entity {
 	}
 	
 	public boolean canReproduce() {
-		return ! SpeciesReader.getSpecies(species).tags.contains("STERILE");
+		return body.isAdult() &&
+				! SpeciesReader.getSpecies(species).tags.contains("STERILE");
 	}
 	
 	public String toString() {
