@@ -43,15 +43,16 @@ public class Main {
 				testGroup = grp; 
 			}
 			
-			//Entity a = SpeciesReader.getSpecies("Locust").makeInstanceOf(1000);
-			//Entity b = SpeciesReader.getSpecies("Locust").makeInstanceOf(1000);
-			Entity c = SpeciesReader.getSpecies("Locust").makeInstanceOf(0);
-			Entity d = SpeciesReader.getSpecies("Locust_Minor").makeInstanceOf(1000);
+			ArrayList<Entity> testEntities = new ArrayList<Entity>();
 			
-			//grp.addMember(a);
-			//grp.addMember(b);
-			grp.addMember(c);
-			grp.addMember(d);
+			testEntities.add(SpeciesReader.getSpecies("Locust").makeInstanceOf(1000));
+			testEntities.add(SpeciesReader.getSpecies("Locust").makeInstanceOf(1000));
+			testEntities.add(SpeciesReader.getSpecies("Locust").makeInstanceOf(0));
+			testEntities.add(SpeciesReader.getSpecies("Locust_Minor").makeInstanceOf(1000));
+
+			for(Entity e : testEntities) {
+				grp.addMember(e);
+			}
 			
 			grp.addItem(ItemsReader.makeComponent("Bud", 120));
 			
