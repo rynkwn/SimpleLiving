@@ -43,13 +43,13 @@ public class Main {
 				testGroup = grp; 
 			}
 			
-			Entity a = SpeciesReader.getSpecies("Locust").makeInstanceOf(1000);
-			Entity b = SpeciesReader.getSpecies("Locust").makeInstanceOf(1000);
+			//Entity a = SpeciesReader.getSpecies("Locust").makeInstanceOf(1000);
+			//Entity b = SpeciesReader.getSpecies("Locust").makeInstanceOf(1000);
 			Entity c = SpeciesReader.getSpecies("Locust").makeInstanceOf(0);
 			Entity d = SpeciesReader.getSpecies("Locust_Minor").makeInstanceOf(1000);
 			
-			grp.addMember(a);
-			grp.addMember(b);
+			//grp.addMember(a);
+			//grp.addMember(b);
 			grp.addMember(c);
 			grp.addMember(d);
 			

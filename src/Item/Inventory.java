@@ -79,9 +79,9 @@ public class Inventory {
 		
 		for(Food food : getFoods()) {
 			
-			int numNeeded = (int) Math.ceil(Math.max(food.nutrition.calories / caloriesNeeded,
-										Math.max(food.nutrition.water / waterNeeded, 
-												food.nutrition.vitaminC / vitaminCNeeded)));
+			int numNeeded = (int) Math.ceil(Math.max(caloriesNeeded / food.nutrition.calories,
+										Math.max(waterNeeded / food.nutrition.water, 
+												vitaminCNeeded / food.nutrition.vitaminC)));
 			
 			if(numNeeded <= food.getQuantity()) {
 				meal.add(food.split(numNeeded));
