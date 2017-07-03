@@ -62,6 +62,10 @@ public class ValueNoise {
 		return smoothNoise;
 	}
 	
+	/*
+	 * A lower octaveCount generally seems to produce more extreme individual values, but also
+	 * produces a less smooth distribution.
+	 */
 	public static double[][] generateValueNoise(int width, int height, int seed, int octaveCount) {
 		
 		double[][] baseNoise = generateWhiteNoise(width, height, seed);

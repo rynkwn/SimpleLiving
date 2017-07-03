@@ -11,14 +11,18 @@ import util.*;
 
 public class BigTile {
 	
-	public static double maxValue = 10000;
+	public static double maxValue = 50000;
+	public static double initValue = 5000;
 	
 	// Summary levels.
 	public double water; // Total liters of water present in the BigTile
 	public double nitrogen; // Total nitrogen in kg.
 	public double phosphorus; // Total phosphorus in kg
 	public double potassium; // Total potassium in kg
-	public double biomass; // Total biomass in kg. 
+	public double biomass; // Total biomass in kg.
+	
+	// Rates
+	public double waterRate;
 	
 	// Also need weather.
 	
@@ -26,8 +30,15 @@ public class BigTile {
 	
 	// For initial tests.
 	public BigTile() {
-		water = nitrogen = phosphorus = potassium = biomass = maxValue / 2;
+		water = nitrogen = phosphorus = potassium = biomass = initValue;
 		residentGroups = new HashSet<Group>();
+	}
+	
+	public BigTile(double waterRate) {
+		water = nitrogen = phosphorus = potassium = biomass = initValue;
+		residentGroups = new HashSet<Group>();
+		
+		this.waterRate = waterRate;
 	}
 	
 	public BigTile(double w, double n, double p, double k, double bm) {

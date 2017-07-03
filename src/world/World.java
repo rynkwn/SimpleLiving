@@ -14,15 +14,17 @@ public class World {
 	
 	public HashMap<String, Group> groups;
 	
-	public World(int length, int width) {
+	public World(int length, int width, int seed) {
 		map = new BigTile[length][width];
 		
 		this.length = length;
 		this.width = width;
 		
+		double[][] waterRates = ValueNoise.generateValueNoise(length, width, seed, 3);
+		
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {
-				map[i][j] = new BigTile();
+				map[i][j] = new BigTile(waterRates[i][j]);
 			}
 		}
 		
