@@ -30,7 +30,7 @@ public class Main {
 		
 		int length = 10;
 		int width = 10;
-		double[][] noise = ValueNoise.generateValueNoise(length, width, 10, 3);
+		double[][] noise = ValueNoise.generateValueNoise(length, width, 10, 3, .5);
 		
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {
@@ -39,8 +39,6 @@ public class Main {
 			System.out.println();
 		}
 		
-		
-		/*
 		World world = new World(10, 10, 10);
 		
 		Group testGroup = null;
@@ -83,9 +81,7 @@ public class Main {
 			
 			world.turn();
 		}
-		*/
 		//scan.close();
-		
 		
 	}
 }

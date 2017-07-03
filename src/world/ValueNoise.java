@@ -8,13 +8,13 @@ import java.util.ArrayList;
 // Though note, not actually Perlin noise!
 public class ValueNoise {
 
-	public static double[][] generateWhiteNoise(int width, int height, int seed) {
+	public static double[][] generateWhiteNoise(int width, int height, int seed, double maxValue) {
 		Random random = new Random(seed);
 		
 		double[][] noise = new double[width][height];
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
-				noise[i][j] = random.nextDouble();
+				noise[i][j] = random.nextDouble() * maxValue;
 			}
 		}
 		
@@ -66,9 +66,9 @@ public class ValueNoise {
 	 * A lower octaveCount generally seems to produce more extreme individual values, but also
 	 * produces a less smooth distribution.
 	 */
-	public static double[][] generateValueNoise(int width, int height, int seed, int octaveCount) {
+	public static double[][] generateValueNoise(int width, int height, int seed, int octaveCount, double maxValue) {
 		
-		double[][] baseNoise = generateWhiteNoise(width, height, seed);
+		double[][] baseNoise = generateWhiteNoise(width, height, seed, maxValue);
 		
 		ArrayList<double[][]> smoothNoise = new ArrayList<double[][]>();
 		double persistence = 0.5;

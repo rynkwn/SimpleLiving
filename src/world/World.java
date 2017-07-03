@@ -20,7 +20,7 @@ public class World {
 		this.length = length;
 		this.width = width;
 		
-		double[][] waterRates = ValueNoise.generateValueNoise(length, width, seed, 3);
+		double[][] waterRates = ValueNoise.generateValueNoise(length, width, seed, 3, .5);
 		
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {

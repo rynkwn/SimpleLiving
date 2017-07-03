@@ -71,7 +71,7 @@ public class BigTile {
 		double growthRate = .01;
 		double rawIncrement = 10;
 		
-		water += (growthRate * water) * (1 - water / maxValue) + rawIncrement;
+		water += (waterRate * water) * (1 - water / maxValue) + rawIncrement;
 		nitrogen += (growthRate * nitrogen) * (1 - nitrogen / maxValue) + rawIncrement;
 		phosphorus += (growthRate * phosphorus) * (1 - phosphorus / maxValue) + rawIncrement;
 		potassium += (growthRate * potassium) * (1 - potassium / maxValue) + rawIncrement;
