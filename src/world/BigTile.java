@@ -39,6 +39,7 @@ public class BigTile {
 		residentGroups = new HashSet<Group>();
 		
 		this.waterRate = waterRate;
+		water = maxValue * waterRate;
 	}
 	
 	public BigTile(double w, double n, double p, double k, double bm) {
@@ -71,7 +72,7 @@ public class BigTile {
 		double growthRate = .01;
 		double rawIncrement = 10;
 		
-		water += (waterRate * water) * (1 - water / maxValue) + rawIncrement;
+		water = (water < (waterRate * maxValue)) ? water + (waterRate * maxValue) / 104 : water;
 		nitrogen += (growthRate * nitrogen) * (1 - nitrogen / maxValue) + rawIncrement;
 		phosphorus += (growthRate * phosphorus) * (1 - phosphorus / maxValue) + rawIncrement;
 		potassium += (growthRate * potassium) * (1 - potassium / maxValue) + rawIncrement;
