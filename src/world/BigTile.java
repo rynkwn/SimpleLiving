@@ -71,8 +71,13 @@ public class BigTile {
 		
 		double growthRate = .01;
 		double rawIncrement = 10;
+		Random rand = new Random();
 		
-		water = (water < (waterRate * maxValue)) ? water + (waterRate * maxValue) / 104 : water;
+		if(water < waterRate * maxValue) {
+			double modifier = 1.1 * rand.nextDouble();
+			water += (waterRate * maxValue * modifier) / 104;
+		}
+		
 		nitrogen += (growthRate * nitrogen) * (1 - nitrogen / maxValue) + rawIncrement;
 		phosphorus += (growthRate * phosphorus) * (1 - phosphorus / maxValue) + rawIncrement;
 		potassium += (growthRate * potassium) * (1 - potassium / maxValue) + rawIncrement;
