@@ -9,6 +9,19 @@ import java.util.*;
  * Mostly an interface for nutrition.
  */
 public class Nutrition {
+	// PLANT CONSTANTS
+	// Values from: https://en.wikipedia.org/wiki/Hoagland_solution
+	public static final double CARBON_PPM = 300;
+	public static final double NITROGEN_PPM = 210;
+	public static final double POTASSIUM_PPM = 235;
+	public static final double CALCIUM_PPM = 200;
+	public static final double PHOSPHORUS_PPM = 31;
+	public static final double SALT_PPM = 5;
+	
+	public static final double PLANT_TOTAL_NUTRIENT_MASS = CARBON_PPM + 
+											NITROGEN_PPM + POTASSIUM_PPM +
+											CALCIUM_PPM + PHOSPHORUS_PPM + SALT_PPM;
+
 	public String type = "ABSTRACT"; // values: ABSTRACT, ANIMAL, PLANT 
 	
 	public double metabolism; // A modifier to nutritional needs.
@@ -21,10 +34,12 @@ public class Nutrition {
 	public double vitaminC;
 	
 	// Plant Needs
-	public double nitrogen;
-	public double phosphorus;
-	public double potassium;
-	public double biomass;
+	public double carbon; // UNSURE: Say 300 ppm
+	public double nitrogen; // 210 ppm
+	public double potassium; // 235 ppm
+	public double calcium; // 200 ppm
+	public double phosphorus; // 31 ppm
+	public double salt; // UNSURE: Say 5 ppm
 	
 	public Nutrition(String type, double metabolism) {
 		this.type = type;
@@ -39,11 +54,15 @@ public class Nutrition {
 	}
 	
 	// Explicitly defined nutrition for plant-related items.
-	public Nutrition(double N, double P, double K, double biomass) {
+	public Nutrition(double H2O, double C, double N, double K,
+					 double Ca, double P, double NaCl) {
+		water = H2O;
+		carbon = C;
 		nitrogen = N;
-		phosphorus = P;
 		potassium = K;
-		this.biomass = biomass;
+		calcium = Ca;
+		phosphorus = P;
+		salt = NaCl;
 	}
 	
 	// Essentially a clone method.
@@ -57,7 +76,12 @@ public class Nutrition {
 		this.nitrogen = n.nitrogen;
 		this.phosphorus = n.phosphorus;
 		this.potassium = n.potassium;
-		this.biomass = n.biomass;
+		this.carbon = n.carbon;
+		this.nitrogen = n.nitrogen;
+		this.potassium = n.potassium;
+		this.calcium = n.calcium;
+		this.phosphorus = n.phosphorus;
+		this.salt = n.salt;
 	}
 	
 	// Updates needs based on a new mass value.
@@ -72,10 +96,12 @@ public class Nutrition {
 		} else if(type.equals("PLANT")) {
 			
 			water = .1 * mass * metabolism;
-			nitrogen = .05 * mass * metabolism;
-			phosphorus = .01 * mass * metabolism;
-			potassium = .01 * mass * metabolism;
-			biomass = .1 * mass * metabolism;
+			carbon = (Nutrition.CARBON_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			nitrogen = (Nutrition.NITROGEN_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			potassium = (Nutrition.POTASSIUM_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			calcium = (Nutrition.CALCIUM_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			phosphorus = (Nutrition.PHOSPHORUS_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			salt = (Nutrition.SALT_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
 			
 		}
 	}
@@ -90,10 +116,13 @@ public class Nutrition {
 			requirements.put("calories", calories);
 			requirements.put("vitaminC", vitaminC);
 			
+			requirements.put("carbon", carbon);
 			requirements.put("nitrogen", nitrogen);
-			requirements.put("phosphorus", potassium);
-			requirements.put("potassium", phosphorus);
-			requirements.put("biomass", biomass);
+			requirements.put("potassium", potassium);
+			requirements.put("calcium", calcium);
+			requirements.put("phosphorus", phosphorus);
+			requirements.put("salt", salt);
+
 			
 		} else if (type.equals("ANIMAL")) {
 			
@@ -102,10 +131,12 @@ public class Nutrition {
 			
 		} else if (type.equals("PLANT")) {
 			
+			requirements.put("carbon", carbon);
 			requirements.put("nitrogen", nitrogen);
-			requirements.put("phosphorus", potassium);
-			requirements.put("potassium", phosphorus);
-			requirements.put("biomass", biomass);
+			requirements.put("potassium", potassium);
+			requirements.put("calcium", calcium);
+			requirements.put("phosphorus", phosphorus);
+			requirements.put("salt", salt);
 			
 		}
 
