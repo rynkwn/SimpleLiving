@@ -16,10 +16,12 @@ public class BigTile {
 	
 	// Summary levels.
 	public double water; // Total liters of water present in the BigTile
+	public double carbon;
 	public double nitrogen; // Total nitrogen in kg.
+	public double potassium;
+	public double calcium;
 	public double phosphorus; // Total phosphorus in kg
-	public double potassium; // Total potassium in kg
-	public double biomass; // Total biomass in kg.
+	public double salt;
 	
 	// Rates
 	public double waterRate;
@@ -30,26 +32,16 @@ public class BigTile {
 	
 	// For initial tests.
 	public BigTile() {
-		water = nitrogen = phosphorus = potassium = biomass = initValue;
+		water = carbon = nitrogen = potassium = calcium = phosphorus = salt = initValue;
 		residentGroups = new HashSet<Group>();
 	}
 	
 	public BigTile(double waterRate) {
-		water = nitrogen = phosphorus = potassium = biomass = initValue;
+		water = carbon = nitrogen = potassium = calcium = phosphorus = salt = initValue;
 		residentGroups = new HashSet<Group>();
 		
 		this.waterRate = waterRate;
 		water = maxValue * waterRate;
-	}
-	
-	public BigTile(double w, double n, double p, double k, double bm) {
-		water = w;
-		nitrogen = n;
-		phosphorus = p;
-		potassium = k;
-		biomass = bm;
-		
-		residentGroups = new HashSet<Group>();
 	}
 	
 	public void addGroup(Group grp) {
@@ -78,10 +70,19 @@ public class BigTile {
 			water += (waterRate * maxValue * modifier) / 104;
 		}
 		
+		carbon += (maxValue / 1000);
+		nitrogen += (maxValue / 1000);
+		potassium += (maxValue / 1000);
+		calcium += (maxValue / 1000);
+		phosphorus += (maxValue / 1000);
+		salt += (maxValue / 1000);
+		
+		/*
 		nitrogen += (growthRate * nitrogen) * (1 - nitrogen / maxValue) + rawIncrement;
 		phosphorus += (growthRate * phosphorus) * (1 - phosphorus / maxValue) + rawIncrement;
 		potassium += (growthRate * potassium) * (1 - potassium / maxValue) + rawIncrement;
 		biomass += (growthRate * biomass) * (1 - biomass / maxValue) + rawIncrement;
+		*/
 		
 	}
 	
@@ -91,10 +92,12 @@ public class BigTile {
 	public double minRatio() {
 		double[] ratios = {
 			water / maxValue,
+			carbon / maxValue,
 			nitrogen / maxValue,
-			phosphorus / maxValue,
 			potassium / maxValue,
-			biomass / maxValue
+			calcium / maxValue,
+			phosphorus / maxValue,
+			salt / maxValue
 		};
 		
 		return MathUtils.min(ratios);
@@ -107,29 +110,45 @@ public class BigTile {
 	 * NOTE: DON'T LIKE THIS METHOD. YOU SHOULD TAKE AS MUCH AS YOU CAN. EVEN IF SOME THINGS ARE MISSING, YOU SHOULD
 	 * "FILL UP" ON OTHER MATERIALS. HOWEVER. WE'LL DO THIS FOR NOW.
 	 */
-	public double takeMaterials(double wat, double nit, double phos, double potas, double bio) {
+	public double takeMaterials(double H2O, 
+								double C, 
+								double N, 
+								double K, 
+								double Ca,
+								double P,
+								double NaCl) {
 		
 		double[] ratios = {
-				Math.min(water / wat, 1),
-				Math.min(nitrogen / nit, 1),
-				Math.min(phosphorus / phos, 1),
-				Math.min(potassium / potas, 1),
-				Math.min(biomass / bio, 1)
+				Math.min(water / H2O, 1),
+				Math.min(carbon / C, 1),
+				Math.min(nitrogen / N, 1),
+				Math.min(potassium / K, 1),
+				Math.min(calcium / Ca, 1),
+				Math.min(phosphorus / P, 1),
+				Math.min(salt / NaCl, 1),
 		};
 		
 		double minRatio = MathUtils.min(ratios);
 		
-		water -= wat * minRatio;
-		nitrogen -= nit * minRatio;
-		phosphorus -= phos * minRatio;
-		potassium -= potas * minRatio;
-		biomass -= bio * minRatio;
+		water -= H2O * minRatio;
+		carbon -= C * minRatio;
+		nitrogen -= N * minRatio;
+		potassium -= K * minRatio;
+		calcium -= Ca * minRatio;
+		phosphorus -= P * minRatio;
+		salt -= NaCl * minRatio;
 		
 		return minRatio;
 	}
 	
 	public String toString() {
-		return "water: " + water + ", nitrogen: " + nitrogen + ", phosphorus: " + phosphorus + ", potassium: " + potassium + ", biomass: " + biomass;
+		return "water: " + water + 
+				", carbon: " + carbon + 
+				", nitrogen: " + nitrogen + 
+				", potassium: " + potassium + 
+				", calcium: " + calcium +
+				", phosphorus: " + phosphorus +
+				", salt: " + salt;
 	}
 	
 	public String display() {

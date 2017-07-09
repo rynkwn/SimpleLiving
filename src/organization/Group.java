@@ -186,12 +186,21 @@ public class Group {
 				
 				// TODO: PLANT SETUP IS PRETTY UNSATISFYING.
 				
-				double water = nutritionalNeeds.get("water");
-				double nit = nutritionalNeeds.get("nitrogen");
-				double phos = nutritionalNeeds.get("phosphorus");
-				double potas = nutritionalNeeds.get("potassium");
-				double bio = nutritionalNeeds.get("biomass");
-				double satisfaction = residentTile.takeMaterials(water, nit, phos, potas, bio);
+				double H2O = nutritionalNeeds.get("water");
+				double C = nutritionalNeeds.get("carbon");
+				double N = nutritionalNeeds.get("nitrogen");
+				double K = nutritionalNeeds.get("potassium");
+				double Ca = nutritionalNeeds.get("calcium");
+				double P = nutritionalNeeds.get("phosphorus");
+				double NaCl = nutritionalNeeds.get("salt");
+				
+				double satisfaction = residentTile.takeMaterials(H2O,
+						C,
+						N,
+						K,
+						Ca,
+						P,
+						NaCl);
 				
 				e.absorb(satisfaction);
 			}

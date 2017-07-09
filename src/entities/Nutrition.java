@@ -96,12 +96,12 @@ public class Nutrition {
 		} else if(type.equals("PLANT")) {
 			
 			water = .1 * mass * metabolism;
-			carbon = (Nutrition.CARBON_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
-			nitrogen = (Nutrition.NITROGEN_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
-			potassium = (Nutrition.POTASSIUM_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
-			calcium = (Nutrition.CALCIUM_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
-			phosphorus = (Nutrition.PHOSPHORUS_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
-			salt = (Nutrition.SALT_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			carbon = .1 * (Nutrition.CARBON_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			nitrogen = .1 * (Nutrition.NITROGEN_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			potassium = .1 * (Nutrition.POTASSIUM_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			calcium = .1 * (Nutrition.CALCIUM_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			phosphorus = .1 * (Nutrition.PHOSPHORUS_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			salt = .1 * (Nutrition.SALT_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
 			
 		}
 	}
