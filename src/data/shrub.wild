@@ -1,0 +1,32 @@
+NAME: Shrub
+CONSUMPTION: Photosynthetic
+CARBON_NEEDS: 
+
+What sort of things do I care about?
+- Name
+- Whether this entity is capturable/forageable. (If capturable, it produces an entity. Otherwise, produces an item.)
+- The associated entity/item.
+
+- What else do I care about? I care about:
+- Wild animals foraging/eating among wild populations. (Carnivores. Omnivores. and Herbivores. Also: Photosynthetic)
+- Nutritional needs. Roughly what every unit of the animal needs every turn.
+- Production (if any). Does this species produce anything for the local environment? E.g., legumes produce nitrates.
+
+- Keep track of resources consumed onBirth, and resources released onDeath.
+- How much biomass does this organism represent?
+
+Name
+Capturable: None or the entity
+Harvestable: Harvested (Returns item and amount.)
+Consumption: Carnivorous, Omnivorous, Herbivorous, Autotrophic
+reproductionRate: 1.1 (Should always be greater than one. Modified by food availability.)
+lifeCost:
+	Carbon: blah
+
+
+onBirth:
+	Carbon: blah
+	salt: blah
+onDeath:
+	Carbon: Blah
+	salt: blah
