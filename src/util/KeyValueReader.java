@@ -19,6 +19,11 @@ public class KeyValueReader extends HashMap<String, ArrayList<List<String>>> {
 	/*
 	 * Reads a line of data, semi-colons split up elements in a list.
 	 * If elements are separated by a comma, then they're added together in a sublist.
+	 * 
+	 * LIST: a; b; c;
+	 * -> [[a], [b], [c]]
+	 * SUBLIST: a, b; 1, 2
+	 * -> [[a, b], [1, 2]]
 	 */
 	public void readLine(String line) {
 		// Remove all whitespace.
