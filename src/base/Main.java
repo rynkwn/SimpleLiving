@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import item.*;
+import ecology.*;
 import entities.*;
 import data.*;
 import organization.*;
@@ -18,6 +19,7 @@ public class Main {
 		SpeciesReader.readSpeciesData("src/data/");
 		ItemsReader.readItemData("src/data/");
 		GroupBehaviorReader.readBehaviorData("src/data");
+		EcologyReader.readEcologyData("src/data");
 		
 		
 		System.out.println(SpeciesReader.debugDump());
@@ -27,6 +29,12 @@ public class Main {
 		
 		System.out.println("\n\n\n");
 		System.out.println(GroupBehaviorReader.debugDump());
+
+		System.out.println("\n\n\n");
+		System.out.println(GroupBehaviorReader.debugDump());
+		
+		System.out.println("\n\n\n");
+		System.out.println(EcologyReader.debugDump());
 		
 		int length = 10;
 		int width = 10;
@@ -82,6 +90,5 @@ public class Main {
 			world.turn();
 		}
 		//scan.close();
-		
 	}
 }

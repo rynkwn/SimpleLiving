@@ -10,7 +10,7 @@ import java.util.HashMap;
  */
 
 public class WildSpecies {
-	
+
 	public String name;
 	public String captureResult;
 	public HashMap<String, Integer> harvestResult;
@@ -32,7 +32,19 @@ public class WildSpecies {
 		this.consumption = consumption;
 		this.reproductionRate = reproductionRate;
 		this.nutrientRequirements = nutrientRequirements;
-		
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("name: " + name + "\n");
+		sb.append("captureResult: " + captureResult + "\n");
+		sb.append("harvestResult: " + harvestResult + "\n");
+		sb.append("consumption: " + consumption + "\n");
+		sb.append("reproductionRate: " + reproductionRate + "\n");
+		sb.append("nutrientRequirements: " + nutrientRequirements.toString() + "\n");
+
+		return sb.toString();
 	}
 
 }
