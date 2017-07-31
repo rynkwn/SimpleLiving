@@ -1,5 +1,6 @@
 package ecology;
 
+import data.Macronutrient;
 import entities.Species;
 
 import java.util.HashMap;
@@ -15,13 +16,7 @@ public class WildSpecies {
 	public HashMap<String, Integer> harvestResult;
 	public String consumption;
 	public double reproduction_rate;
-	
-	public double water;
-	public double carbon;
-	public double nitrogen;
-	public double potassium;
-	public double calcium;
-	public double phosphorus;
-	public double salt;
+
+	public Macronutrient macronutrient;
 
 }
