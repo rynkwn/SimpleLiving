@@ -35,6 +35,13 @@ public class Macronutrient {
 		this.salt = salt;
 	}
 	
+	// A cloning method.
+	public Macronutrient(Macronutrient clone) {
+		for(String nutrient: Macronutrient.nutrientList()) {
+			set(nutrient, clone.get(nutrient));
+		}
+	}
+	
 	public Macronutrient(double initialValue) {
 		water = carbon = nitrogen = potassium = calcium = phosphorus = salt = initialValue;
 	}

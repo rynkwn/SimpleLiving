@@ -15,8 +15,24 @@ public class WildSpecies {
 	public String captureResult;
 	public HashMap<String, Integer> harvestResult;
 	public String consumption;
-	public double reproduction_rate;
+	public double reproductionRate;
 
-	public Macronutrient macronutrient;
+	public Macronutrient nutrientRequirements;
+	
+	public WildSpecies(String name,
+			String captureResult,
+			HashMap<String, Integer> harvestResult,
+			String consumption,
+			double reproductionRate,
+			Macronutrient nutrientRequirements) {
+		
+		this.name = name;
+		this.captureResult = captureResult;
+		this.harvestResult = harvestResult;
+		this.consumption = consumption;
+		this.reproductionRate = reproductionRate;
+		this.nutrientRequirements = nutrientRequirements;
+		
+	}
 
 }
