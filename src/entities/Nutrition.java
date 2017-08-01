@@ -156,9 +156,9 @@ public class Nutrition {
 		
 		
 		for(Food fd : meal) {
-			satisfied[0] += fd.nutrition.water * pctEffectiveness;
-			satisfied[1] += fd.nutrition.calories * pctEffectiveness;
-			satisfied[2] += fd.nutrition.vitaminC * pctEffectiveness;
+			satisfied[0] += fd.nutrition.water * pctEffectiveness * fd.quantity;
+			satisfied[1] += fd.nutrition.calories * pctEffectiveness * fd.quantity;
+			satisfied[2] += fd.nutrition.vitaminC * pctEffectiveness * fd.quantity;
 		}
 		
 		for(int i = 0; i < needs.length; i++) {
