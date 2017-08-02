@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
  * A wrapper class for macronutrients.
@@ -101,6 +102,34 @@ public class Macronutrient {
 	public void subtract(String key, double value) {
 		double curValue = get(key);
 		set(key, curValue - value);
+	}
+	
+	/*
+	 * Return true if all nutrients contained in this Macronutrient are greater
+	 * than or equal to the provided HashMap.
+	 * 
+	 * HashMap must contain extant nutrient.
+	 */
+	public boolean greaterThanOrEqualTo(HashMap<String, Double> nutrCost) {
+		for(String nutrient : nutrCost.keySet()) {
+			if(get(nutrient) < nutrCost.get(nutrient))
+				return false;
+		}
+		return true;
+	}
+	
+	/*
+	 * Return how many times the given divisor can factor into
+	 * this macronutrient.
+	 */
+	public int factor(HashMap<String, Double> divisor) {
+		int fctr = Integer.MAX_VALUE;
+		
+		for(String nutr : divisor.keySet()) {
+			fctr = (int) Math.min(fctr, get(nutr) / divisor.get(nutr));
+		}
+		
+		return fctr;
 	}
 	
 	public String toString() {

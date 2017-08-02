@@ -93,7 +93,6 @@ public class Body {
 			
 			growToSize(newSize);
 		}
-		 
 		
 		updateTraits();
 	}
