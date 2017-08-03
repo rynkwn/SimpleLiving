@@ -3,12 +3,14 @@ package world;
 import java.util.*;
 
 import organization.*;
+import ecology.EcoTile;
 
 /*
  * The world!
  */
 public class World {
 	public BigTile[][] map;
+	public EcoTile[][] ecology;
 	public int length;
 	public int width;
 	
@@ -16,6 +18,7 @@ public class World {
 	
 	public World(int length, int width, int seed) {
 		map = new BigTile[length][width];
+		ecology = new EcoTile[length][width];
 		
 		this.length = length;
 		this.width = width;
@@ -25,6 +28,7 @@ public class World {
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {
 				map[i][j] = new BigTile(waterRates[i][j]);
+				ecology[i][j] = new EcoTile(map[i][j]);
 			}
 		}
 		
@@ -35,6 +39,7 @@ public class World {
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {
 				map[i][j].turn(1);
+				ecology[i][j].turn();
 			}
 		}
 		

@@ -14,9 +14,16 @@ public class EcoTile {
 	
 	public HashMap<String, Integer> species;
 	
+	/*
+	 * When first adding an EcoTile, I should add a sufficiently large population of every species,
+	 * so that the world is properly populated.
+	 */
 	public EcoTile(BigTile tile) {
 		localTile = tile;
+		
 		species = new HashMap<String, Integer>();
+		for(String name : EcologyReader.getAllSpeciesNames())
+			species.put(name, 100);
 	}
 	
 	public EcoTile(BigTile tile, HashMap<String, Integer> speciesMap) {

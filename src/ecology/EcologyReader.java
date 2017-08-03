@@ -95,6 +95,15 @@ public class EcologyReader {
 		return wildInfo.get(name);
 	}
 	
+	public static ArrayList<String> getAllSpeciesNames() {
+		ArrayList<String> names = new ArrayList<String>();
+		
+		for(String name : wildInfo.keySet())
+			names.add(name);
+		
+		return names;
+	}
+	
 	// Dumps the structure of SpeciesReader.
 	public static String debugDump() {
 		StringBuilder sb = new StringBuilder();
