@@ -19,12 +19,17 @@ public class WildSpecies {
 
 	public Macronutrient nutrientRequirements;
 	
+	public double totalMass;
+	public int power;
+	
 	public WildSpecies(String name,
 			String captureResult,
 			HashMap<String, Integer> harvestResult,
 			String consumption,
 			double reproductionRate,
-			Macronutrient nutrientRequirements) {
+			Macronutrient nutrientRequirements,
+			double totalMass,
+			int power) {
 		
 		this.name = name;
 		this.captureResult = captureResult;
@@ -32,6 +37,8 @@ public class WildSpecies {
 		this.consumption = consumption;
 		this.reproductionRate = reproductionRate;
 		this.nutrientRequirements = nutrientRequirements;
+		this.totalMass = totalMass;
+		this.power = power;
 	}
 
 	public String toString() {
@@ -42,6 +49,8 @@ public class WildSpecies {
 		sb.append("harvestResult: " + harvestResult + "\n");
 		sb.append("consumption: " + consumption + "\n");
 		sb.append("reproductionRate: " + reproductionRate + "\n");
+		sb.append("totalMass: " + totalMass + "\n");
+		sb.append("power: " + power + "\n");
 		sb.append("nutrientRequirements: " + nutrientRequirements.toString() + "\n");
 
 		return sb.toString();

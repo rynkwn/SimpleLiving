@@ -43,6 +43,16 @@ public class Macronutrient {
 		}
 	}
 	
+	public Macronutrient(HashMap<String, Double> nutrients) {
+		water = nutrients.get("water");
+		carbon = nutrients.get("carbon");
+		nitrogen = nutrients.get("nitrogen");
+		potassium = nutrients.get("potassium");
+		calcium = nutrients.get("calcium");
+		phosphorus = nutrients.get("phosphorus");
+		salt = nutrients.get("salt");
+	}
+	
 	public Macronutrient(double initialValue) {
 		water = carbon = nitrogen = potassium = calcium = phosphorus = salt = initialValue;
 	}
@@ -102,6 +112,15 @@ public class Macronutrient {
 	public void subtract(String key, double value) {
 		double curValue = get(key);
 		set(key, curValue - value);
+	}
+	
+	public double nutrientSum() {
+		double sum = 0;
+		for(String nutrient : Macronutrient.nutrientList()) {
+			sum += get(nutrient);
+		}
+		
+		return sum;
 	}
 	
 	/*

@@ -59,6 +59,8 @@ public class EcologyReader {
 			
 			String consumptionType = reader.getSingle("CONSUMPTION");
 			double reproductionRate = reader.getDouble("REPRODUCTION_RATE");
+			
+			int power = reader.getInt("POWER");
 
 			double waterNeed = reader.getDouble("WATER");
 			double carbonNeed = reader.getDouble("CARBON");
@@ -75,13 +77,17 @@ public class EcologyReader {
 				calciumNeed,
 				phosphorusNeed,
 				saltNeed);
+			
+			double totalMass = macronutrient.nutrientSum();
 
 			WildSpecies wildCreature = new WildSpecies(name,
 				captureResult,
 				harvestResult,
 				consumptionType,
 				reproductionRate,
-				new Macronutrient(macronutrient)
+				new Macronutrient(macronutrient),
+				totalMass,
+				power
 				);
 			
 			wildInfo.put(name, wildCreature);
