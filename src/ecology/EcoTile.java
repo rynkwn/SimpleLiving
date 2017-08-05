@@ -10,9 +10,13 @@ import java.util.HashMap;
  */
 
 public class EcoTile {
+	public static final int TURNS_BETWEEN_ITERATIONS = 5;
+	
 	public BigTile localTile;
 	
 	public HashMap<String, Integer> species;
+	
+	public int turnsTillPopIteration = TURNS_BETWEEN_ITERATIONS;
 	
 	/*
 	 * When first adding an EcoTile, I should add a sufficiently large population of every species,
@@ -31,7 +35,7 @@ public class EcoTile {
 		species = speciesMap;
 	}
 	
-	public void turn() {
+	public void iterateSpeciesPopulations() {
 		Macronutrient localNutrients = localTile.soilComposition;
 		
 		for (String speciesName : species.keySet()) {
@@ -48,38 +52,32 @@ public class EcoTile {
 				// Otherwise, we modify their population.
 				
 				double reprodRate = spec.reproductionRate;
-				Macronutrient nutr = spec.nutrientRequirements;
 				
-				int differential = (int) (curNumber * reprodRate);
-				if(differential == 0) {
-					differential = 1;
-				}
-				
-				if (differential > 0) {
+				if(spec.consumption.equalsIgnoreCase("photosynthetic")) {
+					Macronutrient nutr = spec.nutrientRequirements;
 					
-					// Calculate the cost the new species members produce.
-					HashMap<String, Double> cost = new HashMap<String, Double>();
-					for(String nutrient : Macronutrient.nutrientList()) {
-						cost.put(nutrient, nutr.get(nutrient));
-					}
+					int differential = (int) (curNumber * reprodRate);
 					
-					// Grow as much as the local tile will sustain, or up till the differential.
-					int actualDifferential = Math.min(localNutrients.factor(cost), differential);
+					int actualDifferential = Math.min(localNutrients.factor(nutr), differential);
 					
 					for(String nutrient : Macronutrient.nutrientList()) {
 						localNutrients.subtract(nutrient, actualDifferential * nutr.get(nutrient));
 					}
 					
 					species.put(speciesName, curNumber + actualDifferential);
+				} else if(spec.consumption.equalsIgnoreCase("herbivorous")) {
 					
-				} else {
-					for(String nutrient : Macronutrient.nutrientList()) {
-						localNutrients.add(nutrient, differential * nutr.get(nutrient));
-					}
-					
-					species.put(speciesName, curNumber + differential);
 				}
 			}
+		}
+	}
+	
+	public void turn() {
+		if(turnsTillPopIteration == 0) {
+			turnsTillPopIteration = TURNS_BETWEEN_ITERATIONS;
+			iterateSpeciesPopulations();
+		} else {
+			turnsTillPopIteration --;
 		}
 	}
 	

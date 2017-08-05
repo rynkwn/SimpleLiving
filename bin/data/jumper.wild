@@ -1,4 +1,5 @@
 NAME: Jumper
+TYPE: Animal
 HARVESTABLE: Jumper, 1
 CONSUMPTION: Herbivorous
 REPRODUCTION_RATE: .2

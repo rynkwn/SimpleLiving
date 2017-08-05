@@ -1,4 +1,5 @@
 NAME: Shrub
+TYPE: Plant
 HARVESTABLE: Shrub, 1
 CONSUMPTION: Photosynthetic
 REPRODUCTION_RATE: .5

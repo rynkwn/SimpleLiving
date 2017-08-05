@@ -44,6 +44,7 @@ public class EcologyReader {
 			}
 
 			String name = reader.getSingle("NAME");
+			String type = reader.getSingle("TYPE");
 
 			// Set up the Harvest HashMap.
 			List<String> harvestList = reader.getList("HARVESTABLE");
@@ -81,14 +82,15 @@ public class EcologyReader {
 			double totalMass = macronutrient.nutrientSum();
 
 			WildSpecies wildCreature = new WildSpecies(name,
-				captureResult,
-				harvestResult,
-				consumptionType,
-				reproductionRate,
-				new Macronutrient(macronutrient),
-				totalMass,
-				power
-				);
+					type,
+					captureResult,
+					harvestResult,
+					consumptionType,
+					reproductionRate,
+					new Macronutrient(macronutrient),
+					totalMass,
+					power
+					);
 			
 			wildInfo.put(name, wildCreature);
 

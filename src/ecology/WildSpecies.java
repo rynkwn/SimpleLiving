@@ -12,6 +12,7 @@ import java.util.HashMap;
 public class WildSpecies {
 
 	public String name;
+	public String type;
 	public String captureResult;
 	public HashMap<String, Integer> harvestResult;
 	public String consumption;
@@ -23,6 +24,7 @@ public class WildSpecies {
 	public int power;
 	
 	public WildSpecies(String name,
+			String type,
 			String captureResult,
 			HashMap<String, Integer> harvestResult,
 			String consumption,
@@ -32,6 +34,7 @@ public class WildSpecies {
 			int power) {
 		
 		this.name = name;
+		this.type = type;
 		this.captureResult = captureResult;
 		this.harvestResult = harvestResult;
 		this.consumption = consumption;
