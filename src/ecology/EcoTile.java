@@ -51,7 +51,7 @@ public class EcoTile {
 				// Calculate the cost the new species members produce.
 				HashMap<String, Double> cost = new HashMap<String, Double>();
 				for(String nutrient : Macronutrient.nutrientList()) {
-					cost.put(nutrient, differential * nutr.get(nutrient));
+					cost.put(nutrient, nutr.get(nutrient));
 				}
 				
 				// Grow as much as the local tile will sustain, or up till the differential.
