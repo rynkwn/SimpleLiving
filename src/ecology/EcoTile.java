@@ -61,12 +61,19 @@ public class EcoTile {
 					localNutrients.subtract(nutrient, actualDifferential * nutr.get(nutrient));
 				}
 				
+				species.put(speciesName, curNumber + actualDifferential);
+				
 			} else {
 				for(String nutrient : Macronutrient.nutrientList()) {
 					localNutrients.add(nutrient, differential * nutr.get(nutrient));
 				}
+				
+				species.put(speciesName, curNumber + differential);
 			}
-			
 		}
+	}
+	
+	public String toString() {
+		return species.toString();
 	}
 }

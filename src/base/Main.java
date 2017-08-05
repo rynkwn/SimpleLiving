@@ -73,7 +73,7 @@ public class Main {
 			
 			grp.addItem(ItemsReader.makeComponent("Bud", 120));
 			
-			world.addGroup(grp.id, grp, i, i);
+			//world.addGroup(grp.id, grp, i, i);
 		}
 		
 		Scanner scan = new Scanner(System.in);
@@ -84,8 +84,10 @@ public class Main {
 			System.out.println("\n\n\n");
 			//System.out.println(world.map[4][2].toString());
 			System.out.println(world.display());
+			System.out.println(world.map[0][0].toString());
+			System.out.println(world.ecology[0][0].toString());
 			
-			System.out.println(testGroup.toString());
+			//System.out.println(testGroup.toString());
 			
 			world.turn();
 		}
