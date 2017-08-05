@@ -12,8 +12,8 @@ import util.*;
 
 public class BigTile {
 	
-	public static double maxValue = 50000;
-	public static double initValue = 5000;
+	public static double maxValue = 10000;
+	public static double initValue = 3000;
 	
 	// Summary levels.
 	public Macronutrient soilComposition;
@@ -55,15 +55,33 @@ public class BigTile {
 	 * Over time, this tile will gradually regenerate its properties.
 	 */
 	public void turn(int numTurnsPassed) {
+		iterateSoil();
+	}
+	
+	/*
+	 * Update soil conditions. This involves accreting biological resources and
+	 * also simulating erosion. This creates an effective cap on free resources
+	 * in a tile.
+	 */
+	public void iterateSoil() {
 		Random rand = new Random();
 		
-		for (String nutrient : Macronutrient.nutrientList()) {
-			if(!nutrient.equals("water"))
-				soilComposition.add(nutrient, maxValue / 1000);
+		ArrayList<String> nutrients = Macronutrient.nutrientList();
+		
+		// Remove any special biological resources that have their own rules.
+		nutrients.remove("water");
+		
+		for (String nutrient : nutrients) {
+			double curVal = soilComposition.get(nutrient);
+			double differential = maxValue - curVal;
+			differential /= 250;
+			differential *= (1.5 * rand.nextDouble());
+			
+			soilComposition.set(nutrient, curVal + differential);
 		}
 		
 		if(soilComposition.water < waterRate * maxValue) {
-			double modifier = 1.1 * rand.nextDouble();
+			double modifier = 1.5 * rand.nextDouble();
 			soilComposition.add("water", (waterRate * maxValue * modifier) / 104);
 		}
 	}
