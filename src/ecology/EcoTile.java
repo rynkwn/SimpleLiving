@@ -108,7 +108,7 @@ public class EcoTile {
 				int preyNumber = species.get(specName);
 				int numDesired = (int) (massLeftToConsume / preyMass);
 				int numEatable = power / wildSpec.power * curNumber;
-				int maxEatable = preyNumber - 200;
+				int maxEatable = preyNumber - LOWER_HUNTING_BOUND;
 				
 				int numEaten = Math.min(numDesired, Math.min(numEatable, maxEatable));
 				massLeftToConsume -= (preyMass * numEaten);
