@@ -99,7 +99,7 @@ public class EcologyReader {
 		}
 	}
 	
-	public static WildSpecies getEcologyObject(String name) {
+	public static WildSpecies getWildSpecies(String name) {
 		return wildInfo.get(name);
 	}
 	

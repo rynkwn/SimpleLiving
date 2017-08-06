@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 public class EcoTile {
 	public static final int TURNS_BETWEEN_ITERATIONS = 5;
+	public static final int LOWER_HUNTING_BOUND = 200; // A species can't eat another species to lower than this pop.
 	
 	public BigTile localTile;
 	
@@ -39,7 +40,7 @@ public class EcoTile {
 		Macronutrient localNutrients = localTile.soilComposition;
 		
 		for (String speciesName : species.keySet()) {
-			WildSpecies spec = EcologyReader.getEcologyObject(speciesName);
+			WildSpecies spec = EcologyReader.getWildSpecies(speciesName);
 			
 			int curNumber = species.get(speciesName);
 			
@@ -50,12 +51,10 @@ public class EcoTile {
 			} else {
 				
 				// Otherwise, we modify their population.
-				
 				double reprodRate = spec.reproductionRate;
+				Macronutrient nutr = spec.nutrientRequirements;
 				
-				if(spec.consumption.equalsIgnoreCase("photosynthetic")) {
-					Macronutrient nutr = spec.nutrientRequirements;
-					
+				if(spec.consumption.equalsIgnoreCase("photosynthetic")) {					
 					int differential = (int) (curNumber * reprodRate);
 					
 					int actualDifferential = Math.min(localNutrients.factor(nutr), differential);
@@ -65,11 +64,59 @@ public class EcoTile {
 					}
 					
 					species.put(speciesName, curNumber + actualDifferential);
-				} else if(spec.consumption.equalsIgnoreCase("herbivorous")) {
+				} else {
+					double desiredConsumption = nutr.nutrientSum() * curNumber;
 					
+					double unsatisfiedConsumption = eatOtherSpecies(speciesName, 
+							spec.consumption,
+							desiredConsumption,
+							species.get(speciesName),
+							spec.power);
+					
+					// Note: This is totally bad. Rethink and REDO this.
+					// This model just has monotonic growth.
+					double consumptionModifier = (1 - unsatisfiedConsumption / desiredConsumption);
+					int differential = (int) (curNumber * (spec.reproductionRate * consumptionModifier));
+					species.put(speciesName, curNumber + differential);
 				}
 			}
 		}
+	}
+	
+	/*
+	 * Look at all other species in the tile, and prey upon the weaker ones.
+	 * We eat as many as we can, 
+	 */
+	public double eatOtherSpecies(String speciesName, 
+			String consumptionType, 
+			double consumptionGoal, 
+			int curNumber, 
+			int power
+			) {
+		String targetType = "";
+		if(consumptionType.equals("Herbivorous")) {
+			targetType = "Plant";
+		}
+		
+		double massLeftToConsume = consumptionGoal;
+		
+		for(String specName : species.keySet()) {
+			WildSpecies wildSpec = EcologyReader.getWildSpecies(specName);
+			if(! specName.equals(speciesName) && wildSpec.type.equals(targetType)) {
+				double preyMass = wildSpec.nutrientRequirements.nutrientSum();
+				
+				int preyNumber = species.get(specName);
+				int numDesired = (int) (massLeftToConsume / preyMass);
+				int numEatable = power / wildSpec.power * curNumber;
+				int maxEatable = preyNumber - 200;
+				
+				int numEaten = Math.min(numDesired, Math.min(numEatable, maxEatable));
+				massLeftToConsume -= (preyMass * numEaten);
+				species.put(specName, preyNumber - numEaten);
+			}
+		}
+		
+		return massLeftToConsume;
 	}
 	
 	public void turn() {
