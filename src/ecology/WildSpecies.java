@@ -19,6 +19,7 @@ public class WildSpecies {
 	public double reproductionRate;
 
 	public Macronutrient nutrientRequirements;
+	public Macronutrient deathNutrition;
 	
 	public double totalMass;
 	public int power;
@@ -30,6 +31,7 @@ public class WildSpecies {
 			String consumption,
 			double reproductionRate,
 			Macronutrient nutrientRequirements,
+			Macronutrient deathNutrition,
 			double totalMass,
 			int power) {
 		
@@ -40,6 +42,7 @@ public class WildSpecies {
 		this.consumption = consumption;
 		this.reproductionRate = reproductionRate;
 		this.nutrientRequirements = nutrientRequirements;
+		this.deathNutrition = deathNutrition;
 		this.totalMass = totalMass;
 		this.power = power;
 	}

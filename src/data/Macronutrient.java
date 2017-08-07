@@ -141,11 +141,11 @@ public class Macronutrient {
 	 * Return how many times the given divisor can factor into
 	 * this macronutrient.
 	 */
-	public int factor(Macronutrient divisor) {
-		int fctr = Integer.MAX_VALUE;
+	public double factor(Macronutrient divisor) {
+		double fctr = Double.MAX_VALUE;
 		
 		for(String nutr : Macronutrient.nutrientList()) {
-			fctr = (int) Math.min(fctr, get(nutr) / divisor.get(nutr));
+			fctr = Math.min(fctr, get(nutr) / divisor.get(nutr));
 		}
 		
 		return fctr;

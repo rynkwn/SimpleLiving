@@ -3,6 +3,7 @@ package ecology;
 import data.Macronutrient;
 import world.BigTile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /*
@@ -10,8 +11,8 @@ import java.util.HashMap;
  */
 
 public class EcoTile {
-	public static final int TURNS_BETWEEN_ITERATIONS = 5;
-	public static final int LOWER_HUNTING_BOUND = 200; // A species can't eat another species to lower than this pop.
+	public static final int TURNS_BETWEEN_ITERATIONS = 1;
+	public static final int LOWER_HUNTING_BOUND = 50; // A species can't eat another species to lower than this pop.
 	
 	public BigTile localTile;
 	
@@ -28,7 +29,7 @@ public class EcoTile {
 		
 		species = new HashMap<String, Integer>();
 		for(String name : EcologyReader.getAllSpeciesNames())
-			species.put(name, 100);
+			species.put(name, 200 / EcologyReader.getWildSpecies(name).power);
 	}
 	
 	public EcoTile(BigTile tile, HashMap<String, Integer> speciesMap) {
@@ -38,32 +39,41 @@ public class EcoTile {
 	
 	public void iterateSpeciesPopulations() {
 		Macronutrient localNutrients = localTile.soilComposition;
+		ArrayList<String> deadSpecies = new ArrayList<String>();
 		
 		for (String speciesName : species.keySet()) {
 			WildSpecies spec = EcologyReader.getWildSpecies(speciesName);
 			
 			int curNumber = species.get(speciesName);
 			
-			if(curNumber == 0) {
+			if(curNumber <= 0) {
 				// If the species is extinct in this tile, remove them.
-				species.remove(speciesName);
+				deadSpecies.add(speciesName);
 				
 			} else {
 				
 				// Otherwise, we modify their population.
 				double reprodRate = spec.reproductionRate;
 				Macronutrient nutr = spec.nutrientRequirements;
+				Macronutrient deathNutr = spec.deathNutrition;
 				
-				if(spec.consumption.equalsIgnoreCase("photosynthetic")) {					
-					int differential = (int) (curNumber * reprodRate);
+				if(spec.consumption.equalsIgnoreCase("photosynthetic")) {
+					double reproModifier = Math.min(localNutrients.factor(nutr), 1.0);
+					int differential = (int) (curNumber * (1 + reprodRate - reproModifier));
 					
-					int actualDifferential = Math.min(localNutrients.factor(nutr), differential);
+					System.out.println(reproModifier + " - " + differential);
 					
-					for(String nutrient : Macronutrient.nutrientList()) {
-						localNutrients.subtract(nutrient, actualDifferential * nutr.get(nutrient));
+					if(differential > 0) {
+						for(String nutrient : Macronutrient.nutrientList()) {
+							localNutrients.subtract(nutrient, differential * nutr.get(nutrient));
+						}
+					} else {
+						for(String nutrient : Macronutrient.nutrientList()) {
+							localNutrients.add(nutrient, (-1) * differential * deathNutr.get(nutrient));
+						}
 					}
 					
-					species.put(speciesName, curNumber + actualDifferential);
+					species.put(speciesName, curNumber + differential);
 				} else {
 					double desiredConsumption = nutr.nutrientSum() * curNumber;
 					
@@ -72,14 +82,16 @@ public class EcoTile {
 							desiredConsumption,
 							species.get(speciesName),
 							spec.power);
-					
-					// Note: This is totally bad. Rethink and REDO this.
-					// This model just has monotonic growth.
-					double consumptionModifier = (1 - unsatisfiedConsumption / desiredConsumption);
-					int differential = (int) (curNumber * (spec.reproductionRate * consumptionModifier));
+
+					double consumptionModifier = (unsatisfiedConsumption / desiredConsumption);
+					int differential = (int) (curNumber * (spec.reproductionRate - consumptionModifier));
 					species.put(speciesName, curNumber + differential);
 				}
 			}
+		}
+		
+		for(String deadSpeciesName : deadSpecies) {
+			species.remove(deadSpeciesName);
 		}
 	}
 	
@@ -108,7 +120,7 @@ public class EcoTile {
 				int preyNumber = species.get(specName);
 				int numDesired = (int) (massLeftToConsume / preyMass);
 				int numEatable = power / wildSpec.power * curNumber;
-				int maxEatable = preyNumber - LOWER_HUNTING_BOUND;
+				int maxEatable = Math.max(preyNumber - LOWER_HUNTING_BOUND, 0);
 				
 				int numEaten = Math.min(numDesired, Math.min(numEatable, maxEatable));
 				massLeftToConsume -= (preyMass * numEaten);

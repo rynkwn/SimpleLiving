@@ -70,14 +70,32 @@ public class EcologyReader {
 			double calciumNeed = reader.getDouble("CALCIUM");
 			double phosphorusNeed = reader.getDouble("PHOSPHORUS");
 			double saltNeed = reader.getDouble("SALT");
-
-			Macronutrient macronutrient = new Macronutrient(waterNeed, 
-				carbonNeed, 
-				nitrogenNeed,
-				potassiumNeed,
-				calciumNeed,
-				phosphorusNeed,
-				saltNeed);
+			
+			Macronutrient macronutrient = new Macronutrient(0);
+			macronutrient.set("water", waterNeed);
+			macronutrient.set("carbon", carbonNeed);
+			macronutrient.set("nitrogen", nitrogenNeed);
+			macronutrient.set("potassium", potassiumNeed);
+			macronutrient.set("calcium", calciumNeed);
+			macronutrient.set("phosphorus", phosphorusNeed);
+			macronutrient.set("salt", saltNeed);
+			
+			double deathWater = reader.getDouble("WATER");
+			double deathCarbon = reader.getDouble("CARBON");
+			double deathNitrogen = reader.getDouble("NITROGEN");
+			double deathPotassium = reader.getDouble("POTASSIUM");
+			double deathCalcium = reader.getDouble("CALCIUM");
+			double deathPhosphorus = reader.getDouble("PHOSPHORUS");
+			double deathSalt = reader.getDouble("SALT");
+			
+			Macronutrient deathNutrient = new Macronutrient(0);
+			macronutrient.set("water", deathWater);
+			macronutrient.set("carbon", deathCarbon);
+			macronutrient.set("nitrogen", deathNitrogen);
+			macronutrient.set("potassium", deathPotassium);
+			macronutrient.set("calcium", deathCalcium);
+			macronutrient.set("phosphorus", deathPhosphorus);
+			macronutrient.set("salt", deathSalt);
 			
 			double totalMass = macronutrient.nutrientSum();
 
@@ -88,6 +106,7 @@ public class EcologyReader {
 					consumptionType,
 					reproductionRate,
 					new Macronutrient(macronutrient),
+					new Macronutrient(deathNutrient),
 					totalMass,
 					power
 					);
