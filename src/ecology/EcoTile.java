@@ -58,8 +58,16 @@ public class EcoTile {
 				Macronutrient deathNutr = spec.deathNutrition;
 				
 				if(spec.consumption.equalsIgnoreCase("photosynthetic")) {
-					double reproModifier = Math.min(localNutrients.factor(nutr), 1.0);
-					int differential = (int) (curNumber * (1 + reprodRate - reproModifier));
+					// TODO: Two big issues:
+					// 1) Still no satisfying way to model plant population dynamics.
+					// Things still aren't moving in a natural way, nor is the tile
+					// being enriched.
+					// 2) Animals, when they lose numbers, are not releasing biological
+					// resources into their local tile.
+					
+					double carryingCapacity = localNutrients.factor(nutr);
+					double reproModifier = (carryingCapacity - curNumber) / carryingCapacity;
+					int differential = (int) (curNumber * (reprodRate + reproModifier));
 					
 					System.out.println(reproModifier + " - " + differential);
 					
@@ -115,7 +123,7 @@ public class EcoTile {
 		for(String specName : species.keySet()) {
 			WildSpecies wildSpec = EcologyReader.getWildSpecies(specName);
 			if(! specName.equals(speciesName) && wildSpec.type.equals(targetType)) {
-				double preyMass = wildSpec.nutrientRequirements.nutrientSum();
+				double preyMass = wildSpec.deathNutrition.nutrientSum();
 				
 				int preyNumber = species.get(specName);
 				int numDesired = (int) (massLeftToConsume / preyMass);
