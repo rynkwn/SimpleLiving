@@ -5,6 +5,7 @@ import world.BigTile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /*
  * A class that simulates the ecology of a given tile.
@@ -40,6 +41,7 @@ public class EcoTile {
 	public void iterateSpeciesPopulations() {
 		Macronutrient localNutrients = localTile.soilComposition;
 		ArrayList<String> deadSpecies = new ArrayList<String>();
+		Random rand = new Random();
 		
 		for (String speciesName : species.keySet()) {
 			WildSpecies spec = EcologyReader.getWildSpecies(speciesName);
@@ -65,11 +67,11 @@ public class EcoTile {
 					// 2) Animals, when they lose numbers, are not releasing biological
 					// resources into their local tile.
 					
-					double carryingCapacity = localNutrients.factor(nutr);
-					double reproModifier = (carryingCapacity - curNumber) / carryingCapacity;
-					int differential = (int) (curNumber * (reprodRate + reproModifier));
+					int carryingCapacity = (int) localNutrients.factor(nutr) * 2;
+					int differential = (carryingCapacity - curNumber);
+					differential = (int) (differential * reprodRate);
 					
-					System.out.println(reproModifier + " - " + differential);
+					System.out.println(differential);
 					
 					if(differential > 0) {
 						for(String nutrient : Macronutrient.nutrientList()) {
