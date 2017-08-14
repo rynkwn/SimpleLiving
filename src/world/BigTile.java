@@ -66,12 +66,12 @@ public class BigTile {
 	public void iterateSoil() {
 		Random rand = new Random();
 		
-		ArrayList<String> nutrients = Macronutrient.nutrientList();
+		ArrayList<String> nutrientsList = Macronutrient.nutrientList();
 		
 		// Remove any special biological resources that have their own rules.
-		nutrients.remove("water");
+		nutrientsList.remove("water");
 		
-		for (String nutrient : nutrients) {
+		for (String nutrient : nutrientsList) {
 			double curVal = soilComposition.get(nutrient);
 			double differential = maxValue - curVal;
 			differential /= 250;
