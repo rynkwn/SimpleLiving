@@ -95,6 +95,9 @@ public class EcoTile {
 
 					double consumptionModifier = (unsatisfiedConsumption / desiredConsumption);
 					int differential = (int) (curNumber * (spec.reproductionRate - consumptionModifier));
+					if (differential == 0) {
+						differential = 1;
+					}
 					species.put(speciesName, curNumber + differential);
 				}
 			}
