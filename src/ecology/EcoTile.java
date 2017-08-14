@@ -38,6 +38,13 @@ public class EcoTile {
 		species = speciesMap;
 	}
 	
+	// Subtract differential * nutrientModel from the local environment.
+	public void subtractFromEnvironment(Macronutrient nutrientModel, int differential) {
+		for(String nutrient : Macronutrient.nutrientList()) {
+			localTile.soilComposition.subtract(nutrient, differential * nutrientModel.get(nutrient));
+		}
+	}
+	
 	public void iterateSpeciesPopulations() {
 		Macronutrient localNutrients = localTile.soilComposition;
 		ArrayList<String> deadSpecies = new ArrayList<String>();
@@ -71,16 +78,10 @@ public class EcoTile {
 					int differential = (carryingCapacity - curNumber);
 					differential = (int) (differential * reprodRate);
 					
-					System.out.println(differential);
-					
 					if(differential > 0) {
-						for(String nutrient : Macronutrient.nutrientList()) {
-							localNutrients.subtract(nutrient, differential * nutr.get(nutrient));
-						}
+						subtractFromEnvironment(nutr, differential);
 					} else {
-						for(String nutrient : Macronutrient.nutrientList()) {
-							localNutrients.add(nutrient, (-1) * differential * deathNutr.get(nutrient));
-						}
+						subtractFromEnvironment(deathNutr, differential);
 					}
 					
 					species.put(speciesName, curNumber + differential);
@@ -95,8 +96,14 @@ public class EcoTile {
 
 					double consumptionModifier = (unsatisfiedConsumption / desiredConsumption);
 					int differential = (int) (curNumber * (spec.reproductionRate - consumptionModifier));
+					
+					// Help out the species a bit if it's not growing otherwise.
 					if (differential == 0) {
 						differential = 1;
+					} else if (differential < 0) {
+						
+						// Return resources to tile.
+						subtractFromEnvironment(deathNutr, differential);
 					}
 					species.put(speciesName, curNumber + differential);
 				}

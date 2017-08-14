@@ -89,13 +89,13 @@ public class EcologyReader {
 			double deathSalt = reader.getDouble("SALT");
 			
 			Macronutrient deathNutrient = new Macronutrient(0);
-			macronutrient.set("water", deathWater);
-			macronutrient.set("carbon", deathCarbon);
-			macronutrient.set("nitrogen", deathNitrogen);
-			macronutrient.set("potassium", deathPotassium);
-			macronutrient.set("calcium", deathCalcium);
-			macronutrient.set("phosphorus", deathPhosphorus);
-			macronutrient.set("salt", deathSalt);
+			deathNutrient.set("water", deathWater);
+			deathNutrient.set("carbon", deathCarbon);
+			deathNutrient.set("nitrogen", deathNitrogen);
+			deathNutrient.set("potassium", deathPotassium);
+			deathNutrient.set("calcium", deathCalcium);
+			deathNutrient.set("phosphorus", deathPhosphorus);
+			deathNutrient.set("salt", deathSalt);
 			
 			double totalMass = macronutrient.nutrientSum();
 
