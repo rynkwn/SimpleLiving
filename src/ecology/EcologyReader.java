@@ -80,13 +80,30 @@ public class EcologyReader {
 			macronutrient.set("phosphorus", phosphorusNeed);
 			macronutrient.set("salt", saltNeed);
 			
-			double deathWater = reader.getDouble("WATER");
-			double deathCarbon = reader.getDouble("CARBON");
-			double deathNitrogen = reader.getDouble("NITROGEN");
-			double deathPotassium = reader.getDouble("POTASSIUM");
-			double deathCalcium = reader.getDouble("CALCIUM");
-			double deathPhosphorus = reader.getDouble("PHOSPHORUS");
-			double deathSalt = reader.getDouble("SALT");
+			double turnWater = reader.getDouble("PER_TURN_WATER");
+			double turnCarbon = reader.getDouble("PER_TURN_CARBON");
+			double turnNitrogen = reader.getDouble("PER_TURN_NITROGEN");
+			double turnPotassium = reader.getDouble("PER_TURN_POTASSIUM");
+			double turnCalcium = reader.getDouble("PER_TURN_CALCIUM");
+			double turnPhosphorus = reader.getDouble("PER_TURN_PHOSPHORUS");
+			double turnSalt = reader.getDouble("PER_TURN_SALT");
+			
+			Macronutrient turnNutrient = new Macronutrient(0);
+			turnNutrient.set("water", turnWater);
+			turnNutrient.set("carbon", turnCarbon);
+			turnNutrient.set("nitrogen", turnNitrogen);
+			turnNutrient.set("potassium", turnPotassium);
+			turnNutrient.set("calcium", turnCalcium);
+			turnNutrient.set("phosphorus", turnPhosphorus);
+			turnNutrient.set("salt", turnSalt);
+			
+			double deathWater = reader.getDouble("ON_DEATH_WATER");
+			double deathCarbon = reader.getDouble("ON_DEATH_CARBON");
+			double deathNitrogen = reader.getDouble("ON_DEATH_NITROGEN");
+			double deathPotassium = reader.getDouble("ON_DEATH_POTASSIUM");
+			double deathCalcium = reader.getDouble("ON_DEATH_CALCIUM");
+			double deathPhosphorus = reader.getDouble("ON_DEATH_PHOSPHORUS");
+			double deathSalt = reader.getDouble("ON_DEATH_SALT");
 			
 			Macronutrient deathNutrient = new Macronutrient(0);
 			deathNutrient.set("water", deathWater);
@@ -106,6 +123,7 @@ public class EcologyReader {
 					consumptionType,
 					reproductionRate,
 					new Macronutrient(macronutrient),
+					new Macronutrient(turnNutrient),
 					new Macronutrient(deathNutrient),
 					totalMass,
 					power

@@ -18,8 +18,9 @@ public class WildSpecies {
 	public String consumption;
 	public double reproductionRate;
 
-	public Macronutrient nutrientRequirements;
-	public Macronutrient deathNutrition;
+	public Macronutrient nutrientRequirements; // Resources needed to spawn a new instance.
+	public Macronutrient turnNutrition; // Passive addition to local tile resources.
+	public Macronutrient deathNutrition; // Resources released on death.
 	
 	public double totalMass;
 	public int power;
@@ -31,6 +32,7 @@ public class WildSpecies {
 			String consumption,
 			double reproductionRate,
 			Macronutrient nutrientRequirements,
+			Macronutrient turnNutrition,
 			Macronutrient deathNutrition,
 			double totalMass,
 			int power) {
@@ -42,6 +44,7 @@ public class WildSpecies {
 		this.consumption = consumption;
 		this.reproductionRate = reproductionRate;
 		this.nutrientRequirements = nutrientRequirements;
+		this.turnNutrition = turnNutrition;
 		this.deathNutrition = deathNutrition;
 		this.totalMass = totalMass;
 		this.power = power;
