@@ -64,7 +64,11 @@ public class EcoTile {
 				// Otherwise, we modify their population.
 				double reprodRate = spec.reproductionRate;
 				Macronutrient nutr = spec.nutrientRequirements;
+				Macronutrient turnNutr = spec.turnNutrition;
 				Macronutrient deathNutr = spec.deathNutrition;
+				
+				// Add nutrients to the local tile.
+				localNutrients.add(turnNutr, curNumber);
 				
 				if(spec.consumption.equalsIgnoreCase("photosynthetic")) {
 					// TODO: Two big issues:
@@ -74,13 +78,11 @@ public class EcoTile {
 					// 2) Animals, when they lose numbers, are not releasing biological
 					// resources into their local tile.
 					
-					int carryingCapacity = (int) localNutrients.factor(nutr) * 2;
+					int carryingCapacity = (int) localNutrients.factor(nutr) * 3;
 					int differential = (carryingCapacity - curNumber);
 					differential = (int) (differential * reprodRate);
 					
-					if(differential > 0) {
-						subtractFromEnvironment(nutr, differential);
-					} else {
+					if(differential < 0) {
 						subtractFromEnvironment(deathNutr, differential);
 					}
 					

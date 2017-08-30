@@ -109,6 +109,18 @@ public class Macronutrient {
 		set(key, curValue + value);
 	}
 	
+	public void add(Macronutrient nutr) {
+		for(String nutrient : nutrientList()) {
+			add(nutrient, nutr.get(nutrient));
+		}
+	}
+	
+	public void add(Macronutrient nutr, int multiplier) {
+		for(String nutrient : nutrientList()) {
+			add(nutrient, multiplier * nutr.get(nutrient));
+		}
+	}
+	
 	public void subtract(String key, double value) {
 		double curValue = get(key);
 		set(key, curValue - value);

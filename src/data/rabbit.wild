@@ -1,6 +1,6 @@
-NAME: Jumper
+NAME: Rabbit
 TYPE: Animal
-HARVESTABLE: Jumper, 1
+HARVESTABLE: Rabbit, 1
 CONSUMPTION: Herbivorous
 REPRODUCTION_RATE: .1
 POWER: 2
