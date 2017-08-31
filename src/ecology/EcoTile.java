@@ -74,7 +74,7 @@ public class EcoTile {
 				
 				if(spec.consumption.equalsIgnoreCase("photosynthetic")) {
 					
-					int carryingCapacity = (int) localNutrients.factor(nutr) * 3;
+					int carryingCapacity = (int) localNutrients.factor(nutr);
 					int differential = (carryingCapacity - curNumber);
 					differential = (int) (differential * reprodRate);
 					
