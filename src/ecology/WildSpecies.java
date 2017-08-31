@@ -49,6 +49,14 @@ public class WildSpecies {
 		this.totalMass = totalMass;
 		this.power = power;
 	}
+	
+	public String getPreySpeciesType() {
+		if(consumption.equals("Herbivorous")) {
+			return "Plant";
+		}
+		
+		return "None";
+	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

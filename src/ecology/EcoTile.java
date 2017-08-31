@@ -14,6 +14,7 @@ import java.util.Random;
 public class EcoTile {
 	public static final int TURNS_BETWEEN_ITERATIONS = 1;
 	public static final int LOWER_HUNTING_BOUND = 50; // A species can't eat another species to lower than this pop.
+	public static final int MAX_SPECIES_NUMBER = 50000;
 	
 	public BigTile localTile;
 	
@@ -47,7 +48,7 @@ public class EcoTile {
 	
 	public void iterateSpeciesPopulations() {
 		Macronutrient localNutrients = localTile.soilComposition;
-		ArrayList<String> deadSpecies = new ArrayList<String>();
+		ArrayList<String> deadSpecies = new ArrayList<String>(); 
 		Random rand = new Random();
 		
 		for (String speciesName : species.keySet()) {
@@ -67,37 +68,36 @@ public class EcoTile {
 				Macronutrient turnNutr = spec.turnNutrition;
 				Macronutrient deathNutr = spec.deathNutrition;
 				
-				// Add nutrients to the local tile.
+				// Every species passively adds some small number of nutrients
+				// to the local tile.
 				localNutrients.add(turnNutr, curNumber);
 				
 				if(spec.consumption.equalsIgnoreCase("photosynthetic")) {
-					// TODO: Two big issues:
-					// 1) Still no satisfying way to model plant population dynamics.
-					// Things still aren't moving in a natural way, nor is the tile
-					// being enriched.
-					// 2) Animals, when they lose numbers, are not releasing biological
-					// resources into their local tile.
 					
 					int carryingCapacity = (int) localNutrients.factor(nutr) * 3;
 					int differential = (carryingCapacity - curNumber);
 					differential = (int) (differential * reprodRate);
 					
+					int newSpeciesNumber = Math.min(curNumber + differential, MAX_SPECIES_NUMBER);
+					
 					if(differential < 0) {
 						subtractFromEnvironment(deathNutr, differential);
 					}
 					
-					species.put(speciesName, curNumber + differential);
+					species.put(speciesName, newSpeciesNumber);
 				} else {
 					double desiredConsumption = nutr.nutrientSum() * curNumber;
 					
-					double unsatisfiedConsumption = eatOtherSpecies(speciesName, 
-							spec.consumption,
-							desiredConsumption,
-							species.get(speciesName),
+					int carryingCapacity = carryingCapacity(spec, speciesName, curNumber, desiredConsumption, spec.power);
+					
+					eatOtherSpecies(spec, 
+							speciesName, 
+							desiredConsumption, 
+							curNumber, 
 							spec.power);
-
-					double consumptionModifier = (unsatisfiedConsumption / desiredConsumption);
-					int differential = (int) (curNumber * (spec.reproductionRate - consumptionModifier));
+					
+					int differential = carryingCapacity - curNumber;
+					differential = (int) (differential * reprodRate);
 					
 					// Help out the species a bit if it's not growing otherwise.
 					if (differential == 0) {
@@ -108,6 +108,7 @@ public class EcoTile {
 						subtractFromEnvironment(deathNutr, differential);
 					}
 					species.put(speciesName, curNumber + differential);
+					
 				}
 			}
 		}
@@ -118,19 +119,43 @@ public class EcoTile {
 	}
 	
 	/*
-	 * Look at all other species in the tile, and prey upon the weaker ones.
-	 * We eat as many as we can, 
+	 * Look at all the prey species in the tile, and calculate what the carrying capacity 
+	 * of this particular species is.
 	 */
-	public double eatOtherSpecies(String speciesName, 
-			String consumptionType, 
+	public int carryingCapacity(WildSpecies predator, 
+			String speciesName, 
+			int curNumber,
+			double consumptionGoal,
+			int power) {
+		String targetType = predator.getPreySpeciesType();
+		
+		double totalPreyMass = 0;
+		
+		for(String specName : species.keySet()) {
+			WildSpecies wildSpec = EcologyReader.getWildSpecies(specName);
+			if(! specName.equals(speciesName) && wildSpec.type.equals(targetType)) {
+				double preyMass = wildSpec.deathNutrition.nutrientSum();
+				
+				int preyNumber = species.get(specName);
+				int numEatable = (power / wildSpec.power) * curNumber;
+				int maxEatable = Math.max(preyNumber - LOWER_HUNTING_BOUND, 0);
+				
+				totalPreyMass += (Math.min(maxEatable, numEatable) * preyMass);
+			}
+		}
+		return (int) (totalPreyMass / consumptionGoal) * curNumber;
+	}
+	
+	/*
+	 * Go through all prey species and eat what we can, up to what we want.
+	 */
+	public void eatOtherSpecies(WildSpecies predator,
+			String speciesName, 
 			double consumptionGoal, 
 			int curNumber, 
 			int power
 			) {
-		String targetType = "";
-		if(consumptionType.equals("Herbivorous")) {
-			targetType = "Plant";
-		}
+		String targetType = predator.getPreySpeciesType();
 		
 		double massLeftToConsume = consumptionGoal;
 		
@@ -145,12 +170,9 @@ public class EcoTile {
 				int maxEatable = Math.max(preyNumber - LOWER_HUNTING_BOUND, 0);
 				
 				int numEaten = Math.min(numDesired, Math.min(numEatable, maxEatable));
-				massLeftToConsume -= (preyMass * numEaten);
 				species.put(specName, preyNumber - numEaten);
 			}
 		}
-		
-		return massLeftToConsume;
 	}
 	
 	public void turn() {
