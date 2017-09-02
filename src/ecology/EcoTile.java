@@ -86,9 +86,10 @@ public class EcoTile {
 					
 					species.put(speciesName, newSpeciesNumber);
 				} else {
-					double desiredConsumption = nutr.nutrientSum() * curNumber;
+					double consumptionPerCreature = nutr.nutrientSum();
+					double desiredConsumption = consumptionPerCreature * curNumber;
 					
-					int carryingCapacity = carryingCapacity(spec, speciesName, curNumber, desiredConsumption, spec.power);
+					int carryingCapacity = carryingCapacity(spec, speciesName, curNumber, consumptionPerCreature, spec.power);
 					
 					eatOtherSpecies(spec, 
 							speciesName, 
@@ -97,7 +98,10 @@ public class EcoTile {
 							spec.power);
 					
 					int differential = carryingCapacity - curNumber;
-					differential = (int) (differential * reprodRate);
+					
+					// If we're growing, we should grow slowly. We fall quickly.
+					if(differential > 0)
+						differential = (int) (differential * reprodRate);
 					
 					// Help out the species a bit if it's not growing otherwise.
 					if (differential == 0) {
@@ -125,7 +129,7 @@ public class EcoTile {
 	public int carryingCapacity(WildSpecies predator, 
 			String speciesName, 
 			int curNumber,
-			double consumptionGoal,
+			double consumptionPerCreature,
 			int power) {
 		String targetType = predator.getPreySpeciesType();
 		
@@ -139,11 +143,12 @@ public class EcoTile {
 				int preyNumber = species.get(specName);
 				int numEatable = (power / wildSpec.power) * curNumber;
 				int maxEatable = Math.max(preyNumber - LOWER_HUNTING_BOUND, 0);
-				
 				totalPreyMass += (Math.min(maxEatable, numEatable) * preyMass);
 			}
 		}
-		return (int) (totalPreyMass / consumptionGoal) * curNumber;
+		
+		//System.out.println(totalPreyMass + " - " + consumptionPerCreature + " - " + (totalPreyMass/consumptionPerCreature));
+		return (int) (totalPreyMass / consumptionPerCreature);
 	}
 	
 	/*
