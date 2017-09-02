@@ -90,6 +90,7 @@ public class EcoTile {
 					double desiredConsumption = consumptionPerCreature * curNumber;
 					
 					int carryingCapacity = carryingCapacity(spec, speciesName, curNumber, consumptionPerCreature, spec.power);
+					carryingCapacity /= 10;
 					
 					eatOtherSpecies(spec, 
 							speciesName, 
@@ -141,8 +142,10 @@ public class EcoTile {
 				double preyMass = wildSpec.deathNutrition.nutrientSum();
 				
 				int preyNumber = species.get(specName);
-				int numEatable = (power / wildSpec.power) * curNumber;
+				//int numEatable = (power / wildSpec.power) * curNumber;
+				int numEatable = preyNumber;
 				int maxEatable = Math.max(preyNumber - LOWER_HUNTING_BOUND, 0);
+				
 				totalPreyMass += (Math.min(maxEatable, numEatable) * preyMass);
 			}
 		}
