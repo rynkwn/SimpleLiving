@@ -2,6 +2,7 @@ package ecology;
 
 import ecology.WildSpecies;
 import util.KeyValueReader;
+import util.Range;
 import data.Macronutrient;
 
 import java.util.*;
@@ -60,6 +61,10 @@ public class EcologyReader {
 			
 			String consumptionType = reader.getSingle("CONSUMPTION");
 			double reproductionRate = reader.getDouble("REPRODUCTION_RATE");
+			
+			int minTemp = reader.getInt("MIN_TEMPERATURE");
+			int maxTemp = reader.getInt("MAX_TEMPERATURE");
+			Range temperatureTolerance = new Range(minTemp, maxTemp);
 			
 			int power = reader.getInt("POWER");
 
@@ -122,6 +127,7 @@ public class EcologyReader {
 					harvestResult,
 					consumptionType,
 					reproductionRate,
+					temperatureTolerance,
 					new Macronutrient(macronutrient),
 					new Macronutrient(turnNutrient),
 					new Macronutrient(deathNutrient),

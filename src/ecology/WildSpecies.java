@@ -1,6 +1,7 @@
 package ecology;
 
 import data.Macronutrient;
+import util.Range;
 import entities.Species;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class WildSpecies {
 	public HashMap<String, Integer> harvestResult;
 	public String consumption;
 	public double reproductionRate;
+	public Range temperatureTolerance;
 
 	public Macronutrient nutrientRequirements; // Resources needed to spawn a new instance.
 	public Macronutrient turnNutrition; // Passive addition to local tile resources.
@@ -31,6 +33,7 @@ public class WildSpecies {
 			HashMap<String, Integer> harvestResult,
 			String consumption,
 			double reproductionRate,
+			Range temperatureTolerance,
 			Macronutrient nutrientRequirements,
 			Macronutrient turnNutrition,
 			Macronutrient deathNutrition,
@@ -43,6 +46,7 @@ public class WildSpecies {
 		this.harvestResult = harvestResult;
 		this.consumption = consumption;
 		this.reproductionRate = reproductionRate;
+		this.temperatureTolerance = temperatureTolerance;
 		this.nutrientRequirements = nutrientRequirements;
 		this.turnNutrition = turnNutrition;
 		this.deathNutrition = deathNutrition;
@@ -65,11 +69,15 @@ public class WildSpecies {
 		sb.append("captureResult: " + captureResult + "\n");
 		sb.append("harvestResult: " + harvestResult + "\n");
 		sb.append("consumption: " + consumption + "\n");
+		sb.append("temperature tolerance: " + temperatureTolerance + "\n");
 		sb.append("reproductionRate: " + reproductionRate + "\n");
 		sb.append("totalMass: " + totalMass + "\n");
 		sb.append("power: " + power + "\n");
 		sb.append("nutrientRequirements: " + nutrientRequirements.toString() + "\n");
-
+		sb.append("turn nutrients: " + turnNutrition.toString() + "\n");
+		sb.append("death nutrients: " + deathNutrition.toString() + "\n");
+		
+		sb.append("\n\n");
 		return sb.toString();
 	}
 

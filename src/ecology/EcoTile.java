@@ -16,6 +16,9 @@ public class EcoTile {
 	public static final int LOWER_HUNTING_BOUND = 50; // A species can't eat another species to lower than this pop.
 	public static final int MAX_SPECIES_NUMBER = 50000;
 	
+	// Carrying capacity for predators are divided by this factor.
+	public static final int PREDATION_INEFFICIENCY_FACTOR = 10;
+	
 	public BigTile localTile;
 	
 	public HashMap<String, Integer> species;
@@ -49,78 +52,91 @@ public class EcoTile {
 	public void iterateSpeciesPopulations() {
 		Macronutrient localNutrients = localTile.soilComposition;
 		ArrayList<String> deadSpecies = new ArrayList<String>(); 
-		Random rand = new Random();
 		
 		for (String speciesName : species.keySet()) {
 			WildSpecies spec = EcologyReader.getWildSpecies(speciesName);
 			
 			int curNumber = species.get(speciesName);
+			int finalPopNumber = curNumber;
 			
-			if(curNumber <= 0) {
-				// If the species is extinct in this tile, remove them.
-				deadSpecies.add(speciesName);
+			// Otherwise, we modify their population.
+			double reprodRate = spec.reproductionRate;
+			Macronutrient nutr = spec.nutrientRequirements;
+			Macronutrient turnNutr = spec.turnNutrition;
+			Macronutrient deathNutr = spec.deathNutrition;
+			
+			// Every species passively adds some small number of nutrients
+			// to the local tile.
+			localNutrients.add(turnNutr, curNumber);
+			
+			if(spec.consumption.equalsIgnoreCase("photosynthetic")) {
 				
-			} else {
+				int carryingCapacity = (int) localNutrients.factor(nutr);
+				int differential = (carryingCapacity - curNumber);
+				differential = (int) (differential * reprodRate);
 				
-				// Otherwise, we modify their population.
-				double reprodRate = spec.reproductionRate;
-				Macronutrient nutr = spec.nutrientRequirements;
-				Macronutrient turnNutr = spec.turnNutrition;
-				Macronutrient deathNutr = spec.deathNutrition;
-				
-				// Every species passively adds some small number of nutrients
-				// to the local tile.
-				localNutrients.add(turnNutr, curNumber);
-				
-				if(spec.consumption.equalsIgnoreCase("photosynthetic")) {
-					
-					int carryingCapacity = (int) localNutrients.factor(nutr);
-					int differential = (carryingCapacity - curNumber);
-					differential = (int) (differential * reprodRate);
-					
-					int newSpeciesNumber = Math.min(curNumber + differential, MAX_SPECIES_NUMBER);
-					
-					if(differential < 0) {
-						subtractFromEnvironment(deathNutr, differential);
-					}
-					
-					species.put(speciesName, newSpeciesNumber);
-				} else {
-					double consumptionPerCreature = nutr.nutrientSum();
-					double desiredConsumption = consumptionPerCreature * curNumber;
-					
-					int carryingCapacity = carryingCapacity(spec, speciesName, curNumber, consumptionPerCreature, spec.power);
-					carryingCapacity /= 10;
-					
-					eatOtherSpecies(spec, 
-							speciesName, 
-							desiredConsumption, 
-							curNumber, 
-							spec.power);
-					
-					int differential = carryingCapacity - curNumber;
-					
-					// If we're growing, we should grow slowly. We fall quickly.
-					if(differential > 0)
-						differential = (int) (differential * reprodRate);
-					
-					// Help out the species a bit if it's not growing otherwise.
-					if (differential == 0) {
-						differential = 1;
-					} else if (differential < 0) {
-						
-						// Return resources to tile.
-						subtractFromEnvironment(deathNutr, differential);
-					}
-					species.put(speciesName, curNumber + differential);
-					
+				// If the species can't survive in the current temp... die out.
+				if(!spec.temperatureTolerance.numberInRange(localTile.temperature)) {
+					differential = -1 * curNumber;
 				}
+
+				if(differential < 0) {
+					subtractFromEnvironment(deathNutr, differential);
+				}
+				
+				finalPopNumber = curNumber + differential;
+				updatePopulation(speciesName, curNumber + differential);
+			} else {
+				double consumptionPerCreature = nutr.nutrientSum();
+				double desiredConsumption = consumptionPerCreature * curNumber;
+				
+				// Calculate carrying capacity, 
+				int carryingCapacity = carryingCapacity(spec, speciesName, curNumber, consumptionPerCreature, spec.power);
+				carryingCapacity /= PREDATION_INEFFICIENCY_FACTOR;
+				
+				eatOtherSpecies(spec, 
+						speciesName, 
+						desiredConsumption, 
+						curNumber, 
+						spec.power);
+				
+				int differential = carryingCapacity - curNumber;
+				
+				// If the species can't survive in the current temp... die out.
+				if(!spec.temperatureTolerance.numberInRange(localTile.temperature)) {
+					differential = -1 * curNumber;
+				}
+				
+				// If we're growing, we should grow slowly. We fall quickly.
+				if(differential > 0)
+					differential = (int) (differential * reprodRate);
+				
+				// Help out the species a bit if it's not growing otherwise.
+				if (differential == 0) {
+					differential = 1;
+				} else if (differential < 0) {
+					
+					// Return resources to tile.
+					subtractFromEnvironment(deathNutr, differential);
+				}
+				
+				finalPopNumber = curNumber + differential;
+				updatePopulation(speciesName, curNumber + differential);
 			}
+			
+			// If the species is extinct in this tile, remove them.
+			if(finalPopNumber <= 0)
+				deadSpecies.add(speciesName);
 		}
 		
 		for(String deadSpeciesName : deadSpecies) {
 			species.remove(deadSpeciesName);
 		}
+	}
+	
+	// Update the population up to our maximum allowed number.
+	public void updatePopulation(String speciesName, int newPopNumber) {
+		species.put(speciesName, Math.min(newPopNumber, MAX_SPECIES_NUMBER));
 	}
 	
 	/*
