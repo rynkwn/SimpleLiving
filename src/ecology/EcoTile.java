@@ -85,7 +85,6 @@ public class EcoTile {
 				}
 				
 				finalPopNumber = curNumber + differential;
-				updatePopulation(speciesName, curNumber + differential);
 			} else {
 				double consumptionPerCreature = nutr.nutrientSum();
 				double desiredConsumption = consumptionPerCreature * curNumber;
@@ -121,12 +120,14 @@ public class EcoTile {
 				}
 				
 				finalPopNumber = curNumber + differential;
-				updatePopulation(speciesName, curNumber + differential);
 			}
 			
 			// If the species is extinct in this tile, remove them.
-			if(finalPopNumber <= 0)
+			if(finalPopNumber <= 0) {
 				deadSpecies.add(speciesName);
+			} else {
+				updatePopulation(speciesName, finalPopNumber);
+			}
 		}
 		
 		for(String deadSpeciesName : deadSpecies) {
