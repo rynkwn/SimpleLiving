@@ -29,7 +29,7 @@ public class GradientNoise {
 			for(int y = 0; y < width; y++) {
 				for(int x = 0; x < length; x++) {
 					
-					if(x <= (length/2)) {
+					if(x < (length/2)) {
 						temperatureMap[x][y] = (int) (low + (x * temperatureChangePerTile)) + random.getRandomInt(-tempVariance, tempVariance);
 					} else {
 						temperatureMap[x][y] = (int) (high - ((x - length/2) * temperatureChangePerTile)) + random.getRandomInt(-tempVariance, tempVariance);
