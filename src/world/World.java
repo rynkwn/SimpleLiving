@@ -10,6 +10,10 @@ import ecology.EcoTile;
  * The world!
  */
 public class World {
+	public static final int MIN_TEMP = -20;
+	public static final int MAX_TEMP = 40;
+	public static final int TEMP_VARIANCE = 2;
+	
 	public BigTile[][] map;
 	public EcoTile[][] ecology;
 	public int length;
@@ -25,11 +29,8 @@ public class World {
 		this.width = width;
 		
 		double[][] waterRates = ValueNoise.generateValueNoise(length, width, seed, 3, .5);
-		
-		int minTemp = -20;
-		int maxTemp = 30;
-		int tempVariance = 2;
-		int[][] tempDistribution = GradientNoise.gradientNoise(length, width, seed, minTemp, maxTemp, tempVariance, GradientNoise.GRADIENT_VERTICAL);
+		int[][] tempDistribution = GradientNoise.gradientNoise(length, width, seed, 
+				MIN_TEMP, MAX_TEMP, TEMP_VARIANCE, GradientNoise.GRADIENT_VERTICAL);
 		
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {
