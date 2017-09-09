@@ -39,10 +39,12 @@ public class Main {
 		int length = 10;
 		int width = 10;
 		double[][] noise = ValueNoise.generateValueNoise(length, width, 10, 3, .5);
+		int[][] tempDistribution = GradientNoise.gradientNoise(length, width, 10, -20, 30, 2, GradientNoise.GRADIENT_HORIZONTAL);
 		
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {
-				System.out.format("%04f,", noise[i][j]);
+				//System.out.format("%04f,", noise[i][j]);
+				System.out.print(tempDistribution[i][j] + " ");
 			}
 			System.out.println();
 		}

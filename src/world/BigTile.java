@@ -17,6 +17,7 @@ public class BigTile {
 	
 	// Summary levels.
 	public Macronutrient soilComposition;
+	public int temperature;
 	
 	// Rates
 	public double waterRate;
@@ -31,12 +32,14 @@ public class BigTile {
 		residentGroups = new HashSet<Group>();
 	}
 	
-	public BigTile(double waterRate) {
+	public BigTile(double waterRate, int temperature) {
 		residentGroups = new HashSet<Group>();
 		soilComposition = new Macronutrient(initValue);
 		
 		this.waterRate = waterRate;
 		soilComposition.set("water", maxValue * waterRate);
+		
+		this.temperature = temperature;
 	}
 	
 	public void addGroup(Group grp) {
