@@ -106,6 +106,10 @@ public class World {
 		return false;
 	}
 	
+	public void addWildSpeciesToTile(int x, int y, String specName, int pop) {
+		ecology[x][y].addPop(specName, pop);
+	}
+	
 	// Add some species + numbers to a certain tile.
 	public void addWildSpeciesToTile(int x, int y, HashMap<String, Integer> pops) {
 		ecology[x][y].addPops(pops);

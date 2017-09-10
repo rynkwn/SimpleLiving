@@ -13,5 +13,11 @@ public class RandomUtils {
 	public int getRandomInt(int min, int max) {
 		return rand.nextInt(max + 1 - min) + min;
 	}
+	
+	// A static version of getRandomInt
+	public static int getInt(int min, int max) {
+		Random rand = new Random();
+		return rand.nextInt(max + 1 - min) + min;
+	}
 
 }

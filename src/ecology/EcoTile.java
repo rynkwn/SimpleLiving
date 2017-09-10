@@ -1,12 +1,12 @@
 package ecology;
 
 import data.Macronutrient;
+import util.RandomUtils;
 import world.BigTile;
 import world.World;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 /*
  * A class that simulates the ecology of a given tile.
@@ -50,6 +50,15 @@ public class EcoTile {
 		yCoord = y;
 		localTile = tile;
 		species = speciesMap;
+	}
+	
+	public void addPop(String specName, int pop) {
+		if(species.containsKey(specName)) {
+			int curPop = species.get(specName);
+			updatePopulation(specName, curPop + pop);
+		} else {
+			species.put(specName, pop);
+		}
 	}
 	
 	// Add some members of a species to this tile.
@@ -155,6 +164,24 @@ public class EcoTile {
 		for(String deadSpeciesName : deadSpecies) {
 			species.remove(deadSpeciesName);
 		}
+	}
+	
+	/*
+	 * Adds "pop" of "speciesName" to a random adjacent tile.
+	 */
+	public void migratePopulation(String speciesName, int pop) {
+		int newX = RandomUtils.getInt(xCoord - 1, xCoord + 1);
+		int newY = RandomUtils.getInt(yCoord - 1, yCoord + 1);
+		
+		boolean satisfied = (newX != xCoord || newY != yCoord) && world.inBounds(newX, newY);
+		while(!satisfied) {
+			newX = RandomUtils.getInt(xCoord - 1, xCoord + 1);
+			newY = RandomUtils.getInt(yCoord - 1, yCoord + 1);
+			
+			satisfied = (newX != xCoord || newY != yCoord) && world.inBounds(newX, newY);
+		}
+		
+		world.addWildSpeciesToTile(newX, newY, speciesName, pop);
 	}
 	
 	// Update the population up to our maximum allowed number.
