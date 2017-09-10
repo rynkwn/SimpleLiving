@@ -36,8 +36,8 @@ public class Main {
 		System.out.println("\n\n\n");
 		System.out.println(EcologyReader.debugDump());
 		
-		int length = 10;
-		int width = 10;
+		int length = 15;
+		int width = 15;
 		double[][] noise = ValueNoise.generateValueNoise(length, width, 10, 3, .5);
 		int[][] tempDistribution = GradientNoise.gradientNoise(length, width, 10, -20, 30, 2, GradientNoise.GRADIENT_VERTICAL);
 		
@@ -49,7 +49,7 @@ public class Main {
 			System.out.println();
 		}
 		
-		World world = new World(10, 10, 10);
+		World world = new World(length, width, 10);
 		
 		Group testGroup = null;
 		
