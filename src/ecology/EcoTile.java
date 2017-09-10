@@ -2,6 +2,7 @@ package ecology;
 
 import data.Macronutrient;
 import world.BigTile;
+import world.World;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,9 @@ public class EcoTile {
 	// Carrying capacity for predators are divided by this factor.
 	public static final int PREDATION_INEFFICIENCY_FACTOR = 10;
 	
+	public World world; // The world we live in.
+	public int xCoord; // Coordinates of the tile.
+	public int yCoord;
 	public BigTile localTile;
 	
 	public HashMap<String, Integer> species;
@@ -29,7 +33,10 @@ public class EcoTile {
 	 * When first adding an EcoTile, I should add a sufficiently large population of every species,
 	 * so that the world is properly populated.
 	 */
-	public EcoTile(BigTile tile) {
+	public EcoTile(World world, int x, int y, BigTile tile) {
+		this.world = world;
+		xCoord = x;
+		yCoord = y;
 		localTile = tile;
 		
 		species = new HashMap<String, Integer>();
@@ -37,9 +44,24 @@ public class EcoTile {
 			species.put(name, 200 / EcologyReader.getWildSpecies(name).power);
 	}
 	
-	public EcoTile(BigTile tile, HashMap<String, Integer> speciesMap) {
+	public EcoTile(World world, int x, int y, BigTile tile, HashMap<String, Integer> speciesMap) {
+		this.world = world;
+		xCoord = x;
+		yCoord = y;
 		localTile = tile;
 		species = speciesMap;
+	}
+	
+	// Add some members of a species to this tile.
+	public void addPops(HashMap<String, Integer> pops) {
+		for(String specName : pops.keySet()) {
+			if(species.containsKey(specName)) {
+				int curPop = species.get(specName);
+				updatePopulation(specName, curPop + pops.get(specName));
+			} else {
+				species.put(specName, pops.get(specName));
+			}
+		}
 	}
 	
 	// Subtract differential * nutrientModel from the local environment.
@@ -142,7 +164,7 @@ public class EcoTile {
 	
 	/*
 	 * Look at all the prey species in the tile, and calculate what the carrying capacity 
-	 * of this particular species is.
+	 * of this particular species is. Only meant for non-photosynthetic creatures.
 	 */
 	public int carryingCapacity(WildSpecies predator, 
 			String speciesName, 

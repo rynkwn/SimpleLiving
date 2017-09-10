@@ -36,7 +36,7 @@ public class World {
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j < width; j++) {
 				map[i][j] = new BigTile(waterRates[i][j], tempDistribution[i][j]);
-				ecology[i][j] = new EcoTile(map[i][j]);
+				ecology[i][j] = new EcoTile(this, i, j, map[i][j]);
 			}
 		}
 		
@@ -104,6 +104,11 @@ public class World {
 		}
 		
 		return false;
+	}
+	
+	// Add some species + numbers to a certain tile.
+	public void addWildSpeciesToTile(int x, int y, HashMap<String, Integer> pops) {
+		ecology[x][y].addPops(pops);
 	}
 	
 	public boolean groupPresentAtCoord(Group grp, int x, int y) {
