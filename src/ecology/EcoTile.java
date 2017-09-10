@@ -15,7 +15,10 @@ import java.util.HashMap;
 public class EcoTile {
 	public static final int TURNS_BETWEEN_ITERATIONS = 1;
 	public static final int LOWER_HUNTING_BOUND = 50; // A species can't eat another species to lower than this pop.
-	public static final int MAX_SPECIES_NUMBER = 50000;
+	public static final int MAX_SPECIES_NUMBER = 50000; 
+	
+	// Being ill suited for the local weather always removes at least this many pops.
+	public static final int BAD_TEMPERATURE_MODIFIER = -20;
 	
 	// Carrying capacity for predators are divided by this factor.
 	public static final int PREDATION_INEFFICIENCY_FACTOR = 10;
@@ -132,9 +135,9 @@ public class EcoTile {
 				
 				int differential = carryingCapacity - curNumber;
 				
-				// If the species can't survive in the current temp... die out.
+				// If the species can't survive in the current temp, rapidly reduce in number..
 				if(!spec.temperatureTolerance.numberInRange(localTile.temperature)) {
-					differential = -1 * curNumber;
+					differential = (-1 * curNumber / 2) + BAD_TEMPERATURE_MODIFIER;
 				}
 				
 				// If we're growing, we should grow slowly. We fall quickly.
@@ -152,6 +155,8 @@ public class EcoTile {
 				
 				finalPopNumber = curNumber + differential;
 			}
+			
+			// Calculate whether or not some species members migrate.
 			
 			// If the species is extinct in this tile, remove them.
 			if(finalPopNumber <= 0) {
