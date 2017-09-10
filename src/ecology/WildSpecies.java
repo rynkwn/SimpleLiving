@@ -11,6 +11,8 @@ import java.util.HashMap;
  */
 
 public class WildSpecies {
+	
+	public static final String TYPE_PLANT = "Plant";
 
 	public String name;
 	public String type;
@@ -56,7 +58,7 @@ public class WildSpecies {
 	
 	public String getPreySpeciesType() {
 		if(consumption.equals("Herbivorous")) {
-			return "Plant";
+			return TYPE_PLANT;
 		}
 		
 		return "None";
