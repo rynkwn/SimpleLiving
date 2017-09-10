@@ -47,8 +47,10 @@ public class EcoTile {
 		localTile = tile;
 		
 		species = new HashMap<String, Integer>();
+		/*
 		for(String name : EcologyReader.getAllSpeciesNames())
 			species.put(name, 200 / EcologyReader.getWildSpecies(name).power);
+		*/
 	}
 	
 	public EcoTile(World world, int x, int y, BigTile tile, HashMap<String, Integer> speciesMap) {

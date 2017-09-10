@@ -82,7 +82,7 @@ public class Main {
 		
 		//while(!scan.nextLine().equalsIgnoreCase("q")) {
 		while(true){
-			Thread.sleep(500);
+			Thread.sleep(1000);
 			System.out.println("\n\n\n");
 			//System.out.println(world.map[4][2].toString());
 			System.out.println(world.display());
