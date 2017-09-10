@@ -20,6 +20,10 @@ public class EcoTile {
 	// Being ill suited for the local weather always removes at least this many pops.
 	public static final int BAD_TEMPERATURE_MODIFIER = -20;
 	
+	// Migration related constants.
+	public static final double MIGRATION_CHANCE = .1;
+	public static final double MIGRATION_POP_PERCENTAGE = .01;
+	
 	// Carrying capacity for predators are divided by this factor.
 	public static final int PREDATION_INEFFICIENCY_FACTOR = 10;
 	
@@ -157,6 +161,13 @@ public class EcoTile {
 			}
 			
 			// Calculate whether or not some species members migrate.
+			if(RandomUtils.checkProb(100, (int) (100 * MIGRATION_CHANCE))) {
+				int migrationNumber = (int) (finalPopNumber * MIGRATION_POP_PERCENTAGE);
+				if(migrationNumber > 0) {
+					finalPopNumber -= migrationNumber;
+					migratePopulation(speciesName, migrationNumber);
+				}
+			}
 			
 			// If the species is extinct in this tile, remove them.
 			if(finalPopNumber <= 0) {
