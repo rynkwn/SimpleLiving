@@ -1,5 +1,7 @@
 package ecology;
 
+import com.google.gson.Gson;
+
 import data.Macronutrient;
 import util.Range;
 import entities.Species;

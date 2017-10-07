@@ -1,29 +1,43 @@
-NAME: Rabbit
-TYPE: Animal
-HARVESTABLE: Rabbit, 1
-CONSUMPTION: Herbivorous
-REPRODUCTION_RATE: .1
-MIN_TEMPERATURE: 0
-MAX_TEMPERATURE: 20
-POWER: 2
-WATER: 4
-CARBON: 3
-NITROGEN: 2
-POTASSIUM: 2
-CALCIUM: 2
-PHOSPHORUS: .3
-SALT: .05
-PER_TURN_WATER: 0
-PER_TURN_CARBON: .01
-PER_TURN_NITROGEN: .01
-PER_TURN_POTASSIUM: .005
-PER_TURN_CALCIUM: .005
-PER_TURN_PHOSPHORUS: .005
-PER_TURN_SALT: 0
-ON_DEATH_WATER: 4
-ON_DEATH_CARBON: 3
-ON_DEATH_NITROGEN: 2
-ON_DEATH_POTASSIUM: 2
-ON_DEATH_CALCIUM: 2
-ON_DEATH_PHOSPHORUS: .3
-ON_DEATH_SALT: .05
+{
+   "name": "Rabbit",
+   "type": "Animal",
+   "captureResult": "None",
+   "harvestResult": {
+      "Rabbit": 1
+   },
+   "consumption": "Herbivorous",
+   "reproductionRate": 0.1,
+   "temperatureTolerance": {
+      "min": 0,
+      "max": 20
+   },
+   "nutrientRequirements": {
+      "water": 4,
+      "carbon": 3,
+      "nitrogen": 2,
+      "potassium": 2,
+      "calcium": 2,
+      "phosphorus": 0.3,
+      "salt": 0.05
+   },
+   "turnNutrition": {
+      "water": 0,
+      "carbon": 0.01,
+      "nitrogen": 0.01,
+      "potassium": 0.005,
+      "calcium": 0.005,
+      "phosphorus": 0.005,
+      "salt": 0
+   },
+   "deathNutrition": {
+      "water": 4,
+      "carbon": 3,
+      "nitrogen": 2,
+      "potassium": 2,
+      "calcium": 2,
+      "phosphorus": 0.3,
+      "salt": 0.05
+   },
+   "totalMass": 13.35,
+   "power": 2
+}

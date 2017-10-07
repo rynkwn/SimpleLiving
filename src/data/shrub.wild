@@ -1,29 +1,43 @@
-NAME: Shrub
-TYPE: Plant
-HARVESTABLE: Shrub, 1
-CONSUMPTION: Photosynthetic
-REPRODUCTION_RATE: .2
-MIN_TEMPERATURE: 5
-MAX_TEMPERATURE: 30
-POWER: 1
-WATER: 5
-CARBON: 3
-NITROGEN: 2
-POTASSIUM: 2
-CALCIUM: 2
-PHOSPHORUS: .3
-SALT: .05
-PER_TURN_WATER: .001
-PER_TURN_CARBON: .002
-PER_TURN_NITROGEN: .001
-PER_TURN_POTASSIUM: .0005
-PER_TURN_CALCIUM: .0005
-PER_TURN_PHOSPHORUS: .0005
-PER_TURN_SALT: 0
-ON_DEATH_WATER: 5
-ON_DEATH_CARBON: 3
-ON_DEATH_NITROGEN: 2
-ON_DEATH_POTASSIUM: 2
-ON_DEATH_CALCIUM: 2
-ON_DEATH_PHOSPHORUS: .3
-ON_DEATH_SALT: .05
+{
+   "name": "Shrub",
+   "type": "Plant",
+   "captureResult": "None",
+   "harvestResult": {
+      "Shrub": 1
+   },
+   "consumption": "Photosynthetic",
+   "reproductionRate": 0.2,
+   "temperatureTolerance": {
+      "min": 5,
+      "max": 30
+   },
+   "nutrientRequirements": {
+      "water": 5,
+      "carbon": 3,
+      "nitrogen": 2,
+      "potassium": 2,
+      "calcium": 2,
+      "phosphorus": 0.3,
+      "salt": 0.05
+   },
+   "turnNutrition": {
+      "water": 0.001,
+      "carbon": 0.002,
+      "nitrogen": 0.001,
+      "potassium": 5.0E-4,
+      "calcium": 5.0E-4,
+      "phosphorus": 5.0E-4,
+      "salt": 0
+   },
+   "deathNutrition": {
+      "water": 5,
+      "carbon": 3,
+      "nitrogen": 2,
+      "potassium": 2,
+      "calcium": 2,
+      "phosphorus": 0.3,
+      "salt": 0.05
+   },
+   "totalMass": 14.35,
+   "power": 1
+}
