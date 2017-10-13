@@ -70,7 +70,7 @@ public class Species {
 				name, 
 				0,
 				progressTowardsBioProducts,
-				initialBodyStructure.copyStructure(age, this));
+				initialBodyStructure.copyStructure(age));
 	}
 	
 	public String toString() {

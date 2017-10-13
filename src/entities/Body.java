@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Body {
 	
-	Species species;
+	String species;
 	
 	public int age;
 	
@@ -68,7 +68,7 @@ public class Body {
 	}
 	
 	public boolean isAdult() {
-		return age >= species.timeTillMaturation;
+		return age >= SpeciesReader.getSpecies(species).timeTillMaturation;
 	}
 	
 	public void age(int numTurnsPassed) {
@@ -87,7 +87,7 @@ public class Body {
 		double factorGrow = growthFactor(pctNeedsSatisfied);
 		nutritionalHealth = Math.min(nutritionalHealth * factorGrow, 1.4);
 		
-		if(age < species.timeTillMaturation) {
+		if(age < SpeciesReader.getSpecies(species).timeTillMaturation) {
 			double normalGrowth = growthDerivativeEstimate() * nutritionalHealth;
 			double newSize = size + normalGrowth;
 			
@@ -152,9 +152,10 @@ public class Body {
 	public HashMap<String, Double> nutritionalNeeds() {
 		
 		double growthModifier = 1.0;
+		Species spec = SpeciesReader.getSpecies(species);
 		
-		if(age < species.timeTillMaturation) {
-			growthModifier = 1 + (growthDerivativeEstimate() / species.finalSize);
+		if(age < spec.timeTillMaturation) {
+			growthModifier = 1 + (growthDerivativeEstimate() / spec.finalSize);
 		}
 		
 		HashMap<String, Double> nutritionNeeds = nutrition.nutrition();
@@ -176,7 +177,8 @@ public class Body {
 	 * Returns the expected size at a given age. 
 	 */
 	public double growthFunction(int age) {
-		return (species.finalSize - species.initialSize) * Math.sin((age + (Math.PI/2)) / species.timeTillMaturation) + species.initialSize;
+		Species spec = SpeciesReader.getSpecies(species);
+		return (spec.finalSize - spec.initialSize) * Math.sin((age + (Math.PI/2)) / spec.timeTillMaturation) + spec.initialSize;
 	}
 	
 	public void growToSize(double targetSize) {
@@ -190,9 +192,10 @@ public class Body {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		Species spec = SpeciesReader.getSpecies(species);
 		
 		sb.append("Age: " + age + "\n");
-		sb.append("Maturity at: " + species.timeTillMaturation + "\n");
+		sb.append("Maturity at: " + spec.timeTillMaturation + "\n");
 		sb.append("Mass: " + mass + "\n");
 		sb.append("Nutritional Health: " + nutritionalHealth + "\n");
 		sb.append("Moving: " + moving + "\n");
@@ -218,17 +221,18 @@ public class Body {
 	 * Copies the structure of the body.
 	 * TODO: Need/want a better way of doing this. For lots of entities, this seems pretty excessive.
 	 */
-	public Body copyStructure(int age, Species species) {
+	public Body copyStructure(int age) {
 		
+		Species spec = SpeciesReader.getSpecies(species);
 		Body copy = new Body(nutrition);
 		copy.age = age;
 		copy.species = species;
 		
-		double scale = Math.min((double) age / species.timeTillMaturation, 1.0);
+		double scale = Math.min((double) age / spec.timeTillMaturation, 1.0);
 		if(age == 0) {
-			scale = (double) species.initialSize / size; 
+			scale = (double) spec.initialSize / size; 
 		} else {
-			scale *= (double) species.finalSize / size;
+			scale *= (double) spec.finalSize / size;
 		}
 		
 		for(BodyPart bp : bodyparts) {

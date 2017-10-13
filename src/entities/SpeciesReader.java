@@ -1,5 +1,7 @@
 package entities;
 
+import com.google.gson.Gson;
+
 import util.KeyValueReader;
 import util.ChanceOutcomes;
 import util.Range;
@@ -114,7 +116,9 @@ public class SpeciesReader {
 										  tags
 										 );
 			
-			initialBodyStructure.species = species;
+			initialBodyStructure.species = name;
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(species));
 			speciesInfo.put(name, species);
 			
 		} catch (FileNotFoundException e) {
