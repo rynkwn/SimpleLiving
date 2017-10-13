@@ -37,6 +37,7 @@ public class EcologyReader {
 			Gson gson = new Gson();
 			
 			WildSpecies wildspec = gson.fromJson(new FileReader(ecologyFile), WildSpecies.class);
+			wildspec.updateData();
 			wildInfo.put(wildspec.name, wildspec);
 
 		} catch (FileNotFoundException e) {

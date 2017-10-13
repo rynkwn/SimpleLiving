@@ -65,6 +65,13 @@ public class WildSpecies {
 		
 		return "None";
 	}
+	
+	/*
+	 * On reading in the main data from a JSON file, updates certain attributes.
+	 */
+	public void updateData() {
+		totalMass = nutrientRequirements.nutrientSum();
+	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
