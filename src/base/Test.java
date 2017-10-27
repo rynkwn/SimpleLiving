@@ -22,7 +22,7 @@ public class Test {
 	
 	public static void main(String[] args) throws Exception {
 		Gson gson = new Gson();
-		Species spec = gson.fromJson(new FileReader("src/data/locust.temp"), Species.class);
+		Species spec = gson.fromJson(new FileReader("src/data/locust_minor.temp"), Species.class);
 		spec.processJSON();
 		System.out.println(gson.toJson(spec));
 	}
