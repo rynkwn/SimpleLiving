@@ -1,13 +1,178 @@
-NAME: Locust
-GESTATION_PERIOD: 80
-MIN_OFFSPRING: 1
-MAX_OFFSPRING: 3
-INITIAL_SIZE: 30
-FINAL_SIZE: 1200
-TIME_TILL_MATURATION: 312
-NUTRITION_TYPE: ANIMAL
-METABOLISM: 1
-OFFSPRING: Locust=.75, Locust_Minor=.25
-BEHAVIOR: generic_pastoral.behavior
-BODY: Head, Brain, Mandible, Eye, Eye, Eye, Eye; Thorax, Lungs; Leg; Leg; Leg; Leg; Leg; Leg; Claw; Claw
-TAGS: CAN_GROW_NEW_LIMBS, INTELLIGENT
+{
+   "name": "Locust",
+   "gestationPeriod": 80,
+   "numberOffspringProduced": {
+      "min": 1,
+      "max": 3
+   },
+   "initialSize": 30,
+   "finalSize": 1200,
+   "timeTillMaturation": 312,
+   "offspring": {
+      "rand": {
+         "seed": 167349440984929,
+         "nextNextGaussian": 0,
+         "haveNextNextGaussian": false
+      },
+      "events": {
+         "0.25": "Locust_Minor",
+         "0.75": "Locust"
+      }
+   },
+   "initialBodyStructure": {
+      "species": "Locust",
+      "age": 0,
+      "nutritionalHealth": 1,
+      "bodyparts": [
+         {
+            "name": "Head",
+            "health": 20,
+            "maxHealth": 20,
+            "size": 8,
+            "mass": 8,
+            "containedParts": [
+               {
+                  "name": "Brain",
+                  "health": 15,
+                  "maxHealth": 15,
+                  "size": 4,
+                  "mass": 4,
+                  "consciousness": true
+               },
+               {
+                  "name": "Mandible",
+                  "health": 10,
+                  "maxHealth": 10,
+                  "size": 2,
+                  "mass": 2,
+                  "eating": true,
+                  "talking": true
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "size": 1,
+                  "mass": 1,
+                  "sight": 50
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "size": 1,
+                  "mass": 1,
+                  "sight": 50
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "size": 1,
+                  "mass": 1,
+                  "sight": 50
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "size": 1,
+                  "mass": 1,
+                  "sight": 50
+               }
+            ]
+         },
+         {
+            "name": "Thorax",
+            "health": 50,
+            "maxHealth": 50,
+            "size": 40,
+            "mass": 40,
+            "containedParts": [
+               {
+                  "name": "Lungs",
+                  "health": 10,
+                  "maxHealth": 10,
+                  "size": 8,
+                  "mass": 8,
+                  "breathing": true
+               }
+            ]
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "size": 15,
+            "mass": 15,
+            "moving": 1
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "size": 15,
+            "mass": 15,
+            "moving": 1
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "size": 15,
+            "mass": 15,
+            "moving": 1
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "size": 15,
+            "mass": 15,
+            "moving": 1
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "size": 15,
+            "mass": 15,
+            "moving": 1
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "size": 15,
+            "mass": 15,
+            "moving": 1
+         },
+         {
+            "name": "Claw",
+            "health": 30,
+            "maxHealth": 30,
+            "size": 30,
+            "mass": 30,
+            "manipulation": true
+         },
+         {
+            "name": "Claw",
+            "health": 30,
+            "maxHealth": 30,
+            "size": 30,
+            "mass": 30,
+            "manipulation": true
+         }
+      ],
+      "nutrition": {
+         "type": "ANIMAL",
+         "metabolism": 1
+      }
+   },
+   "behaviorFile": "generic_pastoral.behavior",
+   "products": {},
+   "tags": [
+      "CAN_GROW_NEW_LIMBS",
+      "INTELLIGENT"
+   ]
+}

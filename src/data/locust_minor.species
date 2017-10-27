@@ -1,14 +1,169 @@
-NAME: Locust_Minor
-GESTATION_PERIOD: 80
-MIN_OFFSPRING: 1
-MAX_OFFSPRING: 1
-INITIAL_SIZE: 30
-FINAL_SIZE: 3000
-TIME_TILL_MATURATION: 312
-NUTRITION_TYPE: PLANT
-METABOLISM: 1
-OFFSPRING: Locust=1.00
-BEHAVIOR: generic_pastoral.behavior
-BODY: Head, Brain, Mandible, Eye, Eye, Eye, Eye; Segment, Lungs; Segment; Segment; Segment; Segment; Segment; Segment
-PRODUCTS: Bud=.01=4
-TAGS: STERILE, CAN_FILTER_FEED
+{
+   "name": "Locust_Minor",
+   "gestationPeriod": 80,
+   "numberOffspringProduced": {
+      "min": 1,
+      "max": 1
+   },
+   "initialSize": 30,
+   "finalSize": 3000,
+   "timeTillMaturation": 312,
+   "offspring": {
+      "rand": {
+         "seed": 26024898472093,
+         "nextNextGaussian": 0,
+         "haveNextNextGaussian": false
+      },
+      "events": {
+         "1.0": "Locust"
+      }
+   },
+   "initialBodyStructure": {
+      "species": "Locust_Minor",
+      "age": 0,
+      "nutritionalHealth": 1,
+      "bodyparts": [
+         {
+            "name": "Head",
+            "health": 20,
+            "maxHealth": 20,
+            "size": 8,
+            "mass": 8,
+            "containedParts": [
+               {
+                  "name": "Brain",
+                  "health": 15,
+                  "maxHealth": 15,
+                  "size": 6,
+                  "mass": 6,
+                  "consciousness": true
+               },
+               {
+                  "name": "Mandible",
+                  "health": 10,
+                  "maxHealth": 10,
+                  "size": 2,
+                  "mass": 2,
+                  "moving": 0,
+                  "eating": true,
+                  "talking": true
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "size": 1,
+                  "mass": 1,
+                  "sight": 50
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "size": 1,
+                  "mass": 1,
+                  "sight": 50
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "size": 1,
+                  "mass": 1,
+                  "sight": 50
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "size": 1,
+                  "mass": 1,
+                  "sight": 50
+               }
+            ]
+         },
+         {
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5,
+            "containedParts": [
+               {
+                  "name": "Lungs",
+                  "health": 10,
+                  "maxHealth": 10,
+                  "size": 8,
+                  "mass": 8,
+                  "breathing": true
+               }
+            ]
+         },
+         {
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
+         },
+         {
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
+         },
+         {
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
+         },
+         {
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
+         },
+         {
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
+         },
+         {
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
+         }
+      ],
+      "nutrition": {
+         "type": "PLANT",
+         "metabolism": 1
+      }
+   },
+   "behaviorFile": "generic_pastoral.behavior",
+   "products": {
+      "Bud": {
+         "name": "Bud",
+         "productionRatio": 0.01,
+         "timeToProduce": 4
+      }
+   },
+   "tags": [
+      "CAN_FILTER_FEED",
+      "STERILE"
+   ]
+}

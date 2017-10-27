@@ -81,6 +81,7 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 		
 		//while(!scan.nextLine().equalsIgnoreCase("q")) {
+		
 		while(true){
 			Thread.sleep(300);
 			System.out.println("\n\n\n");
