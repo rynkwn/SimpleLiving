@@ -97,7 +97,14 @@ public class BodyPart {
 	 * need to infer some values (if any).
 	 */
 	public void processJSON() {
-		
+		// When we're reading in from JSON, bodypart may
+		// not have any organs. In that case, let's just
+		// initialize to an empty list to simplify
+		// higher level code that loops through
+		// body part organs.
+		if(containedParts == null) {
+			containedParts = new ArrayList<BodyPart>();
+		}
 	}
 	
 	public String toString() {

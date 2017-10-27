@@ -46,11 +46,7 @@ public class Species {
 	/*
 	 * On reading in the main data from a JSON file, updates certain attributes.
 	 */
-	public void processJSON() {
-		// Need to set up:
-		// Offspring seed. Should be random every time.
-		// Maybe some bodyparts stuff? Will need to look at in more detail.
-		
+	public void processJSON() {		
 		// Refresh the offspring generator so we get a surprise... Though is
 		// this necessary? Not sure how much having a consistent seed should
 		// affect runs occuring at different times... but the seed

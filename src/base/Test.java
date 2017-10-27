@@ -27,3 +27,4 @@ public class Test {
 		System.out.println(gson.toJson(spec));
 	}
 }
+
