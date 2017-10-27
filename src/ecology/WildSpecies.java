@@ -69,7 +69,7 @@ public class WildSpecies {
 	/*
 	 * On reading in the main data from a JSON file, updates certain attributes.
 	 */
-	public void updateData() {
+	public void processJSON() {
 		totalMass = nutrientRequirements.nutrientSum();
 	}
 

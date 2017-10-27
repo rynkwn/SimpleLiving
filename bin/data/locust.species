@@ -1,13 +1,339 @@
-NAME: Locust
-GESTATION_PERIOD: 80
-MIN_OFFSPRING: 1
-MAX_OFFSPRING: 3
-INITIAL_SIZE: 30
-FINAL_SIZE: 1200
-TIME_TILL_MATURATION: 312
-NUTRITION_TYPE: ANIMAL
-METABOLISM: 1
-OFFSPRING: Locust=.75, Locust_Minor=.25
-BEHAVIOR: generic_pastoral.behavior
-BODY: Head, Brain, Mandible, Eye, Eye, Eye, Eye; Thorax, Lungs; Leg; Leg; Leg; Leg; Leg; Leg; Claw; Claw
-TAGS: CAN_GROW_NEW_LIMBS, INTELLIGENT
+{
+   "name": "Locust",
+   "gestationPeriod": 80,
+   "numberOffspringProduced": {
+      "min": 1,
+      "max": 3
+   },
+   "initialSize": 30,
+   "finalSize": 1200,
+   "timeTillMaturation": 312,
+   "offspring": {
+      "rand": {
+         "seed": 167349440984929,
+         "nextNextGaussian": 0,
+         "haveNextNextGaussian": false
+      },
+      "events": {
+         "0.25": "Locust_Minor",
+         "0.75": "Locust"
+      }
+   },
+   "initialBodyStructure": {
+      "species": "Locust",
+      "age": 0,
+      "nutritionalHealth": 1,
+      "bodyparts": [
+         {
+            "name": "Head",
+            "health": 20,
+            "maxHealth": 20,
+            "adultSize": 8,
+            "adultMass": 0,
+            "size": 8,
+            "mass": 8,
+            "moving": 0,
+            "eating": false,
+            "talking": false,
+            "consciousness": false,
+            "sight": 0,
+            "manipulation": false,
+            "breathing": false,
+            "containedParts": [
+               {
+                  "name": "Brain",
+                  "health": 15,
+                  "maxHealth": 15,
+                  "adultSize": 6,
+                  "adultMass": 0,
+                  "size": 6,
+                  "mass": 6,
+                  "moving": 0,
+                  "eating": false,
+                  "talking": false,
+                  "consciousness": false,
+                  "sight": 0,
+                  "manipulation": false,
+                  "breathing": false,
+                  "containedParts": []
+               },
+               {
+                  "name": "Mandible",
+                  "health": 10,
+                  "maxHealth": 10,
+                  "adultSize": 2,
+                  "adultMass": 0,
+                  "size": 2,
+                  "mass": 2,
+                  "moving": 0,
+                  "eating": true,
+                  "talking": true,
+                  "consciousness": false,
+                  "sight": 0,
+                  "manipulation": false,
+                  "breathing": false,
+                  "containedParts": []
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "adultSize": 1,
+                  "adultMass": 0,
+                  "size": 1,
+                  "mass": 1,
+                  "moving": 0,
+                  "eating": false,
+                  "talking": false,
+                  "consciousness": false,
+                  "sight": 50,
+                  "manipulation": false,
+                  "breathing": false,
+                  "containedParts": []
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "adultSize": 1,
+                  "adultMass": 0,
+                  "size": 1,
+                  "mass": 1,
+                  "moving": 0,
+                  "eating": false,
+                  "talking": false,
+                  "consciousness": false,
+                  "sight": 50,
+                  "manipulation": false,
+                  "breathing": false,
+                  "containedParts": []
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "adultSize": 1,
+                  "adultMass": 0,
+                  "size": 1,
+                  "mass": 1,
+                  "moving": 0,
+                  "eating": false,
+                  "talking": false,
+                  "consciousness": false,
+                  "sight": 50,
+                  "manipulation": false,
+                  "breathing": false,
+                  "containedParts": []
+               },
+               {
+                  "name": "Eye",
+                  "health": 5,
+                  "maxHealth": 5,
+                  "adultSize": 1,
+                  "adultMass": 0,
+                  "size": 1,
+                  "mass": 1,
+                  "moving": 0,
+                  "eating": false,
+                  "talking": false,
+                  "consciousness": false,
+                  "sight": 50,
+                  "manipulation": false,
+                  "breathing": false,
+                  "containedParts": []
+               }
+            ]
+         },
+         {
+            "name": "Thorax",
+            "health": 50,
+            "maxHealth": 50,
+            "adultSize": 40,
+            "adultMass": 0,
+            "size": 40,
+            "mass": 40,
+            "moving": 0,
+            "eating": false,
+            "talking": false,
+            "consciousness": false,
+            "sight": 0,
+            "manipulation": false,
+            "breathing": false,
+            "containedParts": [
+               {
+                  "name": "Lungs",
+                  "health": 10,
+                  "maxHealth": 10,
+                  "adultSize": 8,
+                  "adultMass": 0,
+                  "size": 8,
+                  "mass": 8,
+                  "moving": 0,
+                  "eating": false,
+                  "talking": false,
+                  "consciousness": false,
+                  "sight": 0,
+                  "manipulation": false,
+                  "breathing": true,
+                  "containedParts": []
+               }
+            ]
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "adultSize": 15,
+            "adultMass": 0,
+            "size": 15,
+            "mass": 15,
+            "moving": 1,
+            "eating": false,
+            "talking": false,
+            "consciousness": false,
+            "sight": 0,
+            "manipulation": false,
+            "breathing": false,
+            "containedParts": []
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "adultSize": 15,
+            "adultMass": 0,
+            "size": 15,
+            "mass": 15,
+            "moving": 1,
+            "eating": false,
+            "talking": false,
+            "consciousness": false,
+            "sight": 0,
+            "manipulation": false,
+            "breathing": false,
+            "containedParts": []
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "adultSize": 15,
+            "adultMass": 0,
+            "size": 15,
+            "mass": 15,
+            "moving": 1,
+            "eating": false,
+            "talking": false,
+            "consciousness": false,
+            "sight": 0,
+            "manipulation": false,
+            "breathing": false,
+            "containedParts": []
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "adultSize": 15,
+            "adultMass": 0,
+            "size": 15,
+            "mass": 15,
+            "moving": 1,
+            "eating": false,
+            "talking": false,
+            "consciousness": false,
+            "sight": 0,
+            "manipulation": false,
+            "breathing": false,
+            "containedParts": []
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "adultSize": 15,
+            "adultMass": 0,
+            "size": 15,
+            "mass": 15,
+            "moving": 1,
+            "eating": false,
+            "talking": false,
+            "consciousness": false,
+            "sight": 0,
+            "manipulation": false,
+            "breathing": false,
+            "containedParts": []
+         },
+         {
+            "name": "Leg",
+            "health": 20,
+            "maxHealth": 20,
+            "adultSize": 15,
+            "adultMass": 0,
+            "size": 15,
+            "mass": 15,
+            "moving": 1,
+            "eating": false,
+            "talking": false,
+            "consciousness": false,
+            "sight": 0,
+            "manipulation": false,
+            "breathing": false,
+            "containedParts": []
+         },
+         {
+            "name": "Claw",
+            "health": 30,
+            "maxHealth": 30,
+            "adultSize": 30,
+            "adultMass": 0,
+            "size": 30,
+            "mass": 30,
+            "moving": 0,
+            "eating": false,
+            "talking": false,
+            "consciousness": false,
+            "sight": 0,
+            "manipulation": true,
+            "breathing": false,
+            "containedParts": []
+         },
+         {
+            "name": "Claw",
+            "health": 30,
+            "maxHealth": 30,
+            "adultSize": 30,
+            "adultMass": 0,
+            "size": 30,
+            "mass": 30,
+            "moving": 0,
+            "eating": false,
+            "talking": false,
+            "consciousness": false,
+            "sight": 0,
+            "manipulation": true,
+            "breathing": false,
+            "containedParts": []
+         }
+      ],
+      "nutrition": {
+         "type": "ANIMAL",
+         "metabolism": 1,
+         "water": 21.8,
+         "calories": 21.8,
+         "vitaminC": 2.18,
+         "carbon": 0,
+         "nitrogen": 0,
+         "potassium": 0,
+         "calcium": 0,
+         "phosphorus": 0,
+         "salt": 0
+      }
+   },
+   "behaviorFile": "generic_pastoral.behavior",
+   "products": {},
+   "tags": [
+      "CAN_GROW_NEW_LIMBS",
+      "INTELLIGENT"
+   ]
+}

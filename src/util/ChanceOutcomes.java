@@ -7,13 +7,24 @@ import java.util.*;
  * among those outcomes.
  */
 public class ChanceOutcomes<T> {
-	Random rand = new Random();
+	Random rand;
 	TreeMap<Double, T> events;
 	
 	// NOTE: If passed in TreeMap is not valid, then events is not set.
 	public ChanceOutcomes(TreeMap<Double, T> probabilities) {
+		rand = new Random();
+		
 		if(checkValidEventSpace(probabilities))
 			events = probabilities;
+	}
+	
+	/*
+	 *  Refresh the Random attribute! This method was created to
+	 *  refresh the Random seed that we're saving in the JSON-format
+	 *  of some classes which use this class. (Such as Species).
+	 */
+	public void refreshRandomGenerator() {
+		rand = new Random();
 	}
 	
 	// Checks if a given TreeMap is a valid event space.

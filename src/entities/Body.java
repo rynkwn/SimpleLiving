@@ -181,6 +181,9 @@ public class Body {
 		return (spec.finalSize - spec.initialSize) * Math.sin((age + (Math.PI/2)) / spec.timeTillMaturation) + spec.initialSize;
 	}
 	
+	/*
+	 * Scales all body parts in order to reach the targetSize.
+	 */
 	public void growToSize(double targetSize) {
 		
 		double ratioToScaleBy = targetSize / size;
@@ -188,6 +191,13 @@ public class Body {
 		for(BodyPart bp : bodyparts) {
 			bp.scale(ratioToScaleBy);
 		}
+	}
+	
+	/*
+	 * On reading in the main data from a JSON file, updates certain attributes.
+	 */
+	public void processJSON() {
+		updateTraits();
 	}
 	
 	public String toString() {

@@ -43,6 +43,24 @@ public class Species {
 		this.tags = tags;
 	}
 	
+	/*
+	 * On reading in the main data from a JSON file, updates certain attributes.
+	 */
+	public void processJSON() {
+		// Need to set up:
+		// Offspring seed. Should be random every time.
+		// Maybe some bodyparts stuff? Will need to look at in more detail.
+		
+		// Refresh the offspring generator so we get a surprise... Though is
+		// this necessary? Not sure how much having a consistent seed should
+		// affect runs occuring at different times... but the seed
+		// should determine outcomes. So let's do this.
+		offspring.refreshRandomGenerator();
+		
+		// Update the Body to update its own properties after being read in from JSON.
+		initialBodyStructure.processJSON();
+	}
+	
 	public ArrayList<Entity> reproduce() {
 		ArrayList<Entity> children = new ArrayList<Entity>();
 		
