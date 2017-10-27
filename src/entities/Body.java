@@ -194,9 +194,23 @@ public class Body {
 	}
 	
 	/*
+	 * Does JSON processing for bodyparts
+	 */
+	public void processBodyPartJSON() {
+		for (BodyPart bp : bodyparts) {
+			bp.processJSON();
+			
+			for (BodyPart organ : bp.containedParts) {
+				organ.processJSON();
+			}
+		}
+	}
+	
+	/*
 	 * On reading in the main data from a JSON file, updates certain attributes.
 	 */
 	public void processJSON() {
+		processBodyPartJSON();
 		updateTraits();
 	}
 	

@@ -91,6 +91,15 @@ public class BodyPart {
 		containedParts.add(organ);
 	}
 	
+	/*
+	 * Modify/update some data values, normally because
+	 * we've read in a bodypart from JSON and
+	 * need to infer some values (if any).
+	 */
+	public void processJSON() {
+		
+	}
+	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
