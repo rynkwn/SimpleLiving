@@ -11,9 +11,7 @@ public class BodyPart {
 	public double health;
 	public double maxHealth;
 	
-	public double adultSize;
-	public double adultMass;
-	
+	// The size and mass of the bodypart as it currently exists.
 	public double size;
 	public double mass;
 	
@@ -36,42 +34,41 @@ public class BodyPart {
 		
 		if(name.equals("Eye")) {
 			maxHealth = 5;
-			adultSize = 1;
+			size = 1;
 			sight = 50;
 		} else if (name.equals("Head")) {
 			maxHealth = 20;
-			adultSize = 8;
+			size = 8;
 		} else if (name.equals("Mandible")) {
 			maxHealth = 10;
-			adultSize = 2;
+			size = 2;
 			eating = true;
 			talking = true;
 		} else if (name.equals("Claw")) {
 			maxHealth = 30;
-			adultSize = 30;
+			size = 30;
 			manipulation = true;
 		} else if (name.equals("Thorax")) {
 			maxHealth = 50;
-			adultSize = 40;
+			size = 40;
 		} else if (name.equals("Leg")) {
 			maxHealth = 20;
-			adultSize = 15;
+			size = 15;
 			moving = 1;
 		} else if (name.equals("Brain")) {
 			maxHealth = 15;
-			adultSize = 6;
+			size = 6;
 		} else if (name.equals("Lungs")) {
 			maxHealth = 10;
-			adultSize = 8;
+			size = 8;
 			breathing = true;
 		} else if (name.equals("Segment")) {
 			maxHealth = 40;
-			adultSize = 50;
+			size = 50;
 			moving = .5;
 		}
 		
 		health = maxHealth;
-		size = adultSize;
 		mass = (long) size;
 	}
 	

@@ -36,8 +36,8 @@ public class Main {
 		System.out.println("\n\n\n");
 		System.out.println(EcologyReader.debugDump());
 		
-		int length = 15;
-		int width = 15;
+		int length = 10;
+		int width = 10;
 		double[][] noise = ValueNoise.generateValueNoise(length, width, 10, 3, .5);
 		int[][] tempDistribution = GradientNoise.gradientNoise(length, width, 10, -20, 30, 2, GradientNoise.GRADIENT_VERTICAL);
 		
@@ -75,14 +75,14 @@ public class Main {
 			
 			grp.addItem(ItemsReader.makeComponent("Bud", 120));
 			
-			//world.addGroup(grp.id, grp, i, i);
+			world.addGroup(grp.id, grp, i, i);
 		}
 		
 		Scanner scan = new Scanner(System.in);
 		
 		//while(!scan.nextLine().equalsIgnoreCase("q")) {
 		while(true){
-			Thread.sleep(1000);
+			Thread.sleep(300);
 			System.out.println("\n\n\n");
 			//System.out.println(world.map[4][2].toString());
 			System.out.println(world.display());
