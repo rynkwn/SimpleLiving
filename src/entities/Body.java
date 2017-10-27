@@ -260,14 +260,8 @@ public class Body {
 		}
 		
 		for(BodyPart bp : bodyparts) {
-			BodyPart b = new BodyPart(bp.name);
+			BodyPart b = new BodyPart(bp);
 			b.scale(scale);
-			
-			for(BodyPart organ : bp.containedParts) {
-				BodyPart org = new BodyPart(organ.name);
-				org.scale(scale);
-				b.addOrgan(org);
-			}
 			
 			copy.addPart(b);
 		}

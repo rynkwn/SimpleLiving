@@ -32,44 +32,37 @@ public class BodyPart {
 		this.name = name;
 		containedParts = new ArrayList<BodyPart>();
 		
-		if(name.equals("Eye")) {
-			maxHealth = 5;
-			size = 1;
-			sight = 50;
-		} else if (name.equals("Head")) {
-			maxHealth = 20;
-			size = 8;
-		} else if (name.equals("Mandible")) {
-			maxHealth = 10;
-			size = 2;
-			eating = true;
-			talking = true;
-		} else if (name.equals("Claw")) {
-			maxHealth = 30;
-			size = 30;
-			manipulation = true;
-		} else if (name.equals("Thorax")) {
-			maxHealth = 50;
-			size = 40;
-		} else if (name.equals("Leg")) {
-			maxHealth = 20;
-			size = 15;
-			moving = 1;
-		} else if (name.equals("Brain")) {
-			maxHealth = 15;
-			size = 6;
-		} else if (name.equals("Lungs")) {
-			maxHealth = 10;
-			size = 8;
-			breathing = true;
-		} else if (name.equals("Segment")) {
-			maxHealth = 40;
-			size = 50;
-			moving = .5;
-		}
-		
 		health = maxHealth;
 		mass = (long) size;
+	}
+	
+	/*
+	 * A clone/copy constructor.
+	 * This constructor ALSO clones the contained organs!
+	 */
+	public BodyPart(BodyPart bp) {
+		this.name = bp.name;
+		
+		this.health = bp.health;
+		this.maxHealth = bp.maxHealth;
+		
+		this.size = bp.size;
+		this.mass = bp.mass;
+		
+		this.moving = bp.moving;
+		this.eating = bp.eating;
+		this.talking = bp.talking;
+		this.consciousness = bp.consciousness;
+		this.sight = bp.sight;
+		this.manipulation = bp.manipulation;
+		this.breathing = bp.breathing;
+		
+		containedParts = new ArrayList<BodyPart>();
+		
+		for(BodyPart organ : bp.containedParts) {
+			BodyPart org = new BodyPart(organ);
+			containedParts.add(org);
+		}
 	}
 	
 	public void scale(double pct) {
