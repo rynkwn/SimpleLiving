@@ -33,6 +33,7 @@ public class Entity {
 	
 	// Skills related to trapping, hunting, and gathering.
 	public static final String SKILL_NATURALISM = "Naturalism";
+	public static final String SKILL_ENGINEERING = "Engineering";
 	
 	//////////////////////////////////////
 	//
