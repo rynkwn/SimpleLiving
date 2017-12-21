@@ -15,11 +15,11 @@
          "haveNextNextGaussian": false
       },
       "events": {
-         "1.0": "Locust"
+         "1.0": "Volch"
       }
    },
    "initialBodyStructure": {
-      "species": "Locust_Minor",
+      "species": "Volch Minor",
       "age": 0,
       "nutritionalHealth": 1,
       "bodyparts": [

@@ -64,10 +64,10 @@ public class Main {
 			
 			ArrayList<Entity> testEntities = new ArrayList<Entity>();
 			
-			testEntities.add(SpeciesReader.getSpecies("Locust").makeInstanceOf(1000));
-			testEntities.add(SpeciesReader.getSpecies("Locust").makeInstanceOf(1000));
-			testEntities.add(SpeciesReader.getSpecies("Locust").makeInstanceOf(0));
-			testEntities.add(SpeciesReader.getSpecies("Locust_Minor").makeInstanceOf(1000));
+			testEntities.add(SpeciesReader.getSpecies("Volch").makeInstanceOf(1000));
+			testEntities.add(SpeciesReader.getSpecies("Volch").makeInstanceOf(1000));
+			testEntities.add(SpeciesReader.getSpecies("Volch").makeInstanceOf(0));
+			testEntities.add(SpeciesReader.getSpecies("Volch Minor").makeInstanceOf(1000));
 
 			for(Entity e : testEntities) {
 				grp.addMember(e);
