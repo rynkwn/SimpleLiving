@@ -8,6 +8,8 @@ package data;
  * class.
  */
 public class LaborPool {
+	public static final String TYPE_NATURALISM = "Naturalism";
+	public static final String TYPE_ENGINEERING = "Engineering";
 	
 	// Labor related to getting biological products from the environment. (Gathering/hunting).
 	public double naturalism;
@@ -15,8 +17,40 @@ public class LaborPool {
 	// Labor related to building anything.
 	public double engineering;
 	
-	public LaborPool() {
+	public LaborPool(double naturalism,
+					 double engineering
+					 ) {
 		
+		this.naturalism = naturalism;
+		this.engineering = engineering;
+	}
+	
+	/*
+	 * Get the value for a specific attribute.
+	 */
+	public double get(String type) {
+		switch(type) {
+		case TYPE_NATURALISM:
+			return naturalism;
+		case TYPE_ENGINEERING:
+			return engineering;
+		}
+		
+		return 0;
+	}
+	
+	/*
+	 * Set the value for a specific attribute.
+	 */
+	public void set(String type, Double value) {
+		switch(type) {
+		case TYPE_NATURALISM:
+			naturalism = value;
+			break;
+		case TYPE_ENGINEERING:
+			engineering = value;
+			break;
+		}
 	}
 
 }

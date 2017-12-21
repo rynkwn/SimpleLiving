@@ -1,5 +1,6 @@
 package organization;
 
+import item.Item;
 import data.LaborPool;
 
 /*
@@ -11,4 +12,8 @@ public class Project {
 	public String type;
 	public int number; // If relevant. (Usually is.)
 	public LaborPool laborRequirements;
+	
+	// What the project produces.
+	public Item product;
+	
 }
