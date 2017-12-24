@@ -5,7 +5,7 @@ import entities.*;
 /*
  * Holds information about a class of item.
  */
-class AbstractItem {
+public class AbstractItem {
 	public String name;
 	public String type;
 	public double base_weight;

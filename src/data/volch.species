@@ -19,6 +19,7 @@
          "0.75": "Volch"
       }
    },
+   "baseLabor": 10.0,
    "initialBodyStructure": {
       "species": "Volch",
       "age": 0,

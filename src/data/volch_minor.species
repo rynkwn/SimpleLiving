@@ -18,6 +18,7 @@
          "1.0": "Volch"
       }
    },
+   "baseLabor": 0.0,
    "initialBodyStructure": {
       "species": "Volch Minor",
       "age": 0,

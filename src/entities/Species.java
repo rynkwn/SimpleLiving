@@ -13,6 +13,7 @@ public class Species {
 	public long finalSize;
 	public int timeTillMaturation;
 	public ChanceOutcomes<String> offspring;
+	public double baseLabor;
 	public Body initialBodyStructure;
 	public String behaviorFile;
 	public HashMap<String, BiologicalProduct> products;
@@ -96,6 +97,7 @@ public class Species {
 		sb.append("initialSize: " + initialSize + "\n");
 		sb.append("finalSize: " + finalSize + "\n");
 		sb.append("offspring: " + offspring.toString() + "\n");
+		sb.append("baseLabor: " + baseLabor + "\n");
 		sb.append("initialBodyStructure: " + initialBodyStructure.toString() + "\n");
 		sb.append("behaviorFile: " + behaviorFile + "\n");
 		sb.append("bio products: " + products.toString() + "\n");

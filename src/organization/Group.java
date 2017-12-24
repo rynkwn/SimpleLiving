@@ -3,6 +3,7 @@ package organization;
 import java.awt.Window.Type;
 import java.util.*;
 
+import data.LaborPool;
 import entities.*;
 import item.*;
 import world.*;
@@ -25,6 +26,13 @@ public class Group {
 	public ArrayList<Entity> members;
 	public Inventory inventory;
 	public GroupBehaviorTree behavior;
+	
+	// Labor pool. Determined near the beginning of every turn
+	// after entities pass their own turns. Then allocated to projects.
+	public LaborPool availableLabor;
+	
+	// Active projects.
+	public ArrayList<Project> projects;
 	
 	public Group(World world, int x, int y) {
 		Random rand = new Random();

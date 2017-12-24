@@ -1,5 +1,6 @@
 package organization;
 
+import item.AbstractItem;
 import item.Item;
 import data.LaborPool;
 
@@ -14,6 +15,6 @@ public class Project {
 	public LaborPool laborRequirements;
 	
 	// What the project produces.
-	public Item product;
+	public AbstractItem product;
 	
 }
