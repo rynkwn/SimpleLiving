@@ -176,33 +176,46 @@ public class Group {
 	}
 	
 	/*
+	 * Try to feed a specified entity from the local tile (if applicable) or from
+	 * the stocks of this group.
+	 */
+	public void feedEntity(Entity e) {
+		String nutritionType = e.body.nutritionType();
+		HashMap<String, Double> nutritionalNeeds = e.body.nutritionalNeeds();
+		
+		if(nutritionType.equals("ANIMAL")) {
+			ArrayList<Food> meal = inventory.findThingsToEat(nutritionalNeeds);
+			e.eat(meal);
+		} else if(nutritionType.equals("PLANT")) {
+			double satisfaction = residentTile.takeMaterials(e.body.nutrition.getMacronutrients());
+			
+			e.absorb(satisfaction);
+		}
+	}
+	
+	/*
 	 * Group passes a turn.
 	 */
 	public void turn() {
+		
+		availableLabor.zero();
 		
 		// For every entity, have it take a turn and feed itself.
 		for(int i = 0; i < members.size(); i++) {
 			Entity e = members.get(i);
 			
 			e.turn();
+			feedEntity(e);
 			
-			String nutritionType = e.body.nutritionType();
-			HashMap<String, Double> nutritionalNeeds = e.body.nutritionalNeeds();
-			
-			if(nutritionType.equals("ANIMAL")) {
-				ArrayList<Food> meal = inventory.findThingsToEat(nutritionalNeeds);
-				e.eat(meal);
-			} else if(nutritionType.equals("PLANT")) {
-				
-				double satisfaction = residentTile.takeMaterials(e.body.nutrition.getMacronutrients());
-				
-				e.absorb(satisfaction);
-			}
-			
+			// If the entity is dead, remove it from our list of members.
 			if(e.isDead()) {
 				members.remove(i);
 				i--;
+			} else {
+				// The entity is alive, so we can add its labor to our labor pool.
+				
 			}
+			
 		}
 		
 		// Execute the next step in its behavior chain.

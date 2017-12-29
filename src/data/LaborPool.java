@@ -1,5 +1,7 @@
 package data;
 
+import java.util.ArrayList;
+
 /*
  * A representation of a group of labor, divided into types.
  * 
@@ -52,5 +54,25 @@ public class LaborPool {
 			break;
 		}
 	}
+	
+	/*
+	 * Set all values to 0.
+	 */
+	public void zero() {
+		for(String laborType : laborList()) {
+			set(laborType, 0.0);
+		}
+	}
 
+	/*
+	 * Returns a list containing all labor types.
+	 */
+	public static ArrayList<String> laborList() {
+		ArrayList<String> laborTypes = new ArrayList<String>();
+		
+		laborTypes.add(TYPE_NATURALISM);
+		laborTypes.add(TYPE_ENGINEERING);
+		
+		return laborTypes;
+	}
 }
