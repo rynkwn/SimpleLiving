@@ -2,6 +2,7 @@ package entities;
 
 import java.util.*;
 
+import data.LaborPool;
 import item.*;
 import organization.*;
 
@@ -47,6 +48,8 @@ public class Entity {
 	public HashMap<String, Integer> progressTowardsBioProduct; // Progress towards bioProduct. Counting down.
 	public Body body;
 	
+	public LaborPool labor;
+	
 	public Group group;
 	
 	// Skills!
@@ -72,9 +75,13 @@ public class Entity {
 		this.body = body;
 	}
 	
+	/*
+	 * Let this entity iterate through a normal turn.
+	 */
 	public void turn() {
 		Species entitySpecies = SpeciesReader.getSpecies(species);
 		
+		// Increase the age of this entity by 1.
 		body.age(1);
 		
 		// Produce any biological products.
@@ -102,6 +109,8 @@ public class Entity {
 		} else {
 			timeSinceLastBirth ++;
 		}
+		
+		// Update entity labor.
 		
 	}
 	
