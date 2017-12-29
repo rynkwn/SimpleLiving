@@ -17,4 +17,11 @@ public class Project {
 	// What the project produces.
 	public AbstractItem product;
 	
+	public Project() {
+		
+	}
+}
+
+enum ProjectTypes {
+	GATHER, BUILD
 }

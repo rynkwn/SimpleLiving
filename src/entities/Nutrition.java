@@ -5,10 +5,17 @@ import util.*;
 
 import java.util.*;
 
+import data.Macronutrient;
+
 /*
- * Mostly an interface for nutrition.
+ * An interface for nutrition. Essentially, this details nutritional REQUIREMENTS for a given
+ * organism, species, or some other entity that might require nutritional requirements.
  */
 public class Nutrition {
+	public static final String PLANT_TYPE = "PLANT";
+	public static final String ABSTRACT_TYPE = "ABSTRACT";
+	public static final String ANIMAL_TYPE = "ANIMAL";
+	
 	// PLANT CONSTANTS
 	// Values from: https://en.wikipedia.org/wiki/Hoagland_solution
 	public static final double CARBON_PPM = 300;
@@ -22,7 +29,7 @@ public class Nutrition {
 											NITROGEN_PPM + POTASSIUM_PPM +
 											CALCIUM_PPM + PHOSPHORUS_PPM + SALT_PPM;
 
-	public String type = "ABSTRACT"; // values: ABSTRACT, ANIMAL, PLANT 
+	public String type = ABSTRACT_TYPE; // values: ABSTRACT, ANIMAL, PLANT 
 	
 	public double metabolism; // A modifier to nutritional needs.
 	
@@ -33,17 +40,13 @@ public class Nutrition {
 	public double calories;
 	public double vitaminC;
 	
-	// Plant Needs
-	public double carbon; // UNSURE: Say 300 ppm
-	public double nitrogen; // 210 ppm
-	public double potassium; // 235 ppm
-	public double calcium; // 200 ppm
-	public double phosphorus; // 31 ppm
-	public double salt; // UNSURE: Say 5 ppm
+	public Macronutrient plantNutrition;
 	
 	public Nutrition(String type, double metabolism) {
 		this.type = type;
 		this.metabolism = metabolism;
+		
+		plantNutrition = new Macronutrient(0);
 	}
 	
 	// Explicitly defined Nutrition to be used by Food/Items.
@@ -56,13 +59,8 @@ public class Nutrition {
 	// Explicitly defined nutrition for plant-related items.
 	public Nutrition(double H2O, double C, double N, double K,
 					 double Ca, double P, double NaCl) {
-		water = H2O;
-		carbon = C;
-		nitrogen = N;
-		potassium = K;
-		calcium = Ca;
-		phosphorus = P;
-		salt = NaCl;
+		
+		plantNutrition = new Macronutrient(H2O, C, N, K, Ca, P, NaCl);
 	}
 	
 	// Essentially a clone method.
@@ -73,35 +71,32 @@ public class Nutrition {
 		this.calories = n.calories;
 		this.vitaminC = n.vitaminC;
 		
-		this.nitrogen = n.nitrogen;
-		this.phosphorus = n.phosphorus;
-		this.potassium = n.potassium;
-		this.carbon = n.carbon;
-		this.nitrogen = n.nitrogen;
-		this.potassium = n.potassium;
-		this.calcium = n.calcium;
-		this.phosphorus = n.phosphorus;
-		this.salt = n.salt;
+		if(n.plantNutrition != null)
+			plantNutrition = new Macronutrient(n.plantNutrition);
 	}
 	
 	// Updates needs based on a new mass value.
 	public void updateNeeds(double mass) {
 		
-		if(type.equals("ANIMAL")) {
+		if(type.equals(ANIMAL_TYPE)) {
 			
 			water = .1 * mass * metabolism;
 			calories = .1 * mass * metabolism;
 			vitaminC = .01 * mass * metabolism;
 			
-		} else if(type.equals("PLANT")) {
+		} else if(type.equals(PLANT_TYPE)) {
 			
-			water = .1 * mass * metabolism;
-			carbon = .1 * (Nutrition.CARBON_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
-			nitrogen = .1 * (Nutrition.NITROGEN_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
-			potassium = .1 * (Nutrition.POTASSIUM_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
-			calcium = .1 * (Nutrition.CALCIUM_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
-			phosphorus = .1 * (Nutrition.PHOSPHORUS_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
-			salt = .1 * (Nutrition.SALT_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism;
+			if(plantNutrition == null) {
+				plantNutrition = new Macronutrient(0);
+			}
+			
+			plantNutrition.set("water", .1 * mass * metabolism);
+			plantNutrition.set("carbon", .1 * (Nutrition.CARBON_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism);
+			plantNutrition.set("nitrogen", .1 * (Nutrition.NITROGEN_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism);
+			plantNutrition.set("potassium", .1 * (Nutrition.POTASSIUM_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism);
+			plantNutrition.set("calcium", .1 * (Nutrition.CALCIUM_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism);
+			plantNutrition.set("phosphorus", .1 * (Nutrition.PHOSPHORUS_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism);
+			plantNutrition.set("salt", .1 * (Nutrition.SALT_PPM / Nutrition.PLANT_TOTAL_NUTRIENT_MASS) * mass * metabolism);
 			
 		}
 	}
@@ -116,13 +111,11 @@ public class Nutrition {
 			requirements.put("calories", calories);
 			requirements.put("vitaminC", vitaminC);
 			
-			requirements.put("carbon", carbon);
-			requirements.put("nitrogen", nitrogen);
-			requirements.put("potassium", potassium);
-			requirements.put("calcium", calcium);
-			requirements.put("phosphorus", phosphorus);
-			requirements.put("salt", salt);
-
+			if(plantNutrition != null) {
+				for(String nutrient : Macronutrient.nutrientList()) {
+					requirements.put(nutrient, plantNutrition.get(nutrient));
+				}
+			}
 			
 		} else if (type.equals("ANIMAL")) {
 			
@@ -131,12 +124,9 @@ public class Nutrition {
 			
 		} else if (type.equals("PLANT")) {
 			
-			requirements.put("carbon", carbon);
-			requirements.put("nitrogen", nitrogen);
-			requirements.put("potassium", potassium);
-			requirements.put("calcium", calcium);
-			requirements.put("phosphorus", phosphorus);
-			requirements.put("salt", salt);
+			for(String nutrient : Macronutrient.nutrientList()) {
+				requirements.put(nutrient, plantNutrition.get(nutrient));
+			}
 			
 		}
 
@@ -166,6 +156,15 @@ public class Nutrition {
 		}
 		
 		return MathUtils.min(needs);
+	}
+	
+	/*
+	 * Return a Macronutrient representation of the nutritional needs.
+	 * 
+	 * Only viable if the nutrition type is a plant.
+	 */
+	public Macronutrient getMacronutrients() {
+		return plantNutrition;
 	}
 	
 	public String toString() {

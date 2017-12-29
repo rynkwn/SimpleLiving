@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /*
- * A wrapper class for macronutrients.
+ * A wrapper class for macronutrients, which are for plants.
  */
 
 public class Macronutrient {
@@ -109,21 +109,48 @@ public class Macronutrient {
 		set(key, curValue + value);
 	}
 	
+	/*
+	 * Add another macronutrient to this one.
+	 */
 	public void add(Macronutrient nutr) {
 		for(String nutrient : nutrientList()) {
 			add(nutrient, nutr.get(nutrient));
 		}
 	}
 	
+	/*
+	 * Add a macronutrient with a multiplier.
+	 */
 	public void add(Macronutrient nutr, int multiplier) {
 		for(String nutrient : nutrientList()) {
 			add(nutrient, multiplier * nutr.get(nutrient));
 		}
 	}
 	
+	/*
+	 * Subtract a specified macronutrient (with associated value) from this macronutrient.
+	 */
 	public void subtract(String key, double value) {
 		double curValue = get(key);
 		set(key, curValue - value);
+	}
+	
+	/*
+	 * Subtract another Macronutrient from this one.
+	 */
+	public void subtract(Macronutrient nutr) {
+		for(String nutrient : nutrientList()) {
+			subtract(nutrient, nutr.get(nutrient));
+		}
+	}
+	
+	/*
+	 * Subtract another Macronutrient from this one, with a double multiplier.
+	 */
+	public void subtract(Macronutrient nutr, double multiplier) {
+		for(String nutrient : nutrientList()) {
+			subtract(nutrient, multiplier * nutr.get(nutrient));
+		}
 	}
 	
 	public double nutrientSum() {

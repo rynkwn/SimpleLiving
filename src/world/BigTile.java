@@ -111,35 +111,13 @@ public class BigTile {
 	 * NOTE: DON'T LIKE THIS METHOD. YOU SHOULD TAKE AS MUCH AS YOU CAN. EVEN IF SOME THINGS ARE MISSING, YOU SHOULD
 	 * "FILL UP" ON OTHER MATERIALS. HOWEVER. WE'LL DO THIS FOR NOW.
 	 */
-	public double takeMaterials(double H2O, 
-								double C, 
-								double N, 
-								double K, 
-								double Ca,
-								double P,
-								double NaCl) {
+	public double takeMaterials(Macronutrient n) {
+		double maxFactor = soilComposition.factor(n);
+		maxFactor = Math.min(maxFactor, 1);
 		
-		double[] ratios = {
-				Math.min(soilComposition.get("water") / H2O, 1),
-				Math.min(soilComposition.get("carbon") / C, 1),
-				Math.min(soilComposition.get("nitrogen") / N, 1),
-				Math.min(soilComposition.get("potassium") / K, 1),
-				Math.min(soilComposition.get("calcium") / Ca, 1),
-				Math.min(soilComposition.get("phosphorus") / P, 1),
-				Math.min(soilComposition.get("salt") / NaCl, 1),
-		};
+		soilComposition.subtract(n, maxFactor);
 		
-		double minRatio = MathUtils.min(ratios);
-		
-		soilComposition.subtract("water", H2O * minRatio);
-		soilComposition.subtract("carbon", C * minRatio);
-		soilComposition.subtract("nitrogen", N * minRatio);
-		soilComposition.subtract("potassium", K * minRatio);
-		soilComposition.subtract("calcium", Ca * minRatio);
-		soilComposition.subtract("phosphorus", P * minRatio);
-		soilComposition.subtract("salt", NaCl * minRatio);
-		
-		return minRatio;
+		return maxFactor;
 	}
 	
 	public String toString() {

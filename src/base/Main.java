@@ -83,14 +83,14 @@ public class Main {
 		//while(!scan.nextLine().equalsIgnoreCase("q")) {
 		
 		while(true){
-			Thread.sleep(1000);
+			Thread.sleep(500);
 			System.out.println("\n\n\n");
 			//System.out.println(world.map[4][2].toString());
 			System.out.println(world.display());
 			System.out.println(world.map[0][0].toString());
 			System.out.println(world.ecology[0][0].toString());
 			
-			System.out.println(testGroup.toString());
+			//System.out.println(testGroup.toString());
 			
 			world.turn();
 		}

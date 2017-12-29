@@ -179,6 +179,8 @@ public class Group {
 	 * Group passes a turn.
 	 */
 	public void turn() {
+		
+		// For every entity, have it take a turn and feed itself.
 		for(int i = 0; i < members.size(); i++) {
 			Entity e = members.get(i);
 			
@@ -192,23 +194,7 @@ public class Group {
 				e.eat(meal);
 			} else if(nutritionType.equals("PLANT")) {
 				
-				// TODO: PLANT SETUP IS PRETTY UNSATISFYING.
-				
-				double H2O = nutritionalNeeds.get("water");
-				double C = nutritionalNeeds.get("carbon");
-				double N = nutritionalNeeds.get("nitrogen");
-				double K = nutritionalNeeds.get("potassium");
-				double Ca = nutritionalNeeds.get("calcium");
-				double P = nutritionalNeeds.get("phosphorus");
-				double NaCl = nutritionalNeeds.get("salt");
-				
-				double satisfaction = residentTile.takeMaterials(H2O,
-						C,
-						N,
-						K,
-						Ca,
-						P,
-						NaCl);
+				double satisfaction = residentTile.takeMaterials(e.body.nutrition.getMacronutrients());
 				
 				e.absorb(satisfaction);
 			}
@@ -219,6 +205,7 @@ public class Group {
 			}
 		}
 		
+		// Execute the next step in its behavior chain.
 		behavior.execute();
 	}
 	
