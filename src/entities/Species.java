@@ -2,6 +2,7 @@ package entities;
 
 import java.util.*;
 
+import data.LaborPool;
 import util.Range;
 import util.ChanceOutcomes;
 
@@ -13,7 +14,7 @@ public class Species {
 	public long finalSize;
 	public int timeTillMaturation;
 	public ChanceOutcomes<String> offspring;
-	public double baseLabor;
+	public LaborPool baseLabor;
 	public Body initialBodyStructure;
 	public String behaviorFile;
 	public HashMap<String, BiologicalProduct> products;
@@ -26,6 +27,7 @@ public class Species {
 				   long finalSize,
 				   int timeTillMaturation,
 				   ChanceOutcomes<String> offspring,
+				   LaborPool baseLabor,
 				   Body initialBodyStructure,
 				   String behaviorFile,
 				   HashMap<String, BiologicalProduct> products,
@@ -38,6 +40,7 @@ public class Species {
 		this.finalSize = finalSize;
 		this.timeTillMaturation = timeTillMaturation;
 		this.offspring = offspring;
+		this.baseLabor = new LaborPool(baseLabor);
 		this.initialBodyStructure = initialBodyStructure;
 		this.behaviorFile = behaviorFile;
 		this.products = products;
@@ -85,7 +88,8 @@ public class Species {
 				name, 
 				0,
 				progressTowardsBioProducts,
-				initialBodyStructure.copyStructure(age));
+				initialBodyStructure.copyStructure(age),
+				baseLabor);
 	}
 	
 	public String toString() {
@@ -97,7 +101,7 @@ public class Species {
 		sb.append("initialSize: " + initialSize + "\n");
 		sb.append("finalSize: " + finalSize + "\n");
 		sb.append("offspring: " + offspring.toString() + "\n");
-		sb.append("baseLabor: " + baseLabor + "\n");
+		sb.append("baseLabor: " + baseLabor.toString() + "\n");
 		sb.append("initialBodyStructure: " + initialBodyStructure.toString() + "\n");
 		sb.append("behaviorFile: " + behaviorFile + "\n");
 		sb.append("bio products: " + products.toString() + "\n");

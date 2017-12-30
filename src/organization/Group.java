@@ -48,6 +48,8 @@ public class Group {
 		members = new ArrayList<Entity>();
 		inventory = new Inventory();
 		
+		availableLabor = new LaborPool(0);
+		
 	}
 	
 	public void addMember(Entity e) {

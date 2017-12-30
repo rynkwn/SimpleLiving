@@ -66,13 +66,15 @@ public class Entity {
 	public Entity(String name, 
 			String species, 
 			int timeSinceLastBirth,
-			HashMap<String, Integer> progressTowardsBioProduct, 
-			Body body) {
+			HashMap<String, Integer> progressTowardsBioProduct,
+			Body body,
+			LaborPool lp) {
 		this.name = name;
 		this.species = species;
 		this.timeSinceLastBirth = timeSinceLastBirth;
 		this.progressTowardsBioProduct = progressTowardsBioProduct;
 		this.body = body;
+		this.labor = new LaborPool(lp);
 	}
 	
 	/*

@@ -19,12 +19,22 @@ public class LaborPool {
 	// Labor related to building anything.
 	public double engineering;
 	
+	public LaborPool(double initialValue) {
+		this.naturalism = initialValue;
+		this.engineering = initialValue;
+	}
+	
 	public LaborPool(double naturalism,
 					 double engineering
 					 ) {
 		
 		this.naturalism = naturalism;
 		this.engineering = engineering;
+	}
+	
+	public LaborPool(LaborPool lp) {
+		this.naturalism = lp.naturalism;
+		this.engineering = lp.engineering;
 	}
 	
 	/*
@@ -74,5 +84,18 @@ public class LaborPool {
 		laborTypes.add(TYPE_ENGINEERING);
 		
 		return laborTypes;
+	}
+	
+	/*
+	 * Return a String representation of this LaborPool.
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for(String laborType : laborList()) {
+			sb.append(laborType + ": " + get(laborType) + "\n");
+		}
+		
+		return sb.toString();
 	}
 }
