@@ -88,8 +88,8 @@ public class Species {
 				name, 
 				0,
 				progressTowardsBioProducts,
-				initialBodyStructure.copyStructure(age),
-				baseLabor);
+				initialBodyStructure.copyStructure(age)
+				);
 	}
 	
 	public String toString() {

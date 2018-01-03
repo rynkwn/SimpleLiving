@@ -10,34 +10,6 @@ public class Entity {
 	
 	//////////////////////////////////////
 	//
-	// Skill Constants
-	//
-	
-	// Combat-related skills.
-	
-	// These skills affect to-hit chances with
-	// the relevant weapons. Dodging reduces an opponents
-	// to-hit chance.
-	public static final String SKILL_MELEE = "Melee";
-	public static final String SKILL_RANGED = "Ranged";
-	public static final String SKILL_DODGING = "Dodging";
-	
-	// Strength increases melee damage, and also affects
-	// carrying capacity.
-	public static final String SKILL_STRENGTH = "Strength";
-	
-	// Speed affects run speed in combat as well as overworld speed.
-	public static final String SKILL_SPEED = "Speed";
-	
-	
-	// Labor-related skills
-	
-	// Skills related to trapping, hunting, and gathering.
-	public static final String SKILL_NATURALISM = "Naturalism";
-	public static final String SKILL_ENGINEERING = "Engineering";
-	
-	//////////////////////////////////////
-	//
 	// Entity Attributes
 	//
 	
@@ -52,29 +24,21 @@ public class Entity {
 	
 	public Group group;
 	
-	// Skills!
-	
-	// Experiment requirement for a skill increase
-	// is 10^{skill level} (Or some other exponential increase).
-	// When a skill is used, we increase experience, and then check
-	// to see if that's sufficient for a level up. If it is, then
-	// we reset experience for that skill.
-	public HashMap<String, Integer> skills;
-	public HashMap<String, Long> experience;
-	
 	
 	public Entity(String name, 
 			String species, 
 			int timeSinceLastBirth,
 			HashMap<String, Integer> progressTowardsBioProduct,
-			Body body,
-			LaborPool lp) {
+			Body body) {
 		this.name = name;
 		this.species = species;
 		this.timeSinceLastBirth = timeSinceLastBirth;
 		this.progressTowardsBioProduct = progressTowardsBioProduct;
 		this.body = body;
-		this.labor = new LaborPool(lp);
+		
+		// We aren't given a Labor Pool to explicitly set for this Entity
+		// so we update its labor pool based on the Species base labor
+		// pool, and modified for this entity's initial set of skills.
 	}
 	
 	/*
@@ -114,45 +78,6 @@ public class Entity {
 		
 		// Update entity labor.
 		
-	}
-	
-	// Try to get the relevant skill value of this entity.
-	public int getSkillValue(String skillName) {
-		if(skills.containsKey(skillName)) {
-			return skills.get(skillName);
-		} else {
-			return 0;
-		}
-	}
-	
-	// Adds experience for a specific skill to the entity.
-	public void addExperience(String skillName, long exp) {
-		long curExpValue = exp;
-		int curLevel = 0;
-		
-		if(experience.containsKey(skillName)) {
-			curLevel = skills.get(skillName);
-			curExpValue += experience.get(skillName);
-		} else {
-			// If we have no experience for it, we assume
-			// we also don't have the skill.
-			skills.put(skillName, 0);
-			experience.put(skillName, 0L);
-		}
-		
-		long expNeededToLevel = Entity.experienceToLevel(curLevel);
-		
-		int levelsGained = 0;
-		long expRemaining = curExpValue;
-		
-		while(expRemaining >= expNeededToLevel) {
-			levelsGained++;
-			expRemaining -= expNeededToLevel;
-			expNeededToLevel = Entity.experienceToLevel(curLevel + levelsGained);
-		}
-		
-		skills.put(skillName, curLevel + levelsGained);
-		experience.put(skillName, expRemaining);
 	}
 	
 	/*
