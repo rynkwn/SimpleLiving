@@ -40,6 +40,13 @@ public class SkillPool {
 	public HashMap<String, Integer> skills;
 	public HashMap<String, Long> experience;
 	
+	public SkillPool(int minLevel, int maxLevel) {
+		skills = new HashMap<String, Integer>();
+		experience = new HashMap<String, Long>();
+		
+		randomizeSkills(minLevel, maxLevel);
+	}
+	
 	/*
 	 * Assigns skills randomly, up to some maximum level.
 	 * 
@@ -120,6 +127,9 @@ public class SkillPool {
 	}
 	
 	
+	/*
+	 * Return a list representation of all skills.
+	 */
 	public static ArrayList<String> skillList() {
 		ArrayList<String> skills = new ArrayList<String>();
 		
