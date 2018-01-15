@@ -3,6 +3,7 @@ package entities;
 import java.util.*;
 
 import data.LaborPool;
+import data.SkillPool;
 import item.*;
 import organization.*;
 
@@ -21,6 +22,7 @@ public class Entity {
 	public Body body;
 	
 	public LaborPool labor;
+	public SkillPool skills;
 	
 	public Group group;
 	
@@ -29,16 +31,21 @@ public class Entity {
 			String species, 
 			int timeSinceLastBirth,
 			HashMap<String, Integer> progressTowardsBioProduct,
-			Body body) {
+			Body body,
+			int minSkillLevel,
+			int maxSkillLevel
+			) {
 		this.name = name;
 		this.species = species;
 		this.timeSinceLastBirth = timeSinceLastBirth;
 		this.progressTowardsBioProduct = progressTowardsBioProduct;
 		this.body = body;
+		skills = new SkillPool(minSkillLevel, maxSkillLevel);
 		
 		// We aren't given a Labor Pool to explicitly set for this Entity
 		// so we update its labor pool based on the Species base labor
 		// pool, and modified for this entity's initial set of skills.
+		labor = 
 	}
 	
 	/*

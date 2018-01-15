@@ -88,7 +88,9 @@ public class Species {
 				name, 
 				0,
 				progressTowardsBioProducts,
-				initialBodyStructure.copyStructure(age)
+				initialBodyStructure.copyStructure(age),
+				0,
+				5
 				);
 	}
 	
