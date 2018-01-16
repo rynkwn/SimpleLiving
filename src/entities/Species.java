@@ -3,6 +3,7 @@ package entities;
 import java.util.*;
 
 import data.LaborPool;
+import data.SkillPool;
 import util.Range;
 import util.ChanceOutcomes;
 
@@ -84,13 +85,19 @@ public class Species {
 			progressTowardsBioProducts.put(bioProd.name, bioProd.timeToProduce);
 		}
 		
+		// Create a skill pool for this entity, and then
+		// set up its labor pool based on that base pool.
+		SkillPool sp = new SkillPool(0, 5);
+		LaborPool lp = new LaborPool(baseLabor);
+		lp.updateLabor(baseLabor, sp, 1.0);
+		
 		return new Entity("TEST" + rand.nextInt(10000), 
 				name, 
 				0,
 				progressTowardsBioProducts,
 				initialBodyStructure.copyStructure(age),
-				0,
-				5
+				sp,
+				lp
 				);
 	}
 	

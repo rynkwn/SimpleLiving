@@ -38,6 +38,20 @@ public class LaborPool {
 	}
 	
 	/*
+	 * Updates a labor pool based on the species baseLabor, and the skills
+	 * of the entity at hand. Modifier is an additional modifier on labor (expressed
+	 * as a percentage), and may be based on the physical state of the entity.
+	 */
+	public void updateLabor(LaborPool baseLabor, SkillPool skills, double modifier) {
+		this.naturalism = baseLabor.get(TYPE_NATURALISM) * ((skills.get(SkillPool.SKILL_NATURALISM) * .1) + .5);
+		this.engineering = baseLabor.get(TYPE_ENGINEERING) * ((skills.get(SkillPool.SKILL_ENGINEERING) * .1) + .5);
+		
+		for(String laborType : laborList()) {
+			modify(laborType, modifier);
+		}
+	}
+	
+	/*
 	 * Get the value for a specific attribute.
 	 */
 	public double get(String type) {
@@ -66,6 +80,14 @@ public class LaborPool {
 	}
 	
 	/*
+	 * Applies a modifier (expressed as a percentage) to the specified labor
+	 * type.
+	 */
+	public void modify(String type, double modifier) { 
+		set(type, get(type) * modifier);
+	}
+	
+	/*
 	 * Set all values to 0.
 	 */
 	public void zero() {
@@ -89,11 +111,11 @@ public class LaborPool {
 	/*
 	 * Return a String representation of this LaborPool.
 	 */
-	public String toString() {
+	public String toString(String prefix) {
 		StringBuilder sb = new StringBuilder();
 		
 		for(String laborType : laborList()) {
-			sb.append(laborType + ": " + get(laborType) + "\n");
+			sb.append(prefix + laborType + ": " + get(laborType) + "\n");
 		}
 		
 		return sb.toString();

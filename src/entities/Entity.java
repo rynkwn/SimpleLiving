@@ -32,20 +32,17 @@ public class Entity {
 			int timeSinceLastBirth,
 			HashMap<String, Integer> progressTowardsBioProduct,
 			Body body,
-			int minSkillLevel,
-			int maxSkillLevel
+			SkillPool sp,
+			LaborPool lp
 			) {
 		this.name = name;
 		this.species = species;
 		this.timeSinceLastBirth = timeSinceLastBirth;
 		this.progressTowardsBioProduct = progressTowardsBioProduct;
 		this.body = body;
-		skills = new SkillPool(minSkillLevel, maxSkillLevel);
 		
-		// We aren't given a Labor Pool to explicitly set for this Entity
-		// so we update its labor pool based on the Species base labor
-		// pool, and modified for this entity's initial set of skills.
-		labor = 
+		skills = new SkillPool(sp);
+		labor = new LaborPool(lp);		
 	}
 	
 	/*
@@ -115,8 +112,10 @@ public class Entity {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(name + " - " + species);
-		sb.append("\t" + body.toString());
+		sb.append(name + " - " + species + "\n");
+		sb.append("Skills: " + skills.toString("\t") + "\n");
+		sb.append("Labor:" + labor.toString("\t") + "\n");
+		sb.append(body.toString());
 		return sb.toString();
 	}
 	

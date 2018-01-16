@@ -10,6 +10,11 @@ import entities.Entity;
  * Like the LaborPool, the SkillPool represents skills (and associated 
  * experience in those skills). Also provides a number of helper methods
  * for interacting with these skills.
+ * 
+ * For skills:
+ * Base value is 5 ("This is adequate").
+ * Minimum value is 0, which imposes a 50% penalty.
+ * Every level above 5 adds another 10% efficiency. Simple!
  */
 public class SkillPool {
 	
@@ -48,6 +53,19 @@ public class SkillPool {
 	}
 	
 	/*
+	 * A copy constructor.
+	 */
+	public SkillPool(SkillPool sp) {
+		skills = new HashMap<String, Integer>();
+		experience = new HashMap<String, Long>();
+		
+		for(String skill : skillList()) {
+			skills.put(skill, sp.get(skill));
+			experience.put(skill, sp.getExp(skill));
+		}
+	}
+	
+	/*
 	 * Assigns skills randomly, up to some maximum level.
 	 * 
 	 * Every skill value is randomly set in [minLevel, maxLevel]
@@ -75,6 +93,14 @@ public class SkillPool {
 	public int get(String skillName) {
 		if(skills.containsKey(skillName)) {
 			return skills.get(skillName);
+		} else {
+			return 0;
+		}
+	}
+	
+	public long getExp(String skillName) {
+		if(experience.containsKey(skillName)) {
+			return experience.get(skillName);
 		} else {
 			return 0;
 		}
@@ -147,5 +173,18 @@ public class SkillPool {
 		skills.add(SKILL_ENGINEERING);
 		
 		return skills;
+	}
+	
+	/*
+	 * Return a String representation of this SkillPool.
+	 */
+	public String toString(String prefix) {
+		StringBuilder sb = new StringBuilder();
+		
+		for(String type : skillList()) {
+			sb.append(prefix + type + ": " + get(type) + "\n");
+		}
+		
+		return sb.toString();
 	}
 }
