@@ -1,6 +1,5 @@
 package organization;
 
-import java.awt.Window.Type;
 import java.util.*;
 
 import data.LaborPool;

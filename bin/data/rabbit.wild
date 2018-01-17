@@ -3,7 +3,7 @@
    "type": "Animal",
    "captureResult": "None",
    "harvestResult": {
-      "Rabbit": 1
+      "Meat": 1
    },
    "consumption": "Herbivorous",
    "reproductionRate": 0.1,

@@ -67,8 +67,12 @@ public class ItemsReader {
 		}
 	}
 	
+	public static AbstractItem getAbstractItem(String name) {
+		return items.get(name);
+	}
+	
 	// I want a list containing the abstract components available.
-	public Set<String> getAbstractComponentNames() {
+	public static Set<String> getAbstractComponentNames() {
 		return items.keySet();
 	}
 	

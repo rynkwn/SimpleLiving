@@ -42,7 +42,8 @@ public class WildSpecies {
 			Macronutrient turnNutrition,
 			Macronutrient deathNutrition,
 			double totalMass,
-			int power) {
+			int power
+			) {
 		
 		this.name = name;
 		this.type = type;
