@@ -13,6 +13,15 @@ public class AbstractItem {
 	
 	public AbstractItem(String name,
 			String type,
+			double baseWeight) {
+		this.name = name;
+		this.type = type;
+		this.base_weight = baseWeight;
+		nutrition = null;
+	}
+	
+	public AbstractItem(String name,
+			String type,
 			double base_weight,
 			Nutrition nutrition) {
 		
@@ -39,7 +48,9 @@ public class AbstractItem {
 		sb.append("name: " + name + "\n");
 		sb.append("type: " + type + "\n");
 		sb.append("base_weight: " + base_weight + "\n");
-		sb.append("nutrition: " + nutrition.toString() + "\n");
+		
+		if(nutrition != null)
+			sb.append("nutrition: " + nutrition.toString() + "\n");
 		
 		return sb.toString();
 	}

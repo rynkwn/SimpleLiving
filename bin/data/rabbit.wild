@@ -3,7 +3,8 @@
    "type": "Animal",
    "captureResult": "None",
    "harvestResult": {
-      "Meat": 1
+      "Meat": 2
+      "Leather": 1
    },
    "consumption": "Herbivorous",
    "reproductionRate": 0.1,

@@ -60,6 +60,12 @@ public class ItemsReader {
 															   reader.getDouble("BASE_WEIGHT"),
 															   nutr
 						));
+			} else if(reader.getSingle("TYPE").equals("MATERIAL")) {
+				
+				items.put(reader.getSingle("NAME"), new AbstractItem(reader.getSingle("NAME"),
+															   reader.getSingle("TYPE"),
+															   reader.getDouble("BASE_WEIGHT")
+						));
 			}
 			
 		} catch(FileNotFoundException e) {

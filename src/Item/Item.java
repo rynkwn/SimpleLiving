@@ -79,3 +79,7 @@ public class Item {
 		return name + "\n\t" + quantity + "\n\t" + weight;
 	}
 }
+
+enum ItemType {
+	FOOD, MATERIAL
+}
