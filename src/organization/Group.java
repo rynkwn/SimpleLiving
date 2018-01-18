@@ -112,6 +112,13 @@ public class Group {
 	}
 	
 	/*
+	 * Returns the size of the group.
+	 */
+	public int size() {
+		return members.size();
+	}
+	
+	/*
 	 * Tries to move in a specified direction.
 	 */
 	public boolean move(Direction d) {

@@ -9,11 +9,21 @@ public class GroupBehaviorTree {
 	
 	public Group group;
 	
-	//public ArrayList<GroupBehaviorBlock> blocks[];
 	public String currentAction;
 	public ArrayList<String[]> blocks;
 	public int next; // Which of the behavior blocks in the next list of arrays should be executed next?
 	public int index;
+	
+	/*
+	 * Ultimately, what do I want?
+	 * 
+	 * I want to be able to execute a series of actions. Those actions should
+	 * take in parameters because they may be context sensitive.
+	 * 
+	 * Check fertility of tile { If above threshold, perform another action }
+	 * Create a project { Details about project }
+	 * Check group size { Perform action if meets some condition. }
+	 */
 	
 	public GroupBehaviorTree(ArrayList<String[]> blocks) {
 		group = null;
