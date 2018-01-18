@@ -46,7 +46,7 @@ public class GroupBehaviorReader {
 				blocks.add(cmds);
 			}
 			
-			behaviors.put(file.getName(), new GroupBehaviorTree(blocks));
+			//behaviors.put(file.getName(), new GroupBehaviorTree(blocks));
 			
 		} catch(FileNotFoundException e) {
 			

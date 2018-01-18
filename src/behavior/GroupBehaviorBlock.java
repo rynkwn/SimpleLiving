@@ -11,9 +11,25 @@ public class GroupBehaviorBlock {
 	private GroupBehaviorActionData gbad;
 	private Group group;
 	
-	public GroupBehaviorBlock(GroupBehaviorAction actionName, GroupBehaviorActionData gbad, Group grp) {
+	public GroupBehaviorBlock(GroupBehaviorAction actionName) {
+		this.action = actionName;
+	}
+	
+	public GroupBehaviorBlock(GroupBehaviorAction actionName, GroupBehaviorActionData gbad) {
 		this.action = actionName;
 		this.gbad = gbad;
+	}
+	
+	public GroupBehaviorBlock(GroupBehaviorBlock copyBlock) {
+		this.action = copyBlock.action;
+		this.gbad = copyBlock.gbad;
+		
+	}
+	
+	/*
+	 * Set the group for this GroupBehaviorBlock
+	 */
+	public void setGroup(Group grp) {
 		group = grp;
 	}
 	
@@ -50,11 +66,12 @@ public class GroupBehaviorBlock {
 		
 		return true;
 	}
-}
-
-enum GroupBehaviorAction {
-	CHECK_FERTILITY,
-	CHECK_SIZE,
-	END_TURN,
-	MOVE_RANDOM, 
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(action);
+		
+		return sb.toString();
+	}
 }
