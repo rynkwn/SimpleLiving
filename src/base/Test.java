@@ -49,7 +49,7 @@ public class Test {
 		blocks.add(end);
 		
 		
-		
+		volchTree.addBlocks(blocks);
 		System.out.println(gson.toJson(volchTree));
 	}
 }

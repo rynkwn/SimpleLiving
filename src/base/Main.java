@@ -31,9 +31,6 @@ public class Main {
 		System.out.println(GroupBehaviorReader.debugDump());
 
 		System.out.println("\n\n\n");
-		System.out.println(GroupBehaviorReader.debugDump());
-		
-		System.out.println("\n\n\n");
 		System.out.println(EcologyReader.debugDump());
 		
 		int length = 10;
@@ -90,7 +87,7 @@ public class Main {
 			System.out.println(world.map[0][0].toString());
 			System.out.println(world.ecology[0][0].toString());
 			
-			System.out.println(testGroup.toString());
+			//System.out.println(testGroup.toString());
 			
 			world.turn();
 		}

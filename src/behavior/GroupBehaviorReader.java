@@ -5,6 +5,9 @@ import organization.*;
 import java.io.*;
 import java.util.*;
 
+import com.google.gson.Gson;
+
+import ecology.WildSpecies;
 import util.KeyValueReader;
 
 public class GroupBehaviorReader {
@@ -33,23 +36,14 @@ public class GroupBehaviorReader {
 	
 	public static void readBehaviorFile(File file) {
 		
-		Scanner scan;
-		
 		try {
-			scan = new Scanner(file);
+			Gson gson = new Gson();
 			
-			ArrayList<String[]> blocks = new ArrayList<String[]>();
-			
-			
-			while(scan.hasNextLine()) {
-				String[] cmds = scan.nextLine().replaceAll("\\s+", "").split(";");
-				blocks.add(cmds);
-			}
-			
-			//behaviors.put(file.getName(), new GroupBehaviorTree(blocks));
-			
-		} catch(FileNotFoundException e) {
-			
+			GroupBehaviorTree behaviorTree = gson.fromJson(new FileReader(file), GroupBehaviorTree.class);
+			behaviors.put(file.getName(), behaviorTree);
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	

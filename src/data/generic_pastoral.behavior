@@ -1,3 +1,30 @@
-CHECK_FERTILITY=.1
-SKIP ; MOVE_RANDOM
-END_TURN
+{
+   "blocks":[
+      {
+         "action":"CHECK_FERTILITY",
+         "gbad":{
+            "intDat":0,
+            "doubleDat":0.1,
+            "stringDat":"",
+            "blockData":{
+               "action":"MOVE_RANDOM",
+               "gbad":{
+                  "intDat":0,
+                  "doubleDat":0.0,
+                  "stringDat":""
+               }
+            }
+         }
+      },
+      {
+         "action":"END_TURN",
+         "gbad":{
+            "intDat":0,
+            "doubleDat":0.0,
+            "stringDat":""
+         }
+      }
+   ],
+   "next":0,
+   "index":0
+}

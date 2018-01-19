@@ -14,7 +14,22 @@ public class GroupBehaviorActionData {
 	public HashMap<String, Integer> stringIntHashMapDat;
 	
 	// A dummy constructor.
-	public GroupBehaviorActionData() { }
+	public GroupBehaviorActionData() { 
+		intDat = 0;
+		doubleDat = 0;
+		stringDat = "";
+		
+		stringIntHashMapDat = new HashMap<String, Integer>();
+	}
+	
+	public GroupBehaviorActionData(GroupBehaviorActionData copy) {
+		intDat = copy.intDat;
+		doubleDat = copy.doubleDat;
+		stringDat = copy.stringDat;
+		
+		if(copy.blockData != null)
+			blockData = new GroupBehaviorBlock(copy.blockData);
+	}
 	
 	//////////////////////////
 	//
@@ -46,5 +61,24 @@ public class GroupBehaviorActionData {
 		return blockData;
 	}
 	
+	/////////////////////////
+	//
+	// Existence Methods
+	//
+	public boolean hasBlock() {
+		return blockData != null;
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(intDat + ", ");
+		sb.append(doubleDat + ", ");
+		sb.append(stringDat + ", ");
+		sb.append(blockData + ", ");
+		sb.append(stringIntHashMapDat + ", ");
+				
+		return sb.toString();
+	}
 	
 }

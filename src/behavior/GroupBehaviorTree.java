@@ -44,13 +44,24 @@ public class GroupBehaviorTree {
 		group = grp;
 		next = 0;
 		index = 0;
-		blocks = tree.blocks;
+		this.blocks = new ArrayList<GroupBehaviorBlock>();
 		
-		// TODO: Copy the blocks in the other GroupBehaviorTree.
-		//currentAction = blocks.get(0)[0];
-		
+		addBlocks(tree.blocks);
+		setGroupForBlocks(grp);
 	}
 	
+	/*
+	 * Add a set of behavior blocks to this tree.
+	 */
+	public void addBlocks(ArrayList<GroupBehaviorBlock> newBlocks) {
+		for(GroupBehaviorBlock block : newBlocks) {
+			blocks.add(new GroupBehaviorBlock(block));
+		}
+	}
+	
+	/*
+	 * Sets the group for these sets of blocks.
+	 */
 	public void setGroupForBlocks(Group grp) {
 		for(GroupBehaviorBlock block : blocks) {
 			block.setGroup(grp);

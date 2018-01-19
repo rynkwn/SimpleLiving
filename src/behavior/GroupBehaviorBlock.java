@@ -13,17 +13,18 @@ public class GroupBehaviorBlock {
 	
 	public GroupBehaviorBlock(GroupBehaviorAction actionName) {
 		this.action = actionName;
+		gbad = new GroupBehaviorActionData();
 	}
 	
 	public GroupBehaviorBlock(GroupBehaviorAction actionName, GroupBehaviorActionData gbad) {
 		this.action = actionName;
-		this.gbad = gbad;
+		this.gbad = new GroupBehaviorActionData(gbad);
 	}
 	
 	public GroupBehaviorBlock(GroupBehaviorBlock copyBlock) {
 		this.action = copyBlock.action;
-		this.gbad = copyBlock.gbad;
-		
+		this.gbad = new GroupBehaviorActionData(copyBlock.gbad);
+		this.group = copyBlock.group;
 	}
 	
 	/*
@@ -31,6 +32,9 @@ public class GroupBehaviorBlock {
 	 */
 	public void setGroup(Group grp) {
 		group = grp;
+		if(gbad.hasBlock())
+			gbad.getBlock().setGroup(grp);
+			
 	}
 	
 	// Returns <INDEX OF NEXT BLOCK TO EXECUTE (Normally 0 or 1 for IF blocks), END_TURN>
@@ -71,6 +75,7 @@ public class GroupBehaviorBlock {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(action);
+		sb.append(": " + gbad.toString());
 		
 		return sb.toString();
 	}
