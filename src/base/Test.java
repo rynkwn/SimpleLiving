@@ -41,8 +41,23 @@ public class Test {
 		blocks.add(b1);
 		
 		// Create a project.
+		// In this case, choose a random wild creature in the tile, and then
+		// harvest as much as possible based on available labor.
 		
 		// Check if group too large.
+		GroupBehaviorActionData sizeThreshold = new GroupBehaviorActionData();
+		sizeThreshold.setInt(10);
+		
+		GroupBehaviorActionData splitPct = new GroupBehaviorActionData();
+		splitPct.setDouble(.5);
+		
+		GroupBehaviorBlock splitOffAct = new GroupBehaviorBlock(GroupBehaviorAction.SPLIT_BY_PERCENTAGE, splitPct);
+		
+		sizeThreshold.setBlockData(splitOffAct);
+		GroupBehaviorBlock checkSize = new GroupBehaviorBlock(GroupBehaviorAction.CHECK_SIZE, sizeThreshold);
+		
+		
+		//blocks.add(checkSize);
 		
 		// End turn.
 		GroupBehaviorBlock end = new GroupBehaviorBlock(GroupBehaviorAction.END_TURN);

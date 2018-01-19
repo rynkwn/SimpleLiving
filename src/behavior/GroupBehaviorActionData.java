@@ -6,6 +6,7 @@ import java.util.HashMap;
  * A data class, holding possible parameters for a behavior action.
  */
 public class GroupBehaviorActionData {
+	public String json;
 	public int intDat;
 	public double doubleDat;
 	public String stringDat;
@@ -29,6 +30,9 @@ public class GroupBehaviorActionData {
 		
 		if(copy.blockData != null)
 			blockData = new GroupBehaviorBlock(copy.blockData);
+		
+		stringIntHashMapDat = new HashMap<String, Integer>();
+		setStringIntHashMap(copy.stringIntHashMapDat);
 	}
 	
 	//////////////////////////
@@ -39,6 +43,10 @@ public class GroupBehaviorActionData {
 	public void setDouble(double val) { doubleDat = val; }
 	public void setString(String val) { stringDat = val; }
 	public void setBlockData(GroupBehaviorBlock val) { blockData = val;	}
+	public void setStringIntHashMap(HashMap<String, Integer> map) {
+		for(String s : map.keySet())
+			stringIntHashMapDat.put(s,  map.get(s));
+	}
 	
 	
 	/////////////////////////
@@ -59,6 +67,10 @@ public class GroupBehaviorActionData {
 	
 	public GroupBehaviorBlock getBlock() {
 		return blockData;
+	}
+	
+	public HashMap<String, Integer> getStringIntHashMap() {
+		return stringIntHashMapDat;
 	}
 	
 	/////////////////////////

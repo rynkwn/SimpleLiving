@@ -51,6 +51,9 @@ public class World {
 			}
 		}
 		
+		// TODO: A trick to prevent concurrent modification exceptions.
+		//String[] ids = new String[0];
+		//ids = groups.keySet().toArray(ids);
 		for(String id : groups.keySet()) {
 			groups.get(id).turn();
 		}

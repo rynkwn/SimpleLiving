@@ -66,6 +66,11 @@ public class GroupBehaviorBlock {
 		case MOVE_RANDOM:
 			group.randomMove();
 			return true;
+			
+		case SPLIT_BY_PERCENTAGE:
+			double pct = gbad.getDouble();
+			group.split(pct);
+			return true;
 		}
 		
 		return true;

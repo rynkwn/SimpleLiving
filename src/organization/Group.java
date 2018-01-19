@@ -76,7 +76,7 @@ public class Group {
 	
 	/*
 	 * Creates a new group in the same square, according to some proportion.
-	 * Splits by members.
+	 * Splits by members, and also adds that group to the world.
 	 */
 	public Group split(double pct) {
 		int numRemoved = (int) Math.floor(members.size() * pct);
@@ -88,6 +88,8 @@ public class Group {
 			grp.addMember(removeMember(0));
 		}
 		
+		// TODO: Desirable? Feels really messy.
+		// world.addGroup(grp.id, grp, x, y);
 		return grp;
 	}
 	
@@ -221,7 +223,7 @@ public class Group {
 				i--;
 			} else {
 				// The entity is alive, so we can add its labor to our labor pool.
-				
+				// TODO:
 			}
 			
 		}
