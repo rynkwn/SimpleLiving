@@ -24,7 +24,7 @@ public class Group {
 	
 	public ArrayList<Entity> members;
 	public Inventory inventory;
-	public GroupBehaviorTree behavior;
+	public GroupBehaviorType behavior;
 	
 	// Labor pool. Determined near the beginning of every turn
 	// after entities pass their own turns. Then allocated to projects.
@@ -70,7 +70,7 @@ public class Group {
 		inventory.add(item);
 	}
 	
-	public void setBehavior(GroupBehaviorTree behavior) {
+	public void setBehavior(GroupBehaviorType behavior) {
 		this.behavior = behavior;
 	}
 	
@@ -82,7 +82,7 @@ public class Group {
 		int numRemoved = (int) Math.floor(members.size() * pct);
 		
 		Group grp = new Group(world, x, y);
-		grp.setBehavior(new GroupBehaviorTree(grp, behavior));
+		grp.setBehavior(behavior);
 		
 		for(int i = 0; i < numRemoved; i++) {
 			grp.addMember(removeMember(0));
@@ -223,13 +223,13 @@ public class Group {
 				i--;
 			} else {
 				// The entity is alive, so we can add its labor to our labor pool.
-				// TODO:
+				availableLabor.add(e.labor);
 			}
 			
 		}
 		
 		// Execute the next step in its behavior chain.
-		behavior.execute();
+		GroupBehavior.execute(this, behavior);
 	}
 	
 	public String toString() {

@@ -1,4 +1,4 @@
-package behavior;
+package deprecated;
 
 import java.util.HashMap;
 

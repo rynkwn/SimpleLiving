@@ -80,6 +80,18 @@ public class LaborPool {
 	}
 	
 	/*
+	 * Add another labor pool to this one.
+	 */
+	public void add(LaborPool lp) {
+		for(String laborType : laborList()) {
+			double addedValue = lp.get(laborType);
+			double curValue = get(laborType);
+			
+			set(laborType, addedValue + curValue);
+		}
+	}
+	
+	/*
 	 * Applies a modifier (expressed as a percentage) to the specified labor
 	 * type.
 	 */

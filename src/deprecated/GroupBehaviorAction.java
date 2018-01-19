@@ -1,4 +1,4 @@
-package behavior;
+package deprecated;
 
 public enum GroupBehaviorAction {
 	CHECK_FERTILITY,

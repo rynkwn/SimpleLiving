@@ -18,7 +18,7 @@ public class Main {
 		
 		SpeciesReader.readSpeciesData("src/data/");
 		ItemsReader.readItemData("src/data/");
-		GroupBehaviorReader.readBehaviorData("src/data");
+		//GroupBehaviorReader.readBehaviorData("src/data");
 		EcologyReader.readEcologyData("src/data");
 		
 		
@@ -27,8 +27,8 @@ public class Main {
 		System.out.println("\n\n\n");
 		System.out.println(ItemsReader.debugDump());
 		
-		System.out.println("\n\n\n");
-		System.out.println(GroupBehaviorReader.debugDump());
+		//System.out.println("\n\n\n");
+		//System.out.println(GroupBehaviorReader.debugDump());
 
 		System.out.println("\n\n\n");
 		System.out.println(EcologyReader.debugDump());
@@ -53,7 +53,7 @@ public class Main {
 		for(int i = 0; i <= 9; i += 2) {
 			
 			Group grp = new Group(world, i, i);
-			grp.setBehavior(GroupBehaviorReader.makeInstanceOf("generic_pastoral.behavior", grp));
+			grp.setBehavior(GroupBehaviorType.VOLCH_PEACEFUL);
 			
 			if(i == 0) {
 				testGroup = grp; 
