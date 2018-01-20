@@ -92,6 +92,19 @@ public class LaborPool {
 	}
 	
 	/*
+	 * Return how many times the given labor pool can factor into this one.
+	 */
+	public int factor(LaborPool lp) {
+		int maxFactor = 0;
+		
+		for(String laborType : laborList()) {
+			maxFactor = (int) Math.max(maxFactor, get(laborType) / lp.get(laborType));
+		}
+		
+		return maxFactor;
+	}
+	
+	/*
 	 * Applies a modifier (expressed as a percentage) to the specified labor
 	 * type.
 	 */

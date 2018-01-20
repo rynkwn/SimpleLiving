@@ -19,8 +19,8 @@ public class Group {
 	// Where is the group in the world?
 	public World world;
 	public BigTile residentTile;
-	int x;
-	int y;
+	public int x;
+	public int y;
 	
 	public ArrayList<Entity> members;
 	public Inventory inventory;
@@ -72,6 +72,13 @@ public class Group {
 	
 	public void setBehavior(GroupBehaviorType behavior) {
 		this.behavior = behavior;
+	}
+	
+	/*
+	 * Add a project to the queue of things worked on.
+	 */
+	public void addProject(Project p) {
+		projects.add(p);
 	}
 	
 	/*
@@ -182,7 +189,6 @@ public class Group {
 			
 			dir = rand.nextInt(4);
 		}
-			
 	}
 	
 	/*
@@ -225,11 +231,10 @@ public class Group {
 				// The entity is alive, so we can add its labor to our labor pool.
 				availableLabor.add(e.labor);
 			}
-			
 		}
 		
 		// Execute the next step in its behavior chain.
-		GroupBehavior.execute(this, behavior);
+		GroupBehavior.execute(this, world, behavior);
 	}
 	
 	public String toString() {

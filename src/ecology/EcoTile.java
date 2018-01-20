@@ -82,6 +82,18 @@ public class EcoTile {
 		}
 	}
 	
+	/*
+	 * Subtract some members of a local population. If we're subtracting more
+	 * than currently exist, we remove the entire population.
+	 */
+	public void subPop(String specName, int pop) {
+		if(species.containsKey(specName)) {
+			int curPop = species.get(specName);
+			int newPop = Math.max(0, curPop - pop);
+			updatePopulation(specName, newPop);
+		}
+	}
+	
 	// Subtract differential * nutrientModel from the local environment.
 	public void subtractFromEnvironment(Macronutrient nutrientModel, int differential) {
 		for(String nutrient : Macronutrient.nutrientList()) {
@@ -279,6 +291,13 @@ public class EcoTile {
 		} else {
 			turnsTillPopIteration --;
 		}
+	}
+	
+	/*
+	 * Returns a HashMap representation of local wildlife.
+	 */
+	public HashMap<String, Integer> localWildlife() {
+		return species;
 	}
 	
 	public String toString() {

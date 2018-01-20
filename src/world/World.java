@@ -101,6 +101,14 @@ public class World {
 		return null;
 	}
 	
+	public EcoTile getEcoTile(int x, int y) {
+		if(inBounds(x, y)) {
+			return ecology[x][y];
+		}
+		
+		return null;
+	}
+	
 	public boolean inBounds(int x, int y) {
 		if(x >= 0 && x < length && y >= 0 && y < width) {
 			return true;

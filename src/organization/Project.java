@@ -39,6 +39,10 @@ public class Project {
 	public Project(ProjectType type, String target, int number) {
 		switch(type) {
 		case NATURALISM:
+			// TODO: Project should probably take in the group. If a certain project
+			// would take in inputs that are beyond the ability of the local tile to provide
+			// the project should probably not be made. 
+			
 			// In this case, target should be a wild species.
 			WildSpecies targ = EcologyReader.getWildSpecies(target);
 			
@@ -58,8 +62,28 @@ public class Project {
 		
 		laborStore = new LaborPool(0); 
 	}
-}
-
-enum ProjectType {
-	NATURALISM, ENGINEERING
+	
+	/*
+	 * Given the amount of available labor, return a number indicating the maximum amount producible
+	 * with the specified labor.
+	 */
+	public static int maxAmountProducible(ProjectType type, String target, LaborPool availableLabor) {
+		switch(type) {
+		case NATURALISM:
+			// In this case, target should be a wild species.
+			WildSpecies targ = EcologyReader.getWildSpecies(target);
+			
+			// Determine how much labor is needed to capture the specified number of
+			// creatures/plants.
+			LaborPool requiredLabor = new LaborPool(0);
+			requiredLabor.set(LaborPool.TYPE_NATURALISM, 1.0 * targ.power);
+			
+			return availableLabor.factor(requiredLabor);
+			
+		case ENGINEERING:
+			break;
+		}
+		
+		return 0;
+	}
 }
