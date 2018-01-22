@@ -34,8 +34,10 @@ public class GroupBehavior {
 				int maxHarvestable = Project.maxAmountProducible(ProjectType.NATURALISM, targetSpec, grp.availableLabor);
 				int targetHarvest = Math.min(availableSpec, maxHarvestable);
 				
-				Project harvest = new Project(ProjectType.NATURALISM, grp, targetSpec, targetHarvest);
-				grp.addProject(harvest);
+				if(targetHarvest > 0) {
+					Project harvest = new Project(ProjectType.NATURALISM, grp, targetSpec, targetHarvest);
+					grp.addProject(harvest);
+				}
 			}
 			
 			

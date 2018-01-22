@@ -33,7 +33,7 @@ public class Group {
 	public LaborPool availableLabor;
 	
 	// Active projects.
-	public ArrayList<Project> projects;
+	public HashMap<Project, Double> projects;
 	
 	public Group(World world, int x, int y) {
 		Random rand = new Random();
@@ -51,6 +51,7 @@ public class Group {
 		inventory = new Inventory();
 		
 		availableLabor = new LaborPool(0);
+		projects = new HashMap<Project, Double>();
 	}
 	
 	public void addMember(Entity e) {
@@ -80,7 +81,7 @@ public class Group {
 	 * Add a project to the queue of things worked on.
 	 */
 	public void addProject(Project p) {
-		projects.add(p);
+		projects.put(p, 1.0);
 	}
 	
 	/*
@@ -244,7 +245,22 @@ public class Group {
 		
 		// Do work on projects, if any. It is important that this is after we
 		// execute group behavior, as that's when we'll initialize/instantiate projects for AI.
+		for(Project proj : projects.keySet()) {
+			if(!availableLabor.isZero())
+				proj.work(availableLabor, projects.get(proj));
+		}
 		
+		// Remove completed projects.
+		ArrayList<Project> completedProjects = new ArrayList<Project>();
+		for(Project proj : projects.keySet()) {
+			if(!proj.valid) {
+				completedProjects.add(proj);
+			}
+		}
+		
+		for(Project completed : completedProjects) {
+			projects.remove(completed);
+		}
 	}
 	
 	public String toString() {
@@ -264,6 +280,9 @@ public class Group {
 		
 		sb.append("\n\nItems:\n_____________________________\n");
 		sb.append(inventory.toString());
+		
+		sb.append("\n\nProjects:\n_____________________________\n");
+		sb.append(projects.toString());
 		
 		return sb.toString();
 	}

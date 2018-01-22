@@ -43,11 +43,14 @@ public class Project {
 	 * harvesting. 
 	 */
 	public Project(ProjectType type, Group grp, String target, int number) {
-		this.grp = grp;
 		valid = true;
+		this.type = type;
 		
 		laborStore = new LaborPool(0);
+		
+		this.grp = grp;
 		extraInformation = new HashMap<String, String>();
+		products = new HashMap<AbstractItem, Integer>();
 		
 		switch(type) {
 		case NATURALISM:			
@@ -125,6 +128,8 @@ public class Project {
 			for(AbstractItem product : products.keySet()) {
 				grp.addItem(product.makeItem(products.get(product)));
 			}
+			
+			valid = false;
 		}
 	}
 	
@@ -150,5 +155,17 @@ public class Project {
 		}
 		
 		return 0;
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Type: " + type + "\n");
+		sb.append("Target: " + target + "\n");
+		sb.append("Number: " + number + "\n");
+		sb.append("laborRequirements: " + laborRequirements + "\n");
+		sb.append("laborStore: " + laborStore + "\n");
+		
+		return sb.toString();
 	}
 }

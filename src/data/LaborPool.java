@@ -120,7 +120,8 @@ public class LaborPool {
 		int maxFactor = 0;
 		
 		for(String laborType : laborList()) {
-			maxFactor = (int) Math.max(maxFactor, get(laborType) / lp.get(laborType));
+			if(lp.get(laborType) > 0)
+				maxFactor = (int) Math.max(maxFactor, get(laborType) / lp.get(laborType));
 		}
 		
 		return maxFactor;
@@ -159,6 +160,18 @@ public class LaborPool {
 	public boolean greaterThanOrEqual(LaborPool lp) {
 		for(String laborType: laborList()) {
 			if(get(laborType) < lp.get(laborType))
+				return false;
+		}
+		
+		return true;
+	}
+	
+	/*
+	 * Check to see if all values are 0.
+	 */
+	public boolean isZero() {
+		for(String laborType: laborList()) {
+			if(get(laborType) != 0)
 				return false;
 		}
 		

@@ -12,7 +12,7 @@ import world.*;
 import util.*;
 import behavior.*;
 
-public class Main {
+public class SmallWorld {
 
 	public static void main(String [] args) throws Exception{
 		
@@ -33,54 +33,36 @@ public class Main {
 		System.out.println("\n\n\n");
 		System.out.println(EcologyReader.debugDump());
 		
-		int length = 10;
-		int width = 10;
-		double[][] noise = ValueNoise.generateValueNoise(length, width, 10, 3, .5);
-		int[][] tempDistribution = GradientNoise.gradientNoise(length, width, 10, -20, 30, 2, GradientNoise.GRADIENT_VERTICAL);
-		
-		for(int i = 0; i < length; i++) {
-			for(int j = 0; j < width; j++) {
-				//System.out.format("%04f,", noise[i][j]);
-				System.out.print(tempDistribution[i][j] + " ");
-			}
-			System.out.println();
-		}
+		int length = 2;
+		int width = 2;
 		
 		World world = new World(length, width, 10);
 		
-		Group testGroup = null;
+		Group testGroup = new Group(world, 0, 0);
+		testGroup.setBehavior(GroupBehaviorType.VOLCH_PEACEFUL);
 		
-		for(int i = 0; i <= 9; i += 2) {
-			
-			Group grp = new Group(world, i, i);
-			grp.setBehavior(GroupBehaviorType.VOLCH_PEACEFUL);
-			
-			if(i == 0) {
-				testGroup = grp; 
-			}
-			
-			ArrayList<Entity> testEntities = new ArrayList<Entity>();
-			
-			testEntities.add(SpeciesReader.getSpecies("Volch").makeInstanceOf(1000));
-			testEntities.add(SpeciesReader.getSpecies("Volch").makeInstanceOf(1000));
-			testEntities.add(SpeciesReader.getSpecies("Volch").makeInstanceOf(0));
-			testEntities.add(SpeciesReader.getSpecies("Volch Minor").makeInstanceOf(1000));
+		ArrayList<Entity> testEntities = new ArrayList<Entity>();
+		
+		testEntities.add(SpeciesReader.getSpecies("Volch").makeInstanceOf(1000));
+		testEntities.add(SpeciesReader.getSpecies("Volch").makeInstanceOf(1000));
+		testEntities.add(SpeciesReader.getSpecies("Volch").makeInstanceOf(0));
+		testEntities.add(SpeciesReader.getSpecies("Volch Minor").makeInstanceOf(1000));
 
-			for(Entity e : testEntities) {
-				grp.addMember(e);
-			}
-			
-			grp.addItem(ItemsReader.makeComponent("Bud", 120));
-			
-			world.addGroup(grp.id, grp, i, i);
+		for(Entity e : testEntities) {
+			testGroup.addMember(e);
 		}
+		
+		testGroup.addItem(ItemsReader.makeComponent("Bud", 120));
+		
+		world.addGroup(testGroup.id, testGroup, 0, 0);
+		
 		
 		Scanner scan = new Scanner(System.in);
 		
 		//while(!scan.nextLine().equalsIgnoreCase("q")) {
 		
 		while(true){
-			Thread.sleep(1000);
+			Thread.sleep(100);
 			System.out.println("\n\n\n");
 			//System.out.println(world.map[4][2].toString());
 			System.out.println(world.display());
