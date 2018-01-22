@@ -92,6 +92,21 @@ public class LaborPool {
 	}
 	
 	/*
+	 * Subtract some amount of labor from this labor pool, to a minimum of 0.
+	 */
+	public void subtract(LaborPool lp) {
+		for(String laborType : laborList()) {
+			double subValue = lp.get(laborType);
+			double curValue = get(laborType);
+			
+			double finalVal = Math.max(0, curValue - subValue);
+			set(laborType, finalVal);
+		}
+	}
+	
+	
+	
+	/*
 	 * Return how many times the given labor pool can factor into this one.
 	 */
 	public int factor(LaborPool lp) {
@@ -110,6 +125,15 @@ public class LaborPool {
 	 */
 	public void modify(String type, double modifier) { 
 		set(type, get(type) * modifier);
+	}
+	
+	/*
+	 * Applies a modifier to all labor types.
+	 */
+	public void modify(double modifier) {
+		for(String laborType : laborList()) {
+			modify(laborType, modifier);
+		}
 	}
 	
 	/*

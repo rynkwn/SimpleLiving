@@ -13,7 +13,7 @@ import world.World;
  */
 public class GroupBehavior {
 	
-	public static void execute(Group grp, World world, GroupBehaviorType type) {
+	public static void execute(Group grp, GroupBehaviorType type) {
 		switch(type) {
 		case VOLCH_PEACEFUL:
 			// Check fertility of tile.
@@ -26,14 +26,17 @@ public class GroupBehavior {
 			
 			// Create a project, where we randomly select a local wild species
 			// and harvest as much as we can in a single turn.
-			HashMap<String, Integer> localWildlife = world.getEcoTile(grp.x, grp.y).localWildlife();
-			String targetSpec = localWildlife.keySet().iterator().next();
-			int availableSpec = localWildlife.get(targetSpec);
-			int maxHarvestable = Project.maxAmountProducible(ProjectType.NATURALISM, targetSpec, grp.availableLabor);
-			int targetHarvest = Math.min(availableSpec, maxHarvestable);
+			HashMap<String, Integer> localWildlife = grp.ecoTile.localWildlife();
 			
-			
-			Project harvest = new Project(ProjectType.NATURALISM, targetSpec, )
+			if(localWildlife.size() > 0) {
+				String targetSpec = localWildlife.keySet().iterator().next();
+				int availableSpec = localWildlife.get(targetSpec);
+				int maxHarvestable = Project.maxAmountProducible(ProjectType.NATURALISM, targetSpec, grp.availableLabor);
+				int targetHarvest = Math.min(availableSpec, maxHarvestable);
+				
+				Project harvest = new Project(ProjectType.NATURALISM, grp, targetSpec, targetHarvest);
+				grp.addProject(harvest);
+			}
 			
 			
 			break;

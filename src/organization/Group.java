@@ -3,6 +3,7 @@ package organization;
 import java.util.*;
 
 import data.LaborPool;
+import ecology.EcoTile;
 import entities.*;
 import item.*;
 import world.*;
@@ -12,13 +13,14 @@ import behavior.*;
  * A single organized clump of entities.
  */
 
-public class Group {
+public class Group {	
 	public String id;
 	public String name;
 	
 	// Where is the group in the world?
 	public World world;
 	public BigTile residentTile;
+	public EcoTile ecoTile;
 	public int x;
 	public int y;
 	
@@ -43,12 +45,12 @@ public class Group {
 		this.x = x;
 		this.y = y;
 		residentTile = world.getBigTile(x, y);
+		ecoTile = world.getEcoTile(x, y);
 		
 		members = new ArrayList<Entity>();
 		inventory = new Inventory();
 		
 		availableLabor = new LaborPool(0);
-		
 	}
 	
 	public void addMember(Entity e) {
@@ -136,25 +138,29 @@ public class Group {
 		case NORTH:
 			if(world.move(this, x, y, x, y - 1)) {
 				y = y -1;
-				residentTile = world.map[x][y];
+				residentTile = world.getBigTile(x, y);
+				ecoTile = world.getEcoTile(x, y);
 				return true;
 			}
 		case EAST:
 			if(world.move(this, x, y, x + 1, y)) {
 				x = x + 1;
-				residentTile = world.map[x][y];
+				residentTile = world.getBigTile(x, y);
+				ecoTile = world.getEcoTile(x, y);
 				return true;
 			}
 		case WEST:
 			if(world.move(this, x, y, x - 1, y)) {
 				x = x - 1;
-				residentTile = world.map[x][y];
+				residentTile = world.getBigTile(x, y);
+				ecoTile = world.getEcoTile(x, y);
 				return true;
 			}
 		case SOUTH:
 			if(world.move(this, x, y, x, y + 1)) {
 				y = y + 1;
-				residentTile = world.map[x][y];
+				residentTile = world.getBigTile(x, y);
+				ecoTile = world.getEcoTile(x, y);
 				return true;
 			}
 		}
@@ -234,7 +240,11 @@ public class Group {
 		}
 		
 		// Execute the next step in its behavior chain.
-		GroupBehavior.execute(this, world, behavior);
+		GroupBehavior.execute(this, behavior);
+		
+		// Do work on projects, if any. It is important that this is after we
+		// execute group behavior, as that's when we'll initialize/instantiate projects for AI.
+		
 	}
 	
 	public String toString() {
@@ -248,6 +258,9 @@ public class Group {
 		
 		sb.append("\n\nTile:\n_____________________________\n");
 		sb.append(residentTile.toString());
+		
+		sb.append("\n\nLocal Ecology:\n_____________________________\n");
+		sb.append(ecoTile.toString());
 		
 		sb.append("\n\nItems:\n_____________________________\n");
 		sb.append(inventory.toString());
