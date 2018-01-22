@@ -80,6 +80,13 @@ public class LaborPool {
 	}
 	
 	/*
+	 * Set the value for a specific attribute.
+	 */
+	public void set(String type, int value) {
+		set(type, (double) value);
+	}
+	
+	/*
 	 * Add another labor pool to this one.
 	 */
 	public void add(LaborPool lp) {
@@ -143,6 +150,19 @@ public class LaborPool {
 		for(String laborType : laborList()) {
 			set(laborType, 0.0);
 		}
+	}
+	
+	/*
+	 * Checks if this labor pool is strictly greater than or equal to another labor pool
+	 * in all labor types.
+	 */
+	public boolean greaterThanOrEqual(LaborPool lp) {
+		for(String laborType: laborList()) {
+			if(get(laborType) < lp.get(laborType))
+				return false;
+		}
+		
+		return true;
 	}
 
 	/*

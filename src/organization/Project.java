@@ -63,6 +63,8 @@ public class Project {
 			laborRequirements = new LaborPool(0);
 			laborRequirements.set(LaborPool.TYPE_NATURALISM, 1.0 * targ.power * number);
 			
+			extraInformation.put("laborCostPerUnit", "" + targ.power);
+			
 			this.target = target;
 			this.number = number;
 			
@@ -77,16 +79,15 @@ public class Project {
 	/*
 	 * Performs as much work as possible given the LaborPool * pct.
 	 * 
+	 * Also reduces the labor values in the passed in labor pool as a side effect.
+	 * 
 	 * For example, we can allocate 50% of the labor pool for this work, and any unused
 	 * will be left for future projects (or for idling).
 	 * 
 	 * Depending on the type of the work, this may also affect the group's local tile.
 	 */
-	public LaborPool work(LaborPool lp, double pct) {
-		// TODO: We should put in our current laborPool. Portion out the amount that's available
-		// for this project. Then put that amount of labor in the store. Then we see
-		// if the store is strictly greater than the labor requirement.
-		// If so, we consider the project done.
+	public void work(LaborPool lp, double pct) {
+		lp.modify(pct);
 		
 		LaborPool addedLabor = new LaborPool(lp);
 		addedLabor.modify(pct);
@@ -100,7 +101,17 @@ public class Project {
 			HashMap<String, Integer> localSpecies = grp.ecoTile.localWildlife();
 			
 			if(localSpecies.containsKey(target)) {
+				double natLabor = addedLabor.get(LaborPool.TYPE_NATURALISM);
 				
+				int natLaborPerUnit = Integer.parseInt(extraInformation.get("laborCostPerUnit"));
+				
+				int numCanHarvest = (int) (natLabor / natLaborPerUnit);
+				int numAvailable = localSpecies.get(target);
+				
+				int numHarvested = Math.min(numCanHarvest, numAvailable);
+				grp.ecoTile.subPop(target, numHarvested);
+				
+				addedLabor.set(LaborPool.TYPE_NATURALISM, numHarvested * natLaborPerUnit);
 			}
 			
 			break;
@@ -108,7 +119,13 @@ public class Project {
 			break;
 		}
 		
-		return null;
+		laborStore.add(addedLabor);
+		
+		if(laborStore.greaterThanOrEqual(laborRequirements)) {
+			for(AbstractItem product : products.keySet()) {
+				grp.addItem(product.makeItem(products.get(product)));
+			}
+		}
 	}
 	
 	/*
