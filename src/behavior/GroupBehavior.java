@@ -31,11 +31,11 @@ public class GroupBehavior {
 			if(localWildlife.size() > 0) {
 				String targetSpec = localWildlife.keySet().iterator().next();
 				int availableSpec = localWildlife.get(targetSpec);
-				int maxHarvestable = Project.maxAmountProducible(ProjectType.NATURALISM, targetSpec, grp.availableLabor);
+				int maxHarvestable = Project.maxAmountProducible(ProjectType.GATHER, targetSpec, grp.availableLabor);
 				int targetHarvest = Math.min(availableSpec, maxHarvestable);
 				
 				if(targetHarvest > 0) {
-					Project harvest = new Project(ProjectType.NATURALISM, grp, targetSpec, targetHarvest);
+					Project harvest = new Project(ProjectType.GATHER, grp, targetSpec, targetHarvest);
 					grp.addProject(harvest);
 				}
 			}

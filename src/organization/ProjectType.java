@@ -1,5 +1,9 @@
 package organization;
 
 public enum ProjectType {
-	NATURALISM, ENGINEERING
+	// Naturalism based projects.
+	GATHER, KILL, 
+	
+	// Engineering based projects.
+	ENGINEERING
 }

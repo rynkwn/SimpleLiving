@@ -53,7 +53,7 @@ public class Project {
 		products = new HashMap<AbstractItem, Integer>();
 		
 		switch(type) {
-		case NATURALISM:			
+		case GATHER:			
 			// In this case, target should be a wild species.
 			WildSpecies targ = EcologyReader.getWildSpecies(target);
 			
@@ -71,6 +71,8 @@ public class Project {
 			this.target = target;
 			this.number = number;
 			
+			break;
+		case KILL:
 			break;
 		case ENGINEERING:
 			break;
@@ -99,7 +101,7 @@ public class Project {
 		// in the same turn.
 		
 		switch(type) {
-		case NATURALISM:
+		case GATHER:
 			// We're extracting something from the natural environment.
 			HashMap<String, Integer> localSpecies = grp.ecoTile.localWildlife();
 			
@@ -117,6 +119,8 @@ public class Project {
 				addedLabor.set(LaborPool.TYPE_NATURALISM, numHarvested * natLaborPerUnit);
 			}
 			
+			break;
+		case KILL:
 			break;
 		case ENGINEERING:
 			break;
@@ -139,7 +143,7 @@ public class Project {
 	 */
 	public static int maxAmountProducible(ProjectType type, String target, LaborPool availableLabor) {
 		switch(type) {
-		case NATURALISM:
+		case GATHER:
 			// In this case, target should be a wild species.
 			WildSpecies targ = EcologyReader.getWildSpecies(target);
 			
@@ -149,6 +153,9 @@ public class Project {
 			requiredLabor.set(LaborPool.TYPE_NATURALISM, 1.0 * targ.power);
 			
 			return availableLabor.factor(requiredLabor);
+			
+		case KILL:
+			break;
 			
 		case ENGINEERING:
 			break;

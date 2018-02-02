@@ -38,7 +38,6 @@ public class Nutrition {
 	
 	// Animal Needs
 	public double calories;
-	public double vitaminC;
 	
 	public Macronutrient plantNutrition;
 	
@@ -50,10 +49,9 @@ public class Nutrition {
 	}
 	
 	// Explicitly defined Nutrition to be used by Food/Items.
-	public Nutrition(double water, double calories, double vitaminC) {
+	public Nutrition(double water, double calories) {
 		this.water = water;
 		this.calories = calories;
-		this.vitaminC = vitaminC;
 	}
 	
 	// Explicitly defined nutrition for plant-related items.
@@ -69,7 +67,6 @@ public class Nutrition {
 		this.metabolism = n.metabolism;
 		this.water = n.water;
 		this.calories = n.calories;
-		this.vitaminC = n.vitaminC;
 		
 		if(n.plantNutrition != null)
 			plantNutrition = new Macronutrient(n.plantNutrition);
@@ -82,7 +79,6 @@ public class Nutrition {
 			
 			water = .1 * mass * metabolism;
 			calories = .1 * mass * metabolism;
-			vitaminC = .01 * mass * metabolism;
 			
 		} else if(type.equals(PLANT_TYPE)) {
 			
@@ -109,7 +105,6 @@ public class Nutrition {
 		if(type.equals("ABSTRACT")) {
 			
 			requirements.put("calories", calories);
-			requirements.put("vitaminC", vitaminC);
 			
 			if(plantNutrition != null) {
 				for(String nutrient : Macronutrient.nutrientList()) {
@@ -120,7 +115,6 @@ public class Nutrition {
 		} else if (type.equals("ANIMAL")) {
 			
 			requirements.put("calories", calories);
-			requirements.put("vitaminC", vitaminC);
 			
 		} else if (type.equals("PLANT")) {
 			
@@ -139,7 +133,6 @@ public class Nutrition {
 		double[] needs = {
 				water,
 				calories,
-				vitaminC
 		};
 		
 		double[] satisfied = new double[needs.length];
@@ -148,7 +141,6 @@ public class Nutrition {
 		for(Food fd : meal) {
 			satisfied[0] += fd.nutrition.water * pctEffectiveness * fd.quantity;
 			satisfied[1] += fd.nutrition.calories * pctEffectiveness * fd.quantity;
-			satisfied[2] += fd.nutrition.vitaminC * pctEffectiveness * fd.quantity;
 		}
 		
 		for(int i = 0; i < needs.length; i++) {
