@@ -9,6 +9,11 @@ import java.util.Scanner;
 import java.util.Set;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /*
  * ComponentsReader reads in the Components data file and offers an interface to parse and
@@ -38,37 +43,14 @@ public class ItemsReader {
 	}
 	
 	public static void readItemFile(File file) {
-		Scanner scan;
 		
-		try {
-			scan = new Scanner(file);
+		try {			
+			Gson gson = new Gson();
+			AbstractItem item = gson.fromJson(new FileReader(file), AbstractItem.class);
 			
-			KeyValueReader reader = new KeyValueReader();
+			items.put(item.name, item);
 			
-			while(scan.hasNextLine()) {
-				reader.readLine(scan.nextLine());
-			}
-			
-			if(reader.getSingle("TYPE").equals("FOOD")) {
-				double water = reader.getDouble("WATER");
-				double calories = reader.getDouble("CALORIES"); 
-				double vitaminC = reader.getDouble("VITAMIN_C"); 
-				Nutrition nutr = new Nutrition(water, calories, vitaminC);
-				
-				items.put(reader.getSingle("NAME"), new AbstractItem(reader.getSingle("NAME"),
-															   reader.getSingle("TYPE"),
-															   reader.getDouble("BASE_WEIGHT"),
-															   nutr
-						));
-			} else if(reader.getSingle("TYPE").equals("MATERIAL")) {
-				
-				items.put(reader.getSingle("NAME"), new AbstractItem(reader.getSingle("NAME"),
-															   reader.getSingle("TYPE"),
-															   reader.getDouble("BASE_WEIGHT")
-						));
-			}
-			
-		} catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}

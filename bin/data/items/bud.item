@@ -1,0 +1,11 @@
+{
+   "name":"Bud",
+   "type":"FOOD",
+   "base_weight":2.0,
+   "nutrition":{
+      "type":"ABSTRACT",
+      "metabolism":0.0,
+      "water":30.0,
+      "calories":900.0
+   }
+}

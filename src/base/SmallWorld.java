@@ -17,7 +17,7 @@ public class SmallWorld {
 	public static void main(String [] args) throws Exception{
 		
 		SpeciesReader.readSpeciesData("src/data/");
-		ItemsReader.readItemData("src/data/");
+		ItemsReader.readItemData("src/data/items");
 		//GroupBehaviorReader.readBehaviorData("src/data");
 		EcologyReader.readEcologyData("src/data");
 		
@@ -62,7 +62,7 @@ public class SmallWorld {
 		//while(!scan.nextLine().equalsIgnoreCase("q")) {
 		
 		while(true){
-			Thread.sleep(100);
+			Thread.sleep(1000);
 			System.out.println("\n\n\n");
 			//System.out.println(world.map[4][2].toString());
 			System.out.println(world.display());

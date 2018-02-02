@@ -1,0 +1,11 @@
+{
+   "name":"Raw Meat",
+   "type":"FOOD",
+   "base_weight":1.0,
+   "nutrition":{
+      "type":"ABSTRACT",
+      "metabolism":0.0,
+      "water":0.0,
+      "calories":100.0
+   }
+}

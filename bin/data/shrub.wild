@@ -3,7 +3,7 @@
    "type": "Plant",
    "captureResult": "None",
    "harvestResult": {
-      "Shrub": 1
+      "Raw Vegetable": 1
    },
    "consumption": "Photosynthetic",
    "reproductionRate": 0.2,

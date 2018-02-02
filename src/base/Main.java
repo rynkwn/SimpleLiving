@@ -17,7 +17,7 @@ public class Main {
 	public static void main(String [] args) throws Exception{
 		
 		SpeciesReader.readSpeciesData("src/data/");
-		ItemsReader.readItemData("src/data/");
+		ItemsReader.readItemData("src/data/items");
 		//GroupBehaviorReader.readBehaviorData("src/data");
 		EcologyReader.readEcologyData("src/data");
 		

@@ -78,7 +78,7 @@ public class Nutrition {
 		if(type.equals(ANIMAL_TYPE)) {
 			
 			water = .1 * mass * metabolism;
-			calories = .1 * mass * metabolism;
+			calories = 3 * mass * metabolism;
 			
 		} else if(type.equals(PLANT_TYPE)) {
 			
