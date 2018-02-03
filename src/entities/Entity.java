@@ -71,7 +71,7 @@ public class Entity {
 		
 		
 		// Reproduce
-		if(canReproduce() && timeSinceLastBirth == entitySpecies.gestationPeriod) {
+		if(canReproduce() && timeSinceLastBirth >= entitySpecies.gestationPeriod) {
 			timeSinceLastBirth = 0;
 			
 			group.addMembers(entitySpecies.reproduce());

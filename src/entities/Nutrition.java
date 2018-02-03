@@ -39,6 +39,7 @@ public class Nutrition {
 	// Animal Needs
 	public double calories;
 	
+	// Plant-like Needs
 	public Macronutrient plantNutrition;
 	
 	public Nutrition(String type, double metabolism) {
@@ -97,6 +98,23 @@ public class Nutrition {
 		}
 	}
 	
+	/*
+	 * Get a double representation of the nutrient if set.
+	 */
+	public double get(String nutr) {
+		switch(nutr) {
+		case "water":
+			return water;
+		case "calories":
+			return calories;
+		default:
+			return 0.0;
+		}
+	}
+	
+	/*
+	 * Get a HashMap representation of this thing's nutritional needs.
+	 */
 	public HashMap<String, Double> nutrition() {
 		HashMap<String, Double> requirements = new HashMap<String, Double>();
 		

@@ -66,23 +66,30 @@ public class Inventory {
 	 */
 	public ArrayList<Food> findThingsToEat(HashMap<String, Double> needs) {
 		
-		// What do I need to do here?
-		// For each food item, we need to check if there's enough to satisfy the entity.
-		// If so, we remove enough to satisfy.
-		// Otherwise, we gobble it up, and then look for the next item.
-		
 		ArrayList<Food> meal = new ArrayList<Food>();
-		
-		double caloriesNeeded = needs.get("calories");
-		double waterNeeded = needs.get("water");
+		double calorieNeeds = needs.get("calories");
+		double waterNeeds = needs.get("water");
 		
 		for(Food food : getFoods()) {
+			int numDesired = 0;
 			
-			int numNeeded = (int) Math.ceil(Math.max(caloriesNeeded / food.nutrition.calories,
-										waterNeeded / food.nutrition.water));
+			if(food.nutrition.calories > 0 && calorieNeeds > 0)
+				numDesired = (int) Math.ceil((calorieNeeds / food.nutrition.calories));
 			
-			if(numNeeded <= food.getQuantity()) {
-				meal.add(food.split(numNeeded));
+			if(food.nutrition.water > 0 && waterNeeds > 0)
+				numDesired = Math.min(numDesired, (int) Math.ceil((waterNeeds / food.nutrition.water)));
+			
+			int numQuantity = food.getQuantity();
+			
+			int numEaten = Math.min(numDesired, numQuantity);
+			
+			calorieNeeds -= (numEaten * food.nutrition.calories);
+			waterNeeds -= (numEaten * food.nutrition.water);
+			
+			System.out.println(food.name + " - " + numEaten);
+			
+			if(numDesired <= food.getQuantity()) {
+				meal.add(food.split(numDesired));
 			} else {
 				meal.add((Food) remove(food.name, food.getQuantity()));
 			}

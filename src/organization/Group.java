@@ -209,6 +209,7 @@ public class Group {
 		if(nutritionType.equals("ANIMAL")) {
 			ArrayList<Food> meal = inventory.findThingsToEat(nutritionalNeeds);
 			e.eat(meal);
+			
 		} else if(nutritionType.equals("PLANT")) {
 			double satisfaction = residentTile.takeMaterials(e.body.nutrition.getMacronutrients());
 			
