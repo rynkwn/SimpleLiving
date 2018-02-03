@@ -70,28 +70,33 @@ public class Inventory {
 		double calorieNeeds = needs.get("calories");
 		double waterNeeds = needs.get("water");
 		
-		for(Food food : getFoods()) {
-			int numDesired = 0;
+		for(int i = 0; i < 2; i ++) {
+			for(Food food : getFoods()) {
+				int numDesired = 0;
+				
+				if(food.nutrition.calories > 0 && calorieNeeds > 0)
+					numDesired = (int) Math.ceil((calorieNeeds / food.nutrition.calories));
+				
+				if(food.nutrition.water > 0 && waterNeeds > 0)
+					numDesired = Math.min(numDesired, (int) Math.ceil((waterNeeds / food.nutrition.water)));
+				
+				int numQuantity = food.getQuantity();
+				
+				int numEaten = Math.min(numDesired, numQuantity);
+				
+				calorieNeeds -= (numEaten * food.nutrition.calories);
+				waterNeeds -= (numEaten * food.nutrition.water);
+				
+				if(numDesired <= food.getQuantity()) {
+					meal.add(food.split(numDesired));
+				} else {
+					meal.add((Food) remove(food.name, food.getQuantity()));
+				}
+			}
 			
-			if(food.nutrition.calories > 0 && calorieNeeds > 0)
-				numDesired = (int) Math.ceil((calorieNeeds / food.nutrition.calories));
-			
-			if(food.nutrition.water > 0 && waterNeeds > 0)
-				numDesired = Math.min(numDesired, (int) Math.ceil((waterNeeds / food.nutrition.water)));
-			
-			int numQuantity = food.getQuantity();
-			
-			int numEaten = Math.min(numDesired, numQuantity);
-			
-			calorieNeeds -= (numEaten * food.nutrition.calories);
-			waterNeeds -= (numEaten * food.nutrition.water);
-			
-			System.out.println(food.name + " - " + numEaten);
-			
-			if(numDesired <= food.getQuantity()) {
-				meal.add(food.split(numDesired));
-			} else {
-				meal.add((Food) remove(food.name, food.getQuantity()));
+			// If we've already eaten all we need, break out of the loop.
+			if(calorieNeeds <= 0 && waterNeeds <= 0) {
+				break;
 			}
 		}
 		
