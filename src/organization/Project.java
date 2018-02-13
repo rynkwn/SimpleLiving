@@ -14,6 +14,8 @@ import ecology.WildSpecies;
 /*
  * A project is some economic activity in the local tile. This may be to build some number
  * of doohickies, to gather some amount of the local organic or mineral resources, or otherwise.
+ *
+ * The project is associated
  */
 public class Project {
 	
@@ -32,6 +34,11 @@ public class Project {
 	// What the project produces. We determine this based on the above
 	// project properties.
 	public HashMap<AbstractItem, Integer> products;
+
+
+	// EXTRA INFORMATION KEYS
+	public static final String NAT_COST_PER_UNIT = "naturalLaborCostPerUnit";
+
 	
 	/*
 	 * What are you doing when you set up a project? You're building something.
@@ -53,7 +60,7 @@ public class Project {
 		products = new HashMap<AbstractItem, Integer>();
 		
 		switch(type) {
-		case GATHER:			
+		case GATHER:
 			// In this case, target should be a wild species.
 			WildSpecies targ = EcologyReader.getWildSpecies(target);
 			
@@ -66,15 +73,28 @@ public class Project {
 			laborRequirements = new LaborPool(0);
 			laborRequirements.set(LaborPool.TYPE_NATURALISM, 1.0 * targ.power * number);
 			
-			extraInformation.put("laborCostPerUnit", "" + targ.power);
+			extraInformation.put(NAT_COST_PER_UNIT, "" + targ.power);
 			
 			this.target = target;
 			this.number = number;
 			
 			break;
 		case KILL:
+			// Similar to GATHER. But twice as effective at removing local wildlife due to the lack
+			// of any processing that needs to occur.
+			WildSpecies targ = EcologyReader.getWildSpecies(target);
+			
+			// Determine how much labor is needed to capture the specified number of
+			// creatures/plants.
+			laborRequirements = new LaborPool(0);
+			laborRequirements.set(LaborPool.TYPE_NATURALISM, .5 * targ.power * number);
+			
+			extraInformation.put(NAT_COST_PER_UNIT, "" + (.5 * targ.power));
+			
+			this.target = target;
+			this.number = number;
 			break;
-		case ENGINEERING:
+		default:
 			break;
 		}
 		
@@ -108,7 +128,7 @@ public class Project {
 			if(localSpecies.containsKey(target)) {
 				double natLabor = addedLabor.get(LaborPool.TYPE_NATURALISM);
 				
-				int natLaborPerUnit = Integer.parseInt(extraInformation.get("laborCostPerUnit"));
+				int natLaborPerUnit = Integer.parseInt(extraInformation.get(NAT_COST_PER_UNIT));
 				
 				int numCanHarvest = (int) (natLabor / natLaborPerUnit);
 				int numAvailable = localSpecies.get(target);
@@ -121,8 +141,26 @@ public class Project {
 			
 			break;
 		case KILL:
+			// We're literally just hunting living things in the local environment and leaving the bodies
+			// where they fall. You monster.
+			HashMap<String, Integer> localSpecies = grp.ecoTile.localWildlife();
+			
+			if(localSpecies.containsKey(target)) {
+				double natLabor = addedLabor.get(LaborPool.TYPE_NATURALISM);
+				
+				int natLaborPerUnit = Integer.parseInt(extraInformation.get(NAT_COST_PER_UNIT));
+				
+				int numCanHarvest = (int) (natLabor / natLaborPerUnit);
+				int numAvailable = localSpecies.get(target);
+				
+				int numHarvested = Math.min(numCanHarvest, numAvailable);
+
+				grp.ecoTile.killPop(target, numHarvested);
+				
+				addedLabor.set(LaborPool.TYPE_NATURALISM, numHarvested * natLaborPerUnit);
+			}
 			break;
-		case ENGINEERING:
+		default:
 			break;
 		}
 		
@@ -155,9 +193,19 @@ public class Project {
 			return availableLabor.factor(requiredLabor);
 			
 		case KILL:
+			// Identical to GATHER, however, twice as effective as GATHER as you're
+			// not processing anything.
+			WildSpecies targ = EcologyReader.getWildSpecies(target);
+			
+			// Determine how much labor is needed to kill the specified number of
+			// creatures/plants.
+			LaborPool requiredLabor = new LaborPool(0);
+			requiredLabor.set(LaborPool.TYPE_NATURALISM, .5 * targ.power);
+			
+			return availableLabor.factor(requiredLabor);
 			break;
 			
-		case ENGINEERING:
+		default:
 			break;
 		}
 		
@@ -170,6 +218,7 @@ public class Project {
 		sb.append("Type: " + type + "\n");
 		sb.append("Target: " + target + "\n");
 		sb.append("Number: " + number + "\n");
+		sb.append("Extra Information: " + extraInformation + "\n");
 		sb.append("laborRequirements: " + laborRequirements + "\n");
 		sb.append("laborStore: " + laborStore + "\n");
 		

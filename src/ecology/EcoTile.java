@@ -93,6 +93,21 @@ public class EcoTile {
 			updatePopulation(specName, newPop);
 		}
 	}
+
+	/*
+	 * Remove as many members of a species as possible up till pop, 
+	 * and add death nutrients back into the local tile.
+	 */
+	public void killPop(String specName, int pop) {
+		if(species.containsKey(specName)) {
+			int curPop = species.get(specName);
+			int newPop = Math.max(0, curPop - pop);
+			int diffPop = newPop - curPop;
+
+			subtractFromEnvironment(EcologyReader.getWildSpecies(specName).deathNutrition, diffPop);
+			updatePopulation(specName, newPop);
+		}
+	}
 	
 	// Subtract differential * nutrientModel from the local environment.
 	public void subtractFromEnvironment(Macronutrient nutrientModel, int differential) {
