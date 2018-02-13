@@ -80,8 +80,17 @@ public class Entity {
 			timeSinceLastBirth ++;
 		}
 		
-		// Update entity labor.
+		// TODO: Update entity labor.
 		
+	}
+
+	/*
+	 * Return how much weight capacity this entity is able to contribute to its groups
+	 * maximum inventory weight. Right now we'll work off a simple placeholder formula:
+	 * .5 * size * manipulation.
+	 */
+	public double getMaximumWeightCapacity() {
+		return .5 * body.size * body.manipulation;
 	}
 	
 	/*

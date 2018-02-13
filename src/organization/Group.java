@@ -25,7 +25,12 @@ public class Group {
 	public int y;
 	
 	public ArrayList<Entity> members;
+
+	// Inventory related attributes
 	public Inventory inventory;
+	public double maxWeight;
+
+	// Group behaviors
 	public GroupBehaviorType behavior;
 	
 	// Labor pool. Determined near the beginning of every turn
@@ -49,6 +54,7 @@ public class Group {
 		
 		members = new ArrayList<Entity>();
 		inventory = new Inventory();
+		maxWeight = 0.0;
 		
 		availableLabor = new LaborPool(0);
 		projects = new HashMap<Project, Double>();
@@ -223,6 +229,7 @@ public class Group {
 	public void turn() {
 		
 		availableLabor.zero();
+		maxWeight = 0.0;
 		
 		// For every entity, have it take a turn and feed itself.
 		for(int i = 0; i < members.size(); i++) {
@@ -237,7 +244,9 @@ public class Group {
 				i--;
 			} else {
 				// The entity is alive, so we can add its labor to our labor pool.
+				// We can also add any weight capacity the entity has to our maxWeight.
 				availableLabor.add(e.labor);
+				maxWeight += e.getMaximumWeightCapacity();
 			}
 		}
 		
@@ -280,6 +289,7 @@ public class Group {
 		sb.append(ecoTile.toString());
 		
 		sb.append("\n\nItems:\n_____________________________\n");
+		sb.append("Maximum Weight: " + maxWeight + "\n");
 		sb.append(inventory.toString());
 		
 		sb.append("\n\nProjects:\n_____________________________\n");

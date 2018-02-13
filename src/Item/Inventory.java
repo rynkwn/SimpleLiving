@@ -6,17 +6,43 @@ import java.util.*;
 
 /*
  * Essentially a container class for a list of items.
+ *
+ * Note: Inventory should know only about the items inside and metadata relating to that. So it shouldn't have
+ * attributes dependent on (for example) a group which has an inventory. In the case where a group wants to know
+ * how many of something it can fit in its inventory, the inventory can have an interface to make that logic easier,
+ * but ultimately it should be the group that determines that.
  */
 
 public class Inventory {
 	public HashMap<String, Item> items;
+	public double weight;
 	
 	public Inventory() {
 		items = new HashMap<String, Item>();
 	}
+
+	/*
+	 * Removes as much of an item as possible, up to quantity.
+	 */
+	public Item remove(String itemName, int quantity) {
+		Item item = items.get(itemName);
+		Item removedItem = item.split(quantity);
+
+		double lostWeight = removedItem.quantity * removedItem.weight;
+		weight -= lostWeight;
+		
+		if(item.quantity == 0) {
+			items.remove(item.name);
+		}
+		
+		return removedItem;
+	}
 	
 	// Add a component to inventory.
 	public void add(Item comp) {
+		double addedWeight = comp.quantity * comp.weight;
+		weight += addedWeight;
+
 		if(items.containsKey(comp.getName())) {
 			items.get(comp.getName()).addQuantity(comp.getQuantity());
 		} else {
@@ -29,6 +55,14 @@ public class Inventory {
 		for(Item comp : components) {
 			add(comp);
 		}
+	}
+
+
+	/*
+	 * A simple getter method for the weight of the Inventory.
+	 */
+	public double getWeight() {
+		return weight;
 	}
 	
 	/*
@@ -103,33 +137,14 @@ public class Inventory {
 		return meal;
 	}
 	
-	/*
-	 * This is a bad implementation.
-	 */
-	public Item remove(String itemName, int quantity) {
-		Item item = items.get(itemName);
-		Item removedItem = item.split(quantity);
-		
-		if(item.quantity == 0) {
-			items.remove(item.name);
-		}
-		
-		return removedItem;
-	}
-	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("Total Weight: " + weight);
 		for(Item c : items.values()) {
 			sb.append(c.toString() + "\n");
 		}
 		
 		return sb.toString();
-	}
-	
-	public void printDetailedContents() {
-		for(Item c : items.values()) {
-			System.out.println(c.toString());
-		}
 	}
 }
