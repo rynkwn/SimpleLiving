@@ -144,13 +144,6 @@ public class Group {
 	}
 	
 	/*
-	 * Return the relationship towards a particular group.
-	 */
-	public int relations(Group grp) {
-		return -100;
-	}
-	
-	/*
 	 * Returns the size of the group.
 	 */
 	public int size() {
