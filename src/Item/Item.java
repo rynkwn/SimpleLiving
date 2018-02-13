@@ -8,27 +8,27 @@ import java.util.HashMap;
  */
 public class Item {
 	public String name;
-	public String type;
+	public ItemType type;
 	public double weight;
 	public int quantity;
 	
 	public Item() {
 		name = "TEST_ITEM";
-		type = "DEBUG";
+		type = ItemType.DEBUG;
 		weight = 1.0;
 		quantity = 1;
 	}
 	
 	public Item(String name, double weight) {
 		this.name = name;
-		type = "DEBUG";
+		type = ItemType.DEBUG;
 		this.weight = weight;
 		quantity = 1;
 	}
 	
 	public Item(String name, double weight, int quantity) {
 		this.name = name;
-		type = "DEBUG";
+		type = ItemType.DEBUG;
 		this.weight = weight;
 		this.quantity = quantity;
 	}
@@ -78,8 +78,4 @@ public class Item {
 	public String toString() {
 		return name + "\n\t" + quantity + "\n\t" + weight;
 	}
-}
-
-enum ItemType {
-	FOOD, MATERIAL
 }

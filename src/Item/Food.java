@@ -14,8 +14,8 @@ public class Food extends Item {
 			int quantity, 
 			Nutrition nutrition) {
 		
-		super(name, "FOOD", weight, quantity);
-		this.nutrition = nutrition;
+		super(name, ItemType.FOOD, weight, quantity);
+		this.nutrition = new Nutrition(nutrition);
 	}
 	
 	public Food split(int quant) {

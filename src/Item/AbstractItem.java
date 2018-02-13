@@ -7,12 +7,12 @@ import entities.*;
  */
 public class AbstractItem {
 	public String name;
-	public String type;
+	public ItemType type;
 	public double base_weight;
 	public Nutrition nutrition; // Nutritional Information
 	
 	public AbstractItem(String name,
-			String type,
+			ItemType type,
 			double baseWeight) {
 		this.name = name;
 		this.type = type;
@@ -21,7 +21,7 @@ public class AbstractItem {
 	}
 	
 	public AbstractItem(String name,
-			String type,
+			ItemType type,
 			double base_weight,
 			Nutrition nutrition) {
 		
@@ -35,8 +35,13 @@ public class AbstractItem {
 	 * Makes a component that matches this pattern.
 	 */
 	public Item makeItem(int quantity) {
-		if(type.equalsIgnoreCase("FOOD")) {
-			return new Food(name, base_weight, quantity, new Nutrition(nutrition));
+		switch(type) {
+			case ItemType.FOOD:
+			return new Food(name, base_weight, quantity, nutrition);
+
+			case ItemType.MATERIAL:
+			return new Item(name, type, base_weight, quantity)
+			break;
 		}
 		
 		return new Item();
