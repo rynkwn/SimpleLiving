@@ -21,7 +21,7 @@ public class EcoTile {
 	public static final int BAD_TEMPERATURE_MODIFIER = -20;
 	
 	// Migration related constants.
-	public static final double MIGRATION_CHANCE = .1;
+	public static final double MIGRATION_CHANCE = .3;
 	public static final double MIGRATION_POP_PERCENTAGE = .001;
 	public static final int MIGRATION_NON_PLANT_MULTIPLIER = 100; // Non-plants should be more mobile.
 	
@@ -137,64 +137,24 @@ public class EcoTile {
 			localNutrients.add(turnNutr, curNumber);
 			
 			if(spec.consumption.equalsIgnoreCase("photosynthetic")) {
-				
-				int carryingCapacity = (int) localNutrients.factor(nutr);
-				int differential = (carryingCapacity - curNumber);
-				differential = (int) (differential * reprodRate);
-				
-				// If the species can't survive in the current temp... die out.
-				if(!spec.temperatureTolerance.numberInRange(localTile.temperature)) {
-					differential = -1 * curNumber;
-				}
 
-				if(differential < 0) {
-					subtractFromEnvironment(deathNutr, differential);
-				}
-				
-				finalPopNumber = curNumber + differential;
+				// Calculate the final pop number as a consequence of this photosynthetic's turn.
+				finalPopNumber = photosyntheticTurn(spec, localNutrients, deathNutr, nutr, curNumber, reprodRate);
+
 			} else {
-				double consumptionPerCreature = nutr.nutrientSum();
-				double desiredConsumption = consumptionPerCreature * curNumber;
 				
-				// Calculate carrying capacity, 
-				int carryingCapacity = carryingCapacity(spec, speciesName, curNumber, consumptionPerCreature, spec.power);
-				carryingCapacity /= PREDATION_INEFFICIENCY_FACTOR;
-				
-				eatOtherSpecies(spec, 
-						speciesName, 
-						desiredConsumption, 
-						curNumber, 
-						spec.power);
-				
-				int differential = carryingCapacity - curNumber;
-				
-				// If the species can't survive in the current temp, rapidly reduce in number..
-				if(!spec.temperatureTolerance.numberInRange(localTile.temperature)) {
-					differential = (-1 * curNumber / 2) + BAD_TEMPERATURE_MODIFIER;
-				}
-				
-				// If we're growing, we should grow slowly. We fall quickly.
-				if(differential > 0)
-					differential = (int) (differential * reprodRate);
-				
-				// Help out the species a bit if it's not growing otherwise.
-				if (differential == 0) {
-					differential = 1;
-				} else if (differential < 0) {
-					
-					// Return resources to tile.
-					subtractFromEnvironment(deathNutr, differential);
-				}
-				
-				finalPopNumber = curNumber + differential;
+				// Calculate the final pop number as a consequence of this heterotroph's turn.
+				finalPopNumber = heterotrophTurn(spec, spec.name, nutr, deathNutr, curNumber, reprodRate);
 			}
 			
 			// Calculate whether or not some species members migrate.
 			if(RandomUtils.checkProb(100, (int) (100 * MIGRATION_CHANCE))) {
-				int migrationNumber = (int) (finalPopNumber * MIGRATION_POP_PERCENTAGE);
 				
+				// Non-plants should be more mobile.
 				if(!spec.type.equals(WildSpecies.TYPE_PLANT)) {
-					migrationNumber *= MIGRATION_NON_PLANT_MULTIPLIER;
+					migrationNumber = (int) (MIGRATION_NON_PLANT_MULTIPLIER * popAvailable * MIGRATION_POP_PERCENTAGE);
+				} else {
+					migrationNumber = (int) (popAvailable * MIGRATION_POP_PERCENTAGE);
 				}
 				
 				if(migrationNumber > 0) {
@@ -232,6 +192,79 @@ public class EcoTile {
 		}
 		
 		world.addWildSpeciesToTile(newX, newY, speciesName, pop);
+	}
+
+	/*
+	 * Perform the normal turn activities of a photosynthetic entity.
+	 * Returns the final population number as a consequence of this turn.
+	 */
+	private int photosyntheticTurn(Species spec,
+								   Macronutrient localNutrients,
+								   Macronutrient deathNutr,
+								   Macronutrient nutrientRequirements,
+								   int curNumber,
+								   double reprodRate
+								   ) {
+		int carryingCapacity = (int) localNutrients.factor(nutrientRequirements);
+		int differential = (carryingCapacity - curNumber);
+		differential = (int) (differential * reprodRate);
+		
+		// If the species can't survive in the current temp... die out.
+		if(!spec.temperatureTolerance.numberInRange(localTile.temperature)) {
+			differential = -1 * curNumber;
+		}
+
+		if(differential < 0) {
+			subtractFromEnvironment(deathNutr, differential);
+		}
+		
+		return curNumber + differential;
+	}
+
+	/*
+	 * Pass a turn for an entity that eats either plants or animals.
+	 */
+	private int heterotrophTurn(Species spec,
+								String speciesName,
+								Macronutrient nutrientRequirements,
+								Macronutrient deathNutr,
+								int curNumber,
+								double reprodRate
+								) {
+		double consumptionPerCreature = nutrientRequirements.nutrientSum();
+		double desiredConsumption = consumptionPerCreature * curNumber;
+		
+		// Calculate carrying capacity, 
+		int carryingCapacity = carryingCapacity(spec, speciesName, curNumber, consumptionPerCreature, spec.power);
+		carryingCapacity /= PREDATION_INEFFICIENCY_FACTOR;
+		
+		eatOtherSpecies(spec, 
+				speciesName, 
+				desiredConsumption, 
+				curNumber, 
+				spec.power);
+		
+		int differential = carryingCapacity - curNumber;
+		
+		// If the species can't survive in the current temp, rapidly reduce in number..
+		if(!spec.temperatureTolerance.numberInRange(localTile.temperature)) {
+			differential = (-1 * curNumber / 2) + BAD_TEMPERATURE_MODIFIER;
+		}
+		
+		// If we're growing, we should grow slowly. We fall quickly.
+		if(differential > 0)
+			differential = (int) (differential * reprodRate);
+		
+		// Help out the species a bit if it's not growing otherwise.
+		if (differential == 0) {
+			differential = 1;
+		} else if (differential < 0) {
+			
+			// Return resources to tile.
+			subtractFromEnvironment(deathNutr, differential);
+		}
+		
+		return curNumber + differential;
 	}
 	
 	// Update the population up to our maximum allowed number.
