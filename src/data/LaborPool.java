@@ -43,12 +43,8 @@ public class LaborPool {
 	 * as a percentage), and may be based on the physical state of the entity.
 	 */
 	public void updateLabor(LaborPool baseLabor, SkillPool skills, double modifier) {
-		this.naturalism = baseLabor.get(TYPE_NATURALISM) * ((skills.get(SkillPool.SKILL_NATURALISM) * .1) + .5);
-		this.engineering = baseLabor.get(TYPE_ENGINEERING) * ((skills.get(SkillPool.SKILL_ENGINEERING) * .1) + .5);
-		
-		for(String laborType : laborList()) {
-			modify(laborType, modifier);
-		}
+		this.naturalism = baseLabor.get(TYPE_NATURALISM) * ((skills.get(SkillPool.SKILL_NATURALISM) * .1) + .5) * modifier;
+		this.engineering = baseLabor.get(TYPE_ENGINEERING) * ((skills.get(SkillPool.SKILL_ENGINEERING) * .1) + .5) * modifier;
 	}
 	
 	/*

@@ -64,7 +64,7 @@ public class Body {
 	 * Checks to see if the body is dead.
 	 */
 	public boolean isDead() {
-		return nutritionalHealth <= .7; // Checks to see if the entity has starved
+		return nutritionalHealth <= .3; // Checks to see if the entity has starved
 	}
 	
 	public boolean isAdult() {
@@ -85,7 +85,12 @@ public class Body {
 	
 	public void grow(double pctNeedsSatisfied) {
 		double factorGrow = growthFactor(pctNeedsSatisfied);
-		nutritionalHealth = Math.min(nutritionalHealth * factorGrow, 1.4);
+		// TODO: Consider if the line below is desirable. Simpler... and maybe more interesting
+		// to the player if nutritionalHealth is just set to factorGrow (or 1.5 at max).
+		// That way, they can deliberately give a sustained caloric deficit to a population...?
+		// But then nutritional Heatlh will go down too fast. Current setup makes a reasonable
+		// amount of sense, I think.
+		nutritionalHealth = Math.min(nutritionalHealth * factorGrow, 1.5);
 		
 		if(age < SpeciesReader.getSpecies(species).timeTillMaturation) {
 			double normalGrowth = growthDerivativeEstimate() * nutritionalHealth;

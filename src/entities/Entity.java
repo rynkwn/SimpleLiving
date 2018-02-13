@@ -80,8 +80,8 @@ public class Entity {
 			timeSinceLastBirth ++;
 		}
 		
-		// TODO: Update entity labor.
-		
+		LaborPool speciesLabor = SpeciesReader.getSpecies(species).baseLabor;
+		labor.update(speciesLabor, skills, calculateLaborModifier());
 	}
 
 	/*
@@ -91,6 +91,29 @@ public class Entity {
 	 */
 	public double getMaximumWeightCapacity() {
 		return .5 * body.size * body.manipulation;
+	}
+
+	/*
+	 * The labor provided by this entity may be modified by other factors.
+	 * Currently, this is just nutritional heatlh. Specifically, if entity
+	 * nutritional health is below .5, they produce no labor.
+	 * Labor modifier is tiered:
+	 * .5 - .7: 50% labor effectiveness
+	 * .7 - 1.0: 100% labor effectiveness
+	 * 1.0 - 1.5: 110% labor effectiveness
+	 */
+	public double calculateLaborModifier() {
+		double nutritionalHealth = body.nutritionalHealth;
+
+		if(nutritionalHealth < .5) {
+			return 0;
+		} else if (nutritionalHealth < .7) {
+			return .5;
+		} else if (nutritionalHealth < 1.0) {
+			return 1.0;
+		} else {
+			return 1.10;
+		}
 	}
 	
 	/*
