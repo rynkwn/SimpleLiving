@@ -25,11 +25,15 @@ public class BigTile {
 	// Also need weather.
 	
 	public HashSet<Group> residentGroups;
+
+	public Inventory localItems;
 	
 	// For initial tests.
 	public BigTile() {
 		soilComposition = new Macronutrient(initValue);
 		residentGroups = new HashSet<Group>();
+
+		localItems = new Inventory();
 	}
 	
 	public BigTile(double waterRate, int temperature) {
@@ -40,6 +44,7 @@ public class BigTile {
 		soilComposition.set("water", maxValue * waterRate);
 		
 		this.temperature = temperature;
+		localItems = new Inventory();
 	}
 	
 	public void addGroup(Group grp) {
@@ -52,6 +57,22 @@ public class BigTile {
 	
 	public boolean containsGroup(Group grp) {
 		return residentGroups.contains(grp);
+	}
+
+	/*
+	 * Add items to this BigTile's inventory, representing items
+	 * that have been left "on the floor" so to say.
+	 */
+	public void receiveItem(Item item) {
+		inventory.add(item);
+	}
+
+	/*
+	 * Add a list of items to this BigTile's inventory, representing
+	 * items that have been "left on the floor.""
+	 */
+	public void receiveItems(List<Item> items) {
+		inventory.addList(items);
 	}
 	
 	/*

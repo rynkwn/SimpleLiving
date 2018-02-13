@@ -78,6 +78,13 @@ public class Group {
 	public void addItem(Item item) {
 		inventory.add(item);
 	}
+
+	/*
+	 * Drop an item into the local BigTile.
+	 */
+	public void dropItem(String itemName, int quantity) {
+		residentTile.receiveItem(inventory.remove(itemName, quantity));
+	}
 	
 	public void setBehavior(GroupBehaviorType behavior) {
 		this.behavior = behavior;
