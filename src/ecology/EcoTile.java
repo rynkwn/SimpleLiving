@@ -149,12 +149,13 @@ public class EcoTile {
 			
 			// Calculate whether or not some species members migrate.
 			if(RandomUtils.checkProb(100, (int) (100 * MIGRATION_CHANCE))) {
+				int migrationNumber = 0;
 				
 				// Non-plants should be more mobile.
 				if(!spec.type.equals(WildSpecies.TYPE_PLANT)) {
-					migrationNumber = (int) (MIGRATION_NON_PLANT_MULTIPLIER * popAvailable * MIGRATION_POP_PERCENTAGE);
+					migrationNumber = (int) (MIGRATION_NON_PLANT_MULTIPLIER * finalPopNumber * MIGRATION_POP_PERCENTAGE);
 				} else {
-					migrationNumber = (int) (popAvailable * MIGRATION_POP_PERCENTAGE);
+					migrationNumber = (int) (finalPopNumber * MIGRATION_POP_PERCENTAGE);
 				}
 				
 				if(migrationNumber > 0) {
@@ -198,7 +199,7 @@ public class EcoTile {
 	 * Perform the normal turn activities of a photosynthetic entity.
 	 * Returns the final population number as a consequence of this turn.
 	 */
-	private int photosyntheticTurn(Species spec,
+	private int photosyntheticTurn(WildSpecies spec,
 								   Macronutrient localNutrients,
 								   Macronutrient deathNutr,
 								   Macronutrient nutrientRequirements,
@@ -224,7 +225,7 @@ public class EcoTile {
 	/*
 	 * Pass a turn for an entity that eats either plants or animals.
 	 */
-	private int heterotrophTurn(Species spec,
+	private int heterotrophTurn(WildSpecies spec,
 								String speciesName,
 								Macronutrient nutrientRequirements,
 								Macronutrient deathNutr,

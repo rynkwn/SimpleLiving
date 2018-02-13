@@ -81,7 +81,7 @@ public class Entity {
 		}
 		
 		LaborPool speciesLabor = SpeciesReader.getSpecies(species).baseLabor;
-		labor.update(speciesLabor, skills, calculateLaborModifier());
+		labor.updateLabor(speciesLabor, skills, calculateLaborModifier());
 	}
 
 	/*

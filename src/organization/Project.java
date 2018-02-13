@@ -59,10 +59,13 @@ public class Project {
 		extraInformation = new HashMap<String, String>();
 		products = new HashMap<AbstractItem, Integer>();
 		
+		// If relevant, a WildSpecies target.
+		WildSpecies targ;
+		
 		switch(type) {
 		case GATHER:
 			// In this case, target should be a wild species.
-			WildSpecies targ = EcologyReader.getWildSpecies(target);
+			targ = EcologyReader.getWildSpecies(target);
 			
 			for(String harvest : targ.harvestResult.keySet()) {
 				products.put(ItemsReader.getAbstractItem(harvest), targ.harvestResult.get(harvest) * number);
@@ -82,7 +85,7 @@ public class Project {
 		case KILL:
 			// Similar to GATHER. But twice as effective at removing local wildlife due to the lack
 			// of any processing that needs to occur.
-			WildSpecies targ = EcologyReader.getWildSpecies(target);
+			targ = EcologyReader.getWildSpecies(target);
 			
 			// Determine how much labor is needed to capture the specified number of
 			// creatures/plants.
@@ -120,10 +123,12 @@ public class Project {
 		// TODO: Eventually have excess labor go back into the labor pool for projects
 		// in the same turn.
 		
+		HashMap<String, Integer> localSpecies;
+		
 		switch(type) {
 		case GATHER:
 			// We're extracting something from the natural environment.
-			HashMap<String, Integer> localSpecies = grp.ecoTile.localWildlife();
+			localSpecies = grp.ecoTile.localWildlife();
 			
 			if(localSpecies.containsKey(target)) {
 				double natLabor = addedLabor.get(LaborPool.TYPE_NATURALISM);
@@ -143,7 +148,7 @@ public class Project {
 		case KILL:
 			// We're literally just hunting living things in the local environment and leaving the bodies
 			// where they fall. You monster.
-			HashMap<String, Integer> localSpecies = grp.ecoTile.localWildlife();
+			localSpecies = grp.ecoTile.localWildlife();
 			
 			if(localSpecies.containsKey(target)) {
 				double natLabor = addedLabor.get(LaborPool.TYPE_NATURALISM);
@@ -180,14 +185,18 @@ public class Project {
 	 * with the specified labor.
 	 */
 	public static int maxAmountProducible(ProjectType type, String target, LaborPool availableLabor) {
+		
+		WildSpecies targ;
+		LaborPool requiredLabor;
+		
 		switch(type) {
 		case GATHER:
 			// In this case, target should be a wild species.
-			WildSpecies targ = EcologyReader.getWildSpecies(target);
+			targ = EcologyReader.getWildSpecies(target);
 			
 			// Determine how much labor is needed to capture the specified number of
 			// creatures/plants.
-			LaborPool requiredLabor = new LaborPool(0);
+			requiredLabor = new LaborPool(0);
 			requiredLabor.set(LaborPool.TYPE_NATURALISM, 1.0 * targ.power);
 			
 			return availableLabor.factor(requiredLabor);
@@ -195,15 +204,14 @@ public class Project {
 		case KILL:
 			// Identical to GATHER, however, twice as effective as GATHER as you're
 			// not processing anything.
-			WildSpecies targ = EcologyReader.getWildSpecies(target);
+			targ = EcologyReader.getWildSpecies(target);
 			
 			// Determine how much labor is needed to kill the specified number of
 			// creatures/plants.
-			LaborPool requiredLabor = new LaborPool(0);
+			requiredLabor = new LaborPool(0);
 			requiredLabor.set(LaborPool.TYPE_NATURALISM, .5 * targ.power);
 			
 			return availableLabor.factor(requiredLabor);
-			break;
 			
 		default:
 			break;

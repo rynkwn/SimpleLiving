@@ -36,12 +36,11 @@ public class AbstractItem {
 	 */
 	public Item makeItem(int quantity) {
 		switch(type) {
-			case ItemType.FOOD:
+			case FOOD:
 			return new Food(name, base_weight, quantity, nutrition);
 
-			case ItemType.MATERIAL:
-			return new Item(name, type, base_weight, quantity)
-			break;
+			case MATERIAL:
+			return new Item(name, type, base_weight, quantity);
 		}
 		
 		return new Item();

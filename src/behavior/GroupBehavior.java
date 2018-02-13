@@ -1,6 +1,9 @@
 package behavior;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Random;
+import java.util.Set;
 
 import deprecated.GroupBehaviorBlock;
 import organization.Group;
@@ -36,7 +39,7 @@ public class GroupBehavior {
 				int randomSelection = new Random().nextInt(numSpecies);
 				Iterator<String> iter = localSpecies.iterator();
 
-				for(int i = 0; i< randomSelection - 1; i++) {
+				for(int i = 0; i <= randomSelection - 1; i++) {
 					iter.next();
 				}
 

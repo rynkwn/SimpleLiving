@@ -33,7 +33,7 @@ public class Item {
 		this.quantity = quantity;
 	}
 	
-	public Item(String name, String type, double weight, int quantity) {
+	public Item(String name, ItemType type, double weight, int quantity) {
 		this.name = name;
 		this.type = type;
 		this.weight = weight;

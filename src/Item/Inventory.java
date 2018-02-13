@@ -87,7 +87,7 @@ public class Inventory {
 		ArrayList<Food> matches = new ArrayList<Food>();
 		
 		for(Item item : items.values()) {
-			if(item.type.equals("FOOD")) {
+			if(item.type == ItemType.FOOD) {
 				matches.add((Food) item);
 			}
 		}
@@ -140,7 +140,7 @@ public class Inventory {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("Total Weight: " + weight);
+		sb.append("Total Weight: " + weight + "\n");
 		for(Item c : items.values()) {
 			sb.append(c.toString() + "\n");
 		}
