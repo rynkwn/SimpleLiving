@@ -29,7 +29,19 @@ public class GroupBehavior {
 			HashMap<String, Integer> localWildlife = grp.ecoTile.localWildlife();
 			
 			if(localWildlife.size() > 0) {
-				String targetSpec = localWildlife.keySet().iterator().next();
+				Set<String> localSpecies = localWildlife.keySet();
+				int numSpecies = localSpecies.size();
+
+				// Randomly select a species to harvest.
+				int randomSelection = new Random().nextInt(numSpecies);
+				Iterator<String> iter = localSpecies.iterator();
+
+				for(int i = 0; i< randomSelection - 1; i++) {
+					iter.next();
+				}
+
+				String targetSpec = iter.next();
+
 				int availableSpec = localWildlife.get(targetSpec);
 				int maxHarvestable = Project.maxAmountProducible(ProjectType.GATHER, targetSpec, grp.availableLabor);
 				int targetHarvest = Math.min(availableSpec, maxHarvestable);
