@@ -22,6 +22,32 @@ public class Inventory {
 	}
 
 	/*
+	 * Removes the specified list of items from our inventory.
+	 * Note that removal is best-effort. If we don't have sufficient quantity
+	 * of an item to remove, we'll remove as much as possible and add it to our list.
+	 * If we don't have any of that item, the item may not appear in the returned list.
+	 */
+	public ArrayList<Item> remove(List<Item> itemsToRemove) {
+		ArrayList<Item> removedItems = new ArrayList<Item>();
+
+		for(Item item : itemsToRemove) {
+			if(items.containsKey(item.name)) {
+				removedItems.add(remove(item));
+			}
+		}
+
+		return removedItems;
+	}
+
+	/*
+	 * Remove the specified item: we take name and quantity from the passed in
+	 * item object.
+	 */
+	public Item remove(Item item) {
+		return remove(item.name, item.quantity);
+	}
+
+	/*
 	 * Removes as much of an item as possible, up to quantity.
 	 */
 	public Item remove(String itemName, int quantity) {
@@ -68,11 +94,11 @@ public class Inventory {
 	/*
 	 * Returns a list of all items of a specific type.
 	 */
-	public ArrayList<Item> getItemsWithType(String type) {
+	public ArrayList<Item> getItemsWithType(ItemType type) {
 		ArrayList<Item> matches = new ArrayList<Item>();
 		
 		for(Item item : items.values()) {
-			if(item.type.equals(type)) {
+			if(item.type == type) {
 				matches.add(item);
 			}
 		}

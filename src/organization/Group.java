@@ -85,6 +85,20 @@ public class Group {
 	public void dropItem(String itemName, int quantity) {
 		residentTile.receiveItem(inventory.remove(itemName, quantity));
 	}
+
+	/*
+	 * Drop the specified item. Also removes it from our inventory.
+	 */
+	public void dropItem(Item item) {
+		residentTile.receiveItem(inventory.remove(item));
+	}
+
+	/*
+	 * Drop the specified list of items. Also removes them from our inventory.
+	 */
+	public void dropItems(List<Item> items) {
+		residentTile.receiveItem(inventory.remove(items));
+	}
 	
 	public void setBehavior(GroupBehaviorType behavior) {
 		this.behavior = behavior;

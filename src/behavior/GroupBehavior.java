@@ -20,7 +20,7 @@ public class GroupBehavior {
 		switch(type) {
 		case VOLCH_PEACEFUL:
 			// Check fertility of tile.
-			double fertilityThreshold = .10;
+			double fertilityThreshold = .30;
 			
 			if(grp.residentTile.minRatio() <= fertilityThreshold) {
 				// If true, then move to a random tile.
@@ -54,7 +54,10 @@ public class GroupBehavior {
 					grp.addProject(harvest);
 				}
 			}
-			
+
+			// If we have any materials, drop them. We have no use for them.
+			ArrayList<Item> materials = grp.inventory.getItemsWithType(ItemType.MATERIAL);
+			grp.dropItems(materials);
 			
 			break;
 		}
