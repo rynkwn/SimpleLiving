@@ -97,7 +97,7 @@ public class Group {
 	 * Drop the specified list of items. Also removes them from our inventory.
 	 */
 	public void dropItems(List<Item> items) {
-		residentTile.receiveItem(inventory.remove(items));
+		residentTile.receiveItems(inventory.remove(items));
 	}
 	
 	public void setBehavior(GroupBehaviorType behavior) {

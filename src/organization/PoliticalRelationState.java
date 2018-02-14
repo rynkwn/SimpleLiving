@@ -1,3 +1,5 @@
+package organization;
+
 /*
  * A list of big states that can exist between two factions.
  */

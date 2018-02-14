@@ -1,3 +1,7 @@
+package organization;
+
+import java.util.HashMap;
+
 
 /*
  * A faction represents a group of groups. It is the entirety of the "nation," and has a shared

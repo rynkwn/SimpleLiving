@@ -1,30 +1,29 @@
 {
-   "name": "Volch",
+   "name": "Volch Minor",
    "gestationPeriod": 80,
    "numberOffspringProduced": {
       "min": 1,
-      "max": 3
+      "max": 1
    },
-   "initialSize": 30,
-   "finalSize": 1200,
+   "initialSize": 50,
+   "finalSize": 3000,
    "timeTillMaturation": 312,
    "offspring": {
       "rand": {
-         "seed": 167349440984929,
+         "seed": 26024898472093,
          "nextNextGaussian": 0,
          "haveNextNextGaussian": false
       },
       "events": {
-         "0.25": "Volch Minor",
-         "0.75": "Volch"
+         "1.0": "Volch"
       }
    },
    "baseLabor": {
-   	  "naturalism": 30.0,
+   	  "naturalism": 0.0,
    	  "engineering": 0.0
    },
    "initialBodyStructure": {
-      "species": "Volch",
+      "species": "Volch Minor",
       "age": 0,
       "nutritionalHealth": 1,
       "bodyparts": [
@@ -39,16 +38,17 @@
                   "name": "Brain",
                   "health": 15,
                   "maxHealth": 15,
-                  "size": 4,
-                  "mass": 4,
+                  "size": 6,
+                  "mass": 6,
                   "consciousness": true
                },
                {
-                  "name": "Mandible",
+                  "name": "Nibbler",
                   "health": 10,
                   "maxHealth": 10,
                   "size": 2,
                   "mass": 2,
+                  "moving": 0,
                   "eating": true,
                   "talking": true
                },
@@ -87,11 +87,12 @@
             ]
          },
          {
-            "name": "Thorax",
-            "health": 50,
-            "maxHealth": 50,
-            "size": 40,
-            "mass": 40,
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5,
             "containedParts": [
                {
                   "name": "Lungs",
@@ -104,79 +105,69 @@
             ]
          },
          {
-            "name": "Leg",
-            "health": 20,
-            "maxHealth": 20,
-            "size": 15,
-            "mass": 15,
-            "moving": 1
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
          },
          {
-            "name": "Leg",
-            "health": 20,
-            "maxHealth": 20,
-            "size": 15,
-            "mass": 15,
-            "moving": 1
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
          },
          {
-            "name": "Leg",
-            "health": 20,
-            "maxHealth": 20,
-            "size": 15,
-            "mass": 15,
-            "moving": 1
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
          },
          {
-            "name": "Leg",
-            "health": 20,
-            "maxHealth": 20,
-            "size": 15,
-            "mass": 15,
-            "moving": 1
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
          },
          {
-            "name": "Leg",
-            "health": 20,
-            "maxHealth": 20,
-            "size": 15,
-            "mass": 15,
-            "moving": 1
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
          },
          {
-            "name": "Leg",
-            "health": 20,
-            "maxHealth": 20,
-            "size": 15,
-            "mass": 15,
-            "moving": 1
-         },
-         {
-            "name": "Claw",
-            "health": 30,
-            "maxHealth": 30,
-            "size": 30,
-            "mass": 30,
-            "manipulation": true
-         },
-         {
-            "name": "Claw",
-            "health": 30,
-            "maxHealth": 30,
-            "size": 30,
-            "mass": 30,
-            "manipulation": true
+            "name": "Segment",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 50,
+            "mass": 50,
+            "moving": 0.5
          }
       ],
       "nutrition": {
-         "type": "ANIMAL",
+         "type": "PLANT",
          "metabolism": 1
       }
    },
    "behaviorFile": "generic_pastoral.behavior",
-   "products": {},
+   "products": {
+      "Bud": {
+         "name": "Bud",
+         "productionRatio": 0.01,
+         "timeToProduce": 4
+      }
+   },
    "tags": [
-      "CAN_GROW_NEW_LIMBS",
-      "INTELLIGENT"
+      "CAN_FILTER_FEED",
+      "STERILE"
    ]
 }

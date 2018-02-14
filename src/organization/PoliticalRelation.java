@@ -1,3 +1,5 @@
+package organization;
+
 
 /*
  * A group that stores information on the political relationship and treaties between two factions.

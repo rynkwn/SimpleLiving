@@ -1,5 +1,8 @@
 package world;
 
+import item.Inventory;
+import item.Item;
+
 import java.util.*;
 
 import data.Macronutrient;
@@ -64,7 +67,7 @@ public class BigTile {
 	 * that have been left "on the floor" so to say.
 	 */
 	public void receiveItem(Item item) {
-		inventory.add(item);
+		localItems.add(item);
 	}
 
 	/*
@@ -72,7 +75,7 @@ public class BigTile {
 	 * items that have been "left on the floor.""
 	 */
 	public void receiveItems(List<Item> items) {
-		inventory.addList(items);
+		localItems.addList(items);
 	}
 	
 	/*
