@@ -1,0 +1,42 @@
+{
+   "name": "Tree",
+   "type": "Plant",
+   "captureResult": "None",
+   "harvestResult": {
+      "Lumber": 10
+   },
+   "consumption": "Photosynthetic",
+   "reproductionRate": 0.05,
+   "temperatureTolerance": {
+      "min": 5,
+      "max": 30
+   },
+   "nutrientRequirements": {
+      "water": 80,
+      "carbon": 70,
+      "nitrogen": 30,
+      "potassium": 40,
+      "calcium": 20,
+      "phosphorus": 5,
+      "salt": 2
+   },
+   "turnNutrition": {
+      "water": 1,
+      "carbon": 2,
+      "nitrogen": 1,
+      "potassium": 0.5,
+      "calcium": 0.5,
+      "phosphorus": 0.5,
+      "salt": 0
+   },
+   "deathNutrition": {
+      "water": 80,
+      "carbon": 70,
+      "nitrogen": 30,
+      "potassium": 40,
+      "calcium": 20,
+      "phosphorus": 5,
+      "salt": 2
+   },
+   "power": 10
+}

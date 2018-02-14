@@ -145,7 +145,10 @@ public class BigTile {
 	}
 	
 	public String toString() {
-		return soilComposition.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append(soilComposition.toString() + "\n");
+		sb.append("Items left here: " + localItems.toString() + "\n");
+		return sb.toString();
 	}
 	
 	public String display() {
