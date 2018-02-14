@@ -16,10 +16,10 @@ public class SmallWorld {
 
 	public static void main(String [] args) throws Exception{
 		
-		SpeciesReader.readSpeciesData("src/data/");
+		SpeciesReader.readSpeciesData("src/data/species");
 		ItemsReader.readItemData("src/data/items");
 		//GroupBehaviorReader.readBehaviorData("src/data");
-		EcologyReader.readEcologyData("src/data");
+		EcologyReader.readEcologyData("src/data/wildlife");
 		
 		
 		System.out.println(SpeciesReader.debugDump());
