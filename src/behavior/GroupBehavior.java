@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
-import deprecated.GroupBehaviorBlock;
 import organization.Group;
 import organization.Project;
 import organization.ProjectType;
