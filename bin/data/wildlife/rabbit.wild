@@ -4,7 +4,8 @@
    "captureResult": "None",
    "harvestResult": {
       "Raw Meat": 1,
-      "Leather": 1
+      "Hide": 1,
+      "Bone": 1
    },
    "consumption": "Herbivorous",
    "reproductionRate": 0.1,
