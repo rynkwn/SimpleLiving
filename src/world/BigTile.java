@@ -26,6 +26,9 @@ public class BigTile {
 	// Rates
 	public double waterRate;
 
+	// Mineral Accessibility
+	public MineralAccessibility minerals;
+
 	// Also need weather.
 	
 	public HashSet<Group> residentGroups;
@@ -48,6 +51,7 @@ public class BigTile {
 		soilComposition.set("water", maxValue * waterRate);
 
 		// Set mineral accessibility
+		minerals = new MineralAccessibility();
 
 		
 		this.temperature = temperature;
@@ -150,7 +154,9 @@ public class BigTile {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(soilComposition.toString() + "\n");
+		sb.append("Tile:\n");
+		sb.append("Minerals: " + minerals.toString() + "\n");
+		sb.append("Soil Macronutrients: " + soilComposition.toString() + "\n");
 		sb.append("Items left here: " + localItems.toString() + "\n");
 		return sb.toString();
 	}
@@ -207,6 +213,16 @@ class MineralAccessibility {
 		}
 
 		return 0.0;
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for(MineralType mineral : MineralType.values()) {
+			sb.append(mineral + " : " + getAccessibility(mineral) + ", ");
+		}
+
+		return sb.toString();
 	}
 
 }
