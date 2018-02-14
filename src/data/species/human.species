@@ -3,7 +3,7 @@
    "gestationPeriod": 72,
    "numberOffspringProduced": {
       "min": 1,
-      "max": 3
+      "max": 2
    },
    "initialSize": 35,
    "finalSize": 800,
