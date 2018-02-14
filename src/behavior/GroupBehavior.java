@@ -49,7 +49,7 @@ public class GroupBehavior {
 				String targetSpec = iter.next();
 
 				int availableSpec = localWildlife.get(targetSpec);
-				int maxHarvestable = Project.maxAmountProducible(ProjectType.GATHER, targetSpec, grp.availableLabor);
+				int maxHarvestable = Project.maxAmountProducible(ProjectType.GATHER, targetSpec, grp.availableLabor, true);
 				int targetHarvest = Math.min(availableSpec, maxHarvestable);
 				
 				if(targetHarvest > 0) {

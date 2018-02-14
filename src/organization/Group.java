@@ -305,6 +305,9 @@ public class Group {
 		sb.append("\n\nItems:\n_____________________________\n");
 		sb.append("Maximum Weight: " + maxWeight + "\n");
 		sb.append(inventory.toString());
+
+		sb.append("\n\nCollective Labor Pool:\n_____________________________\n");
+		sb.append(availableLabor.toString());		
 		
 		sb.append("\n\nProjects:\n_____________________________\n");
 		sb.append(projects.toString());

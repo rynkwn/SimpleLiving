@@ -113,11 +113,11 @@ public class LaborPool {
 	 * Return how many times the given labor pool can factor into this one.
 	 */
 	public int factor(LaborPool lp) {
-		int maxFactor = 0;
+		int maxFactor = 999999;
 		
 		for(String laborType : laborList()) {
 			if(lp.get(laborType) > 0)
-				maxFactor = (int) Math.max(maxFactor, get(laborType) / lp.get(laborType));
+				maxFactor = (int) Math.min(maxFactor, (int) (get(laborType) / lp.get(laborType)));
 		}
 		
 		return maxFactor;
@@ -185,9 +185,22 @@ public class LaborPool {
 		
 		return laborTypes;
 	}
+
+	/*
+	 * Return a human-readable string representation of this labor pool.
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for(String laborType : laborList()) {
+			sb.append(laborType + ": " + get(laborType) + "\n");
+		}
+		
+		return sb.toString();
+	}
 	
 	/*
-	 * Return a String representation of this LaborPool.
+	 * Return a human-readable string representation of this labor pool.
 	 */
 	public String toString(String prefix) {
 		StringBuilder sb = new StringBuilder();

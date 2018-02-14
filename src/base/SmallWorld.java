@@ -70,7 +70,7 @@ public class SmallWorld {
 			System.out.println(world.ecology[0][0].toString());
 			
 			//System.out.println(testGroup.toString());
-			
+			//System.out.println(testGroup.inventory.toString());
 			world.turn();
 		}
 		//scan.close();

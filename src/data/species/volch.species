@@ -20,7 +20,7 @@
       }
    },
    "baseLabor": {
-   	  "naturalism": 30.0,
+   	  "naturalism": 100.0,
    	  "engineering": 0.0
    },
    "initialBodyStructure": {

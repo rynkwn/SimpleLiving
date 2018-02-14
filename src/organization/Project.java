@@ -18,9 +18,19 @@ import ecology.WildSpecies;
  * The project is associated
  */
 public class Project {
+
+	// Constants
+
+	// Depending on the job, they may incur an inefficiency modifier as a
+	// consequence of doing them manually.
+	public static final double MANUAL_INEFFICIENCY_MODIFIER = 5.0;
+
+	// Extra information keys
+	public static final String NAT_COST_PER_UNIT = "naturalLaborCostPerUnit";
 	
 	public boolean valid;
-	
+	public boolean manual; // Are you doing this by hand?
+
 	public ProjectType type;
 	public String target; // The sort of thing you're building/capturing.
 	public int number; // If relevant. (Usually is.)
@@ -35,10 +45,6 @@ public class Project {
 	// project properties.
 	public HashMap<AbstractItem, Integer> products;
 
-
-	// EXTRA INFORMATION KEYS
-	public static final String NAT_COST_PER_UNIT = "naturalLaborCostPerUnit";
-
 	
 	/*
 	 * What are you doing when you set up a project? You're building something.
@@ -51,57 +57,92 @@ public class Project {
 	 */
 	public Project(ProjectType type, Group grp, String target, int number) {
 		valid = true;
+		manual = true;
+
 		this.type = type;
 		
 		laborStore = new LaborPool(0);
 		
 		this.grp = grp;
+		this.target = target;
+		this.number = number;
+
 		extraInformation = new HashMap<String, String>();
 		products = new HashMap<AbstractItem, Integer>();
 		
-		// If relevant, a WildSpecies target.
+		laborStore = new LaborPool(0); 
+
+		setUpLaborRequirements();
+	}
+
+	/*
+	 * Set up the labor requirements for a job based on project information.
+	 */
+	public void setUpLaborRequirements() {
+
+		// First, get the labor needed per unit.
+		// Then, based on project type, fill in any extra information.
+		// Then, multiply by the number of times we expect to do it.
+		LaborPool requiredLabor = Project.getLaborRequirementPerUnit(type, target, manual);
+
 		WildSpecies targ;
-		
+
 		switch(type) {
+			case GATHER:
+				// In this case, target should be a wild species.
+				targ = EcologyReader.getWildSpecies(target);
+
+				for(String harvest : targ.harvestResult.keySet()) {
+					products.put(ItemsReader.getAbstractItem(harvest), targ.harvestResult.get(harvest) * number);
+				}
+			case KILL:
+				extraInformation.put(NAT_COST_PER_UNIT, "" + requiredLabor.get(LaborPool.TYPE_NATURALISM));
+				break;
+			default:
+				break;
+		}
+
+		requiredLabor.modify(number);
+
+		laborRequirements = requiredLabor;
+	}
+
+	/*
+	 * Return the labor requirements per unit
+	 */
+	public static LaborPool getLaborRequirementPerUnit(ProjectType ptype, String targ, boolean isManual) {
+		WildSpecies specTarg;
+		LaborPool requiredLabor = new LaborPool(0);
+		
+		switch(ptype) {
 		case GATHER:
 			// In this case, target should be a wild species.
-			targ = EcologyReader.getWildSpecies(target);
-			
-			for(String harvest : targ.harvestResult.keySet()) {
-				products.put(ItemsReader.getAbstractItem(harvest), targ.harvestResult.get(harvest) * number);
-			}
-			
+			specTarg = EcologyReader.getWildSpecies(targ);
+
 			// Determine how much labor is needed to capture the specified number of
 			// creatures/plants.
-			laborRequirements = new LaborPool(0);
-			laborRequirements.set(LaborPool.TYPE_NATURALISM, 1.0 * targ.power * number);
-			
-			extraInformation.put(NAT_COST_PER_UNIT, "" + targ.power);
-			
-			this.target = target;
-			this.number = number;
-			
+			requiredLabor.set(LaborPool.TYPE_NATURALISM, 1.0 * specTarg.power);
+
 			break;
 		case KILL:
-			// Similar to GATHER. But twice as effective at removing local wildlife due to the lack
-			// of any processing that needs to occur.
-			targ = EcologyReader.getWildSpecies(target);
+			// Identical to GATHER, however, twice as effective as GATHER as you're
+			// not processing anything.
+			specTarg = EcologyReader.getWildSpecies(targ);
 			
-			// Determine how much labor is needed to capture the specified number of
+			// Determine how much labor is needed to kill the specified number of
 			// creatures/plants.
-			laborRequirements = new LaborPool(0);
-			laborRequirements.set(LaborPool.TYPE_NATURALISM, .5 * targ.power * number);
+			requiredLabor.set(LaborPool.TYPE_NATURALISM, .5 * specTarg.power);
 			
-			extraInformation.put(NAT_COST_PER_UNIT, "" + (.5 * targ.power));
-			
-			this.target = target;
-			this.number = number;
 			break;
 		default:
 			break;
 		}
-		
-		laborStore = new LaborPool(0); 
+
+		if(isManual) {
+			requiredLabor.modify(MANUAL_INEFFICIENCY_MODIFIER);
+		}
+
+		return requiredLabor;
 	}
 	
 	/*
@@ -133,7 +174,7 @@ public class Project {
 			if(localSpecies.containsKey(target)) {
 				double natLabor = addedLabor.get(LaborPool.TYPE_NATURALISM);
 				
-				int natLaborPerUnit = Integer.parseInt(extraInformation.get(NAT_COST_PER_UNIT));
+				double natLaborPerUnit = Double.parseDouble(extraInformation.get(NAT_COST_PER_UNIT));
 				
 				int numCanHarvest = (int) (natLabor / natLaborPerUnit);
 				int numAvailable = localSpecies.get(target);
@@ -153,7 +194,7 @@ public class Project {
 			if(localSpecies.containsKey(target)) {
 				double natLabor = addedLabor.get(LaborPool.TYPE_NATURALISM);
 				
-				int natLaborPerUnit = Integer.parseInt(extraInformation.get(NAT_COST_PER_UNIT));
+				double natLaborPerUnit = Double.parseDouble(extraInformation.get(NAT_COST_PER_UNIT));
 				
 				int numCanHarvest = (int) (natLabor / natLaborPerUnit);
 				int numAvailable = localSpecies.get(target);
@@ -184,39 +225,14 @@ public class Project {
 	 * Given the amount of available labor, return a number indicating the maximum amount producible
 	 * with the specified labor.
 	 */
-	public static int maxAmountProducible(ProjectType type, String target, LaborPool availableLabor) {
+	public static int maxAmountProducible(ProjectType type, String target, LaborPool availableLabor, boolean isManual) {
 		
-		WildSpecies targ;
-		LaborPool requiredLabor;
+		LaborPool requiredLabor = getLaborRequirementPerUnit(type, target, isManual);
 		
-		switch(type) {
-		case GATHER:
-			// In this case, target should be a wild species.
-			targ = EcologyReader.getWildSpecies(target);
-			
-			// Determine how much labor is needed to capture the specified number of
-			// creatures/plants.
-			requiredLabor = new LaborPool(0);
-			requiredLabor.set(LaborPool.TYPE_NATURALISM, 1.0 * targ.power);
-			
+		if(!requiredLabor.isZero()) {
 			return availableLabor.factor(requiredLabor);
-			
-		case KILL:
-			// Identical to GATHER, however, twice as effective as GATHER as you're
-			// not processing anything.
-			targ = EcologyReader.getWildSpecies(target);
-			
-			// Determine how much labor is needed to kill the specified number of
-			// creatures/plants.
-			requiredLabor = new LaborPool(0);
-			requiredLabor.set(LaborPool.TYPE_NATURALISM, .5 * targ.power);
-			
-			return availableLabor.factor(requiredLabor);
-			
-		default:
-			break;
 		}
-		
+
 		return 0;
 	}
 	
