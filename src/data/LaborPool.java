@@ -12,29 +12,37 @@ import java.util.ArrayList;
 public class LaborPool {
 	public static final String TYPE_NATURALISM = "Naturalism";
 	public static final String TYPE_ENGINEERING = "Engineering";
+	public static final String TYPE_MINING = "Mining";
 	
 	// Labor related to getting biological products from the environment. (Gathering/hunting).
 	public double naturalism;
 	
 	// Labor related to building anything.
 	public double engineering;
+
+	// Labor related to mining~
+	public double mining;
 	
 	public LaborPool(double initialValue) {
 		this.naturalism = initialValue;
 		this.engineering = initialValue;
+		this.mining = initialValue;
 	}
 	
 	public LaborPool(double naturalism,
-					 double engineering
+					 double engineering,
+					 double mining
 					 ) {
 		
 		this.naturalism = naturalism;
 		this.engineering = engineering;
+		this.mining = mining;
 	}
 	
 	public LaborPool(LaborPool lp) {
 		this.naturalism = lp.naturalism;
 		this.engineering = lp.engineering;
+		this.mining = lp.mining;
 	}
 	
 	/*
@@ -45,6 +53,7 @@ public class LaborPool {
 	public void updateLabor(LaborPool baseLabor, SkillPool skills, double modifier) {
 		this.naturalism = baseLabor.get(TYPE_NATURALISM) * ((skills.get(SkillPool.SKILL_NATURALISM) * .1) + .5) * modifier;
 		this.engineering = baseLabor.get(TYPE_ENGINEERING) * ((skills.get(SkillPool.SKILL_ENGINEERING) * .1) + .5) * modifier;
+		this.mining = baseLabor.get(TYPE_MINING) * ((skills.get(SkillPool.SKILL_MINING) * .1) + .5) * modifier;
 	}
 	
 	/*
@@ -56,6 +65,8 @@ public class LaborPool {
 			return naturalism;
 		case TYPE_ENGINEERING:
 			return engineering;
+		case TYPE_MINING:
+			return mining;
 		}
 		
 		return 0;
@@ -71,6 +82,9 @@ public class LaborPool {
 			break;
 		case TYPE_ENGINEERING:
 			engineering = value;
+			break;
+		case TYPE_MINING:
+			mining = value;
 			break;
 		}
 	}
@@ -182,6 +196,7 @@ public class LaborPool {
 		
 		laborTypes.add(TYPE_NATURALISM);
 		laborTypes.add(TYPE_ENGINEERING);
+		laborTypes.add(TYPE_MINING);
 		
 		return laborTypes;
 	}

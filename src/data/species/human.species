@@ -20,7 +20,8 @@
    },
    "baseLabor": {
    	  "naturalism": 30.0,
-   	  "engineering": 40.0
+   	  "engineering": 40.0,
+        "mining": 20.0
    },
    "initialBodyStructure": {
       "species": "Human",

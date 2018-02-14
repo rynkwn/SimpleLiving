@@ -36,10 +36,9 @@ public class SkillPool {
 	
 	
 	// Labor-related skills
-	
-	// Skills related to trapping, hunting, and gathering.
 	public static final String SKILL_NATURALISM = "Naturalism";
 	public static final String SKILL_ENGINEERING = "Engineering";
+	public static final String SKILL_MINING = "Mining";
 	
 	// <Skills -> Level>, and <Skills -> Experience held>
 	public HashMap<String, Integer> skills;
@@ -171,7 +170,8 @@ public class SkillPool {
 		// Labor related skills
 		skills.add(SKILL_NATURALISM);
 		skills.add(SKILL_ENGINEERING);
-		
+		skills.add(SKILL_MINING);
+
 		return skills;
 	}
 	

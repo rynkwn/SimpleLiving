@@ -3,7 +3,7 @@
    "type": "Animal",
    "captureResult": "None",
    "harvestResult": {
-      "Raw Meat": 1,
+      "Raw Meat": 2,
       "Hide": 1,
       "Bone": 1
    },
