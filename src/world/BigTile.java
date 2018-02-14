@@ -6,6 +6,7 @@ import item.Item;
 import java.util.*;
 
 import data.Macronutrient;
+import data.MineralType;
 import organization.*;
 import util.*;
 
@@ -24,7 +25,7 @@ public class BigTile {
 	
 	// Rates
 	public double waterRate;
-	
+
 	// Also need weather.
 	
 	public HashSet<Group> residentGroups;
@@ -45,6 +46,9 @@ public class BigTile {
 		
 		this.waterRate = waterRate;
 		soilComposition.set("water", maxValue * waterRate);
+
+		// Set mineral accessibility
+
 		
 		this.temperature = temperature;
 		localItems = new Inventory();
@@ -165,4 +169,44 @@ public class BigTile {
 		return "[" + StringUtils.repeat(" ", numLeftSpaces) + displayChar + StringUtils.repeat(" ", numRightSpaces) + "]"; 
 		
 	}
+}
+
+/*
+ * A small class to help track mineral accessibility in the tile.
+ */
+class MineralAccessibility {
+
+	// Mineral accessibility, between [0, 1]
+	// An indication of how easy it is to mine the specified mineral
+	// at this tile.
+	public double copperAccess;
+	public double stoneAccess;
+
+	public MineralAccessibility() {
+		copperAccess = 1.0;
+		stoneAccess = 1.0;
+	}
+
+	public void setAccessibility(MineralType mineral, double value) {
+		switch(mineral) {
+			case COPPER:
+				copperAccess = value;
+			break;
+			case STONE:
+				stoneAccess = value;
+			break;
+		}
+	}
+
+	public double getAccessibility(MineralType mineral) {
+		switch(mineral) {
+			case COPPER:
+				return copperAccess;
+			case STONE:
+				return stoneAccess;
+		}
+
+		return 0.0;
+	}
+
 }
