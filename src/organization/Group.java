@@ -267,23 +267,23 @@ public class Group {
 		// Execute the next step in its behavior chain.
 		GroupBehavior.execute(this, behavior);
 		
-		// Do work on projects, if any. It is important that this is after we
+		// Do work on projects, if any are valid. It is important that this is after we
 		// execute group behavior, as that's when we'll initialize/instantiate projects for AI.
 		for(Project proj : projects.keySet()) {
-			if(!availableLabor.isZero())
+			if(!availableLabor.isZero() && proj.valid)
 				proj.work(availableLabor, projects.get(proj));
 		}
 		
-		// Remove completed projects.
-		ArrayList<Project> completedProjects = new ArrayList<Project>();
+		// Remove invalid projects.
+		ArrayList<Project> invalidProjects = new ArrayList<Project>();
 		for(Project proj : projects.keySet()) {
 			if(!proj.valid) {
-				completedProjects.add(proj);
+				invalidProjects.add(proj);
 			}
 		}
 		
-		for(Project completed : completedProjects) {
-			projects.remove(completed);
+		for(Project badProj : invalidProjects) {
+			projects.remove(badProj);
 		}
 	}
 	

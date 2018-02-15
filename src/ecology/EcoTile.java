@@ -111,11 +111,13 @@ public class EcoTile {
 	
 	// Subtract differential * nutrientModel from the local environment.
 	public void subtractFromEnvironment(Macronutrient nutrientModel, int differential) {
-		for(String nutrient : Macronutrient.nutrientList()) {
-			localTile.soilComposition.subtract(nutrient, differential * nutrientModel.get(nutrient));
-		}
+		localTile.subtractNutrients(nutrientModel, differential);
 	}
 	
+	// TODO: In some places, the differential is negative, so we're actually adding to
+	// the local environmental bio resources. This is intentional, but it's also a bit unclear.
+	// Let's just make an addToEnvironment method, and then take the absolute value of the differential
+	// in those cases.
 	public void iterateSpeciesPopulations() {
 		Macronutrient localNutrients = localTile.soilComposition;
 		ArrayList<String> deadSpecies = new ArrayList<String>(); 

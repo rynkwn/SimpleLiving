@@ -158,6 +158,24 @@ public class BigTile {
 		
 		return maxFactor;
 	}
+
+	/*
+	 * Add the Macronutrient n's contents to this tile.
+	 */
+	public void addNutrients(Macronutrient n) {
+		soilComposition.add(n);
+	}
+
+	/*
+	 * Subtract Macronutrient n out of this tile.
+	 */
+	public void subtractNutrients(Macronutrient n) {
+		soilComposition.subtract(n);
+	}
+
+	public void subtractNutrients(Macronutrient n, int multiplier) {
+		soilComposition.subtract(n, multiplier);
+	}
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

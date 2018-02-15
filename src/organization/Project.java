@@ -12,6 +12,7 @@ import data.MineralType;
 import ecology.EcoTile;
 import ecology.EcologyReader;
 import ecology.WildSpecies;
+import world.BigTile;
 
 /*
  * A project is some economic activity in the local tile. This may be to build some number
@@ -29,11 +30,23 @@ public class Project {
 
 	public static final double MINING_LABOR_PER_UNIT = 10.0;
 
+	// What percentage of invested resources/inputs are kept after canceling a project?
+	public static final double CANCEL_KEEP_PERCENTAGE = 1;
+
 	// Extra information keys
 	public static final String NAT_COST_PER_UNIT = "naturalLaborCostPerUnit";
-	
+
+
+	// Attributes
+
 	public boolean valid;
 	public boolean manual; // Are you doing this by hand?
+	
+	// Whether or not this project is supported by some piece of infrastructure
+	// in the group's inventory. If this is False, and the project isn't Manual,
+	// then the project is invalid (presumably because it was started by
+	// some held piece of infrastructure, which was then dropped).
+	public boolean infraSupported;
 
 	public ProjectType type;
 	public String target; // The sort of thing you're building/capturing.
@@ -67,10 +80,9 @@ public class Project {
 	public Project(ProjectType type, Group grp, String target, int number) {
 		valid = true;
 		manual = true;
+		infraSupported = false;
 
 		this.type = type;
-		
-		laborStore = new LaborPool(0);
 		
 		this.grp = grp;
 		this.target = target;
@@ -79,7 +91,9 @@ public class Project {
 		extraInformation = new HashMap<String, String>();
 		products = new HashMap<AbstractItem, Integer>();
 		
-		laborStore = new LaborPool(0); 
+		laborStore = new LaborPool(0);
+		rawMatNeed = new HashMap<String, Integer>();
+		tileResNeed = new Macronutrient(0);
 
 		setUpLaborRequirements();
 	}
@@ -166,6 +180,26 @@ public class Project {
 		}
 
 		return requiredLabor;
+	}
+
+	/* 
+	 * Cancels a project, and returns some percentage of invested resources/inputs
+	 * back by dropping the items into the local tile.
+	 */ 
+	public void cancel() {
+		BigTile localTile = grp.residentTile;
+
+		// Drop any macronutrient usage into the local tile.
+		tileResNeed.modify(CANCEL_KEEP_PERCENTAGE);
+		localTile.addNutrients(tileResNeed);
+
+		// Drop inputs into the local tile.
+		for(String input : rawMatNeed.keySet()) {
+			int keptInput = (int) (rawMatNeed.get(input) * CANCEL_KEEP_PERCENTAGE);
+			localTile.receiveItem(ItemsReader.getAbstractItem(input).makeItem(keptInput));
+		}
+
+		valid = false;
 	}
 	
 	/*

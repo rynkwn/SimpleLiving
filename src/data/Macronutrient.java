@@ -143,13 +143,32 @@ public class Macronutrient {
 			subtract(nutrient, nutr.get(nutrient));
 		}
 	}
-	
+
+	/*
+	 * Subtract another Macronutrient from this one, with an integer multiplier.
+	 */
+	public void subtract(Macronutrient nutr, int multiplier) {
+		for(String nutrient : nutrientList()) {
+			subtract(nutrient, multiplier * nutr.get(nutrient));
+		}
+	}
+
 	/*
 	 * Subtract another Macronutrient from this one, with a double multiplier.
 	 */
 	public void subtract(Macronutrient nutr, double multiplier) {
 		for(String nutrient : nutrientList()) {
 			subtract(nutrient, multiplier * nutr.get(nutrient));
+		}
+	}
+
+	/*
+	 * Apply a modifier to every nutrient in this Macronutrient.
+	 * Modifier is multiplied to the value of every nutrient.
+	 */
+	public void modify(double modifier) {
+		for(String nutrient : nutrientList()) {
+			set(nutrient, get(nutrient) * modifier);
 		}
 	}
 	

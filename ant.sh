@@ -18,4 +18,4 @@ cp -r src/data/ ../runnableSL/src/data
 
 # Create a shell script for running the thing.
 touch ../runnableSL/run.sh
-echo 'java -cp .:lib/gson-2.8.2.jar:asciiPanel.jar base/Test' > ../runnableSL/run.sh
+echo 'java -cp .:lib/gson-2.8.2.jar:asciiPanel.jar base/SmallWorld' > ../runnableSL/run.sh
