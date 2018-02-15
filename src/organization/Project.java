@@ -7,6 +7,7 @@ import item.AbstractItem;
 import item.Item;
 import item.ItemsReader;
 import data.LaborPool;
+import data.MineralType;
 import ecology.EcoTile;
 import ecology.EcologyReader;
 import ecology.WildSpecies;
@@ -24,6 +25,8 @@ public class Project {
 	// Depending on the job, they may incur an inefficiency modifier as a
 	// consequence of doing them manually.
 	public static final double MANUAL_INEFFICIENCY_MODIFIER = 5.0;
+
+	public static final double MINING_LABOR_PER_UNIT = 10.0;
 
 	// Extra information keys
 	public static final String NAT_COST_PER_UNIT = "naturalLaborCostPerUnit";
@@ -98,6 +101,13 @@ public class Project {
 			case KILL:
 				extraInformation.put(NAT_COST_PER_UNIT, "" + requiredLabor.get(LaborPool.TYPE_NATURALISM));
 				break;
+			case MINE:
+				if(target.equalsIgnoreCase("COPPER")) {
+					products.put(ItemsReader.getAbstractItem("Copper Ore"), (int) (number * grp.residentTile.getAccessibility(MineralType.COPPER)));
+				} else if(target.equalsIgnoreCase("STONE")) {
+					products.put(ItemsReader.getAbstractItem("Stone"), (int) (number * grp.residentTile.getAccessibility(MineralType.STONE)));
+				}
+				break;
 			default:
 				break;
 		}
@@ -110,7 +120,10 @@ public class Project {
 	/*
 	 * Return the labor requirements per unit
 	 */
-	public static LaborPool getLaborRequirementPerUnit(ProjectType ptype, String targ, boolean isManual) {
+	public static LaborPool getLaborRequirementPerUnit(ProjectType ptype, 
+													   String targ,
+													   boolean isManual
+													   ) {
 		WildSpecies specTarg;
 		LaborPool requiredLabor = new LaborPool(0);
 		
@@ -132,6 +145,10 @@ public class Project {
 			// Determine how much labor is needed to kill the specified number of
 			// creatures/plants.
 			requiredLabor.set(LaborPool.TYPE_NATURALISM, .5 * specTarg.power);
+			
+			break;
+		case MINE:
+			requiredLabor.set(LaborPool.TYPE_MINING, MINING_LABOR_PER_UNIT);
 			
 			break;
 		default:
@@ -184,8 +201,8 @@ public class Project {
 				
 				addedLabor.set(LaborPool.TYPE_NATURALISM, numHarvested * natLaborPerUnit);
 			}
-			
 			break;
+
 		case KILL:
 			// We're literally just hunting living things in the local environment and leaving the bodies
 			// where they fall. You monster.
@@ -206,6 +223,10 @@ public class Project {
 				addedLabor.set(LaborPool.TYPE_NATURALISM, numHarvested * natLaborPerUnit);
 			}
 			break;
+
+		case MINE:
+			break;
+
 		default:
 			break;
 		}

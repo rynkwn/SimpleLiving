@@ -58,6 +58,11 @@ public class GroupBehavior {
 				}
 			}
 
+			// Let's do some mining to test Ryan's code.
+			//int minable = Project.maxAmountProducible(ProjectType.MINE, "COPPER", grp.availableLabor, true);
+			//Project mine = new Project(ProjectType.MINE, grp, "COPPER", minable);
+			//grp.addProject(mine);
+
 			// If we have any materials, drop them. We have no use for them.
 			ArrayList<Item> materials = grp.inventory.getItemsWithType(ItemType.MATERIAL);
 			grp.dropItems(materials);

@@ -92,6 +92,13 @@ public class BigTile {
 	public void turn(int numTurnsPassed) {
 		iterateSoil();
 	}
+
+	/*
+	 * Get the accessibility of a specified mineral.
+	 */
+	public double getAccessibility(MineralType mineral) {
+		return minerals.getAccessibility(mineral);
+	}
 	
 	/*
 	 * Update soil conditions. This involves accreting biological resources and
