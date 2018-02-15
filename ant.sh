@@ -2,20 +2,20 @@
 ~/Downloads/apache-ant-1.10.2/bin/ant
 
 # Clean out RunnableSL
-rm -rf ../RunnableSL
+rm -rf ../runnableSL
 
 # Move all the .class files to ../RunnableSL
-cp -r bin/ ../RunnableSL/
+cp -r bin/ ../runnableSL/
 
 # Move our library files over
-mkdir ../RunnableSL/lib
-cp -r lib/ ../RunnableSL/lib/
+mkdir ../runnableSL/lib
+cp -r lib/ ../runnableSL/lib/
 
 # Move the data files to where they're expected to be.
-mkdir ../RunnableSL/src
-mkdir ../RunnableSL/src/data
-cp -r src/data/ ../RunnableSL/src/data
+mkdir ../runnableSL/src
+mkdir ../runnableSL/src/data
+cp -r src/data/ ../runnableSL/src/data
 
 # Create a shell script for running the thing.
-touch ../RunnableSL/run.sh
-echo 'java -cp .:lib/gson-2.8.2.jar:asciiPanel.jar base/SmallWorld' > ../RunnableSL/run.sh
+touch ../runnableSL/run.sh
+echo 'java -cp .:lib/gson-2.8.2.jar:asciiPanel.jar base/SmallWorld' > ../runnableSL/run.sh

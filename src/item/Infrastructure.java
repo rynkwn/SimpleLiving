@@ -31,7 +31,8 @@ public class Infrastructure extends Item {
 						  String projectName,
 						  LaborPool lp,
 						  HashMap<String, Integer> rawMats,
-						  Macronutrient nutr) {
+						  Macronutrient nutr,
+						  HashMap<String, Integer> products) {
 		super(name, ItemType.INFRASTRUCTURE, weight, quantity);
 		
 		regenProjectName = projectName;
@@ -39,6 +40,8 @@ public class Infrastructure extends Item {
 		laborRequirements = new LaborPool(lp);
 		rawMaterials = new HashMap<String, Integer>(rawMats);
 		tileResources = new Macronutrient(nutr);
+
+		this.products = new HashMap<String, Integer>(products);
 	}
 
 }
