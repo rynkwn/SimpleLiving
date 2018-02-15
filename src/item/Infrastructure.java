@@ -15,14 +15,9 @@ public class Infrastructure extends Item {
 
 	// Below set of inputs are needed to re-create the Project
 	// appropriately.
-
-	// Need set of labor requirements.
 	public LaborPool laborRequirements;
 	public HashMap<String, Integer> rawMaterials;
 	public Macronutrient tileResources;
-
-	// Raw materials
-	// And local tile resources.
 
 	public HashMap<String, Integer> products;
 
@@ -30,9 +25,20 @@ public class Infrastructure extends Item {
 	 * Note: having multiple of an Infrastructure in your inventory will
 	 * increase the size of the respective project by that multiple.
 	 */
-	public Infrastructure(String name, double weight, int quantity) {
+	public Infrastructure(String name, 
+						  double weight, 
+						  int quantity,
+						  String projectName,
+						  LaborPool lp,
+						  HashMap<String, Integer> rawMats,
+						  Macronutrient nutr) {
 		super(name, ItemType.INFRASTRUCTURE, weight, quantity);
-	}
+		
+		regenProjectName = projectName;
 
+		laborRequirements = new LaborPool(lp);
+		rawMaterials = new HashMap<String, Integer>(rawMats);
+		tileResources = new Macronutrient(nutr);
+	}
 
 }
