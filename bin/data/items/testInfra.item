@@ -1,0 +1,27 @@
+{
+   "regenProjectName":"test",
+   "laborRequirements":{
+      "naturalism":0.0,
+      "engineering":0.0,
+      "mining":0.0
+   },
+   "rawMaterials":{
+      "T1":1
+   },
+   "tileResources":{
+      "water":0.0,
+      "carbon":0.0,
+      "nitrogen":0.0,
+      "potassium":0.0,
+      "calcium":0.0,
+      "phosphorus":0.0,
+      "salt":0.0
+   },
+   "products":{
+      "P1":1
+   },
+   "name":"testInfra",
+   "type":"INFRASTRUCTURE",
+   "weight":10.0,
+   "quantity":1
+}
