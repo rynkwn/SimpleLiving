@@ -7,6 +7,7 @@ import item.AbstractItem;
 import item.Item;
 import item.ItemsReader;
 import data.LaborPool;
+import data.Macronutrient;
 import data.MineralType;
 import ecology.EcoTile;
 import ecology.EcologyReader;
@@ -38,8 +39,13 @@ public class Project {
 	public String target; // The sort of thing you're building/capturing.
 	public int number; // If relevant. (Usually is.)
 	public HashMap<String, String> extraInformation;
+
+	// Project Inputs
 	public LaborPool laborRequirements;
-	public LaborPool laborStore; 
+	public LaborPool laborStore;
+
+	public HashMap<String, Integer> rawMatNeed;
+	public Macronutrient tileResNeed;
 	
 	// The group performing the project.
 	public Group grp;
