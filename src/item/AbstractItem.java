@@ -87,9 +87,9 @@ public class AbstractItem {
 
 			case INFRASTRUCTURE:
 				return new Infrastructure(name, 
-										  base_weight, 
-										  quantity, 
-										  projectName, 
+										  base_weight,
+										  quantity,
+										  projectName,
 										  laborRequirements, 
 										  rawMaterials, 
 										  tileResources, 
@@ -106,8 +106,15 @@ public class AbstractItem {
 		sb.append("type: " + type + "\n");
 		sb.append("base_weight: " + base_weight + "\n");
 		
-		if(nutrition != null)
+		if(type == ItemType.FOOD) {
 			sb.append("nutrition: " + nutrition.toString() + "\n");
+		} else if(type == ItemType.INFRASTRUCTURE) {
+			sb.append("project name: " + projectName + "\n");
+			sb.append("laborRequirements: " + laborRequirements + "\n");
+			sb.append("rawMaterials: " + rawMaterials + "\n");
+			sb.append("tileResources: " + tileResources + "\n");
+			sb.append("products: " + products + "\n");
+		}
 		
 		return sb.toString();
 	}
