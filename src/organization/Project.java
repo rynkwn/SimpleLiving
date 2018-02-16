@@ -50,7 +50,7 @@ public class Project {
 
 	public ProjectType type;
 	public String target; // The sort of thing you're building/capturing.
-	public int number; // If relevant. (Usually is.)
+	public int number; // How much of that thing you're building.
 	public HashMap<String, String> extraInformation;
 
 	// Project Inputs
@@ -95,13 +95,14 @@ public class Project {
 		rawMatNeed = new HashMap<String, Integer>();
 		tileResNeed = new Macronutrient(0);
 
-		setUpLaborRequirements();
+		setUpJob();
 	}
 
 	/*
-	 * Set up the labor requirements for a job based on project information.
+	 * Set up the labor requirements for a job based on project information, and
+	 * set up some additional properties of the job if relevant.
 	 */
-	public void setUpLaborRequirements() {
+	public void setUpJob() {
 
 		// First, get the labor needed per unit.
 		// Then, based on project type, fill in any extra information.
@@ -118,15 +119,23 @@ public class Project {
 				for(String harvest : targ.harvestResult.keySet()) {
 					products.put(ItemsReader.getAbstractItem(harvest), targ.harvestResult.get(harvest) * number);
 				}
+
 			case KILL:
 				extraInformation.put(NAT_COST_PER_UNIT, "" + requiredLabor.get(LaborPool.TYPE_NATURALISM));
 				break;
+
 			case MINE:
 				if(target.equalsIgnoreCase("COPPER")) {
 					products.put(ItemsReader.getAbstractItem("Copper Ore"), (int) (number * grp.residentTile.getAccessibility(MineralType.COPPER)));
 				} else if(target.equalsIgnoreCase("STONE")) {
 					products.put(ItemsReader.getAbstractItem("Stone"), (int) (number * grp.residentTile.getAccessibility(MineralType.STONE)));
 				}
+				break;
+
+			case MANUFACTURE:
+				// Make any and all items!
+				// TODO: Fill this out!
+
 				break;
 			default:
 				break;
@@ -170,6 +179,11 @@ public class Project {
 		case MINE:
 			requiredLabor.set(LaborPool.TYPE_MINING, MINING_LABOR_PER_UNIT);
 			
+			break;
+
+		case MANUFACTURE:
+			// TODO: Figure out and set up per unit labor requirements!
+
 			break;
 		default:
 			break;

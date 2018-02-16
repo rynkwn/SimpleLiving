@@ -2,7 +2,7 @@ package organization;
 
 public enum ProjectType {
 	// Naturalism based projects related to local wildlife.
-	GATHER, KILL,
+	GATHER, KILL, FARMING,
 
 	// Projects based on mineral gathering.
 	MINE,
