@@ -1,12 +1,12 @@
 {
-   "name": "Human",
-   "gestationPeriod": 72,
+   "name": "Cheryh",
+   "gestationPeriod": 48,
    "numberOffspringProduced": {
-      "min": 1,
-      "max": 2
+      "min": 2,
+      "max": 6
    },
-   "initialSize": 35,
-   "finalSize": 800,
+   "initialSize": 10,
+   "finalSize": 500,
    "timeTillMaturation": 1344,
    "offspring": {
       "rand": {
@@ -15,38 +15,54 @@
          "haveNextNextGaussian": false
       },
       "events": {
-         "1.0": "Human"
+         "1.0": "Cheryh"
       }
    },
    "baseLabor": {
-   	  "naturalism": 30.0,
-   	  "engineering": 40.0,
-      "mining": 20.0
+   	  "naturalism": 20.0,
+   	  "engineering": 20.0,
+      "mining": 30.0
    },
    "initialBodyStructure": {
-      "species": "Human",
+      "species": "Cheryh",
       "age": 0,
       "nutritionalHealth": 1,
       "bodyparts": [
-         {
+        {
+            "name": "Horn",
+            "health": 15,
+            "maxHealth": 15,
+            "size": 2,
+            "mass": 1,
+            "moving": 1
+        },
+        {
+            "name": "Horn",
+            "health": 15,
+            "maxHealth": 15,
+            "size": 2,
+            "mass": 1,
+            "moving": 1
+        },
+        {
             "name": "Head",
             "health": 14,
             "maxHealth": 14,
-            "size": 4,
-            "mass": 4,
+            "size": 3,
+            "mass": 3,
             "containedParts": [
                {
                   "name": "Brain",
-                  "health": 5,
-                  "maxHealth": 5,
-                  "size": 2,
-                  "mass": 2,
+                  "health": 4,
+                  "maxHealth": 4,
+                  "size": 1,
+                  "mass": 1,
                   "consciousness": true
                },
                {
-                  "name": "Jaw",
-                  "health": 8,
-                  "maxHealth": 8,
+                  "name": "Mandible",
+                  "health": 6,
+                  "maxHealth": 6,
                   "size": 1,
                   "mass": 1,
                   "eating": true,
@@ -54,16 +70,16 @@
                },
                {
                   "name": "Eye",
-                  "health": 2,
-                  "maxHealth": 2,
+                  "health": 4,
+                  "maxHealth": 4,
                   "size": 1,
                   "mass": 1,
                   "sight": 50
                },
                {
                   "name": "Eye",
-                  "health": 2,
-                  "maxHealth": 2,
+                  "health": 4,
+                  "maxHealth": 4,
                   "size": 1,
                   "mass": 1,
                   "sight": 50
@@ -71,52 +87,52 @@
             ]
          },
          {
-            "name": "Torso",
-            "health": 30,
-            "maxHealth": 30,
-            "size": 20,
-            "mass": 20,
+            "name": "Thorax",
+            "health": 20,
+            "maxHealth": 20,
+            "size": 12,
+            "mass": 12,
             "containedParts": [
                {
                   "name": "Lungs",
-                  "health": 8,
-                  "maxHealth": 8,
-                  "size": 3,
-                  "mass": 3,
+                  "health": 6,
+                  "maxHealth": 6,
+                  "size": 2,
+                  "mass": 2,
                   "breathing": true
                }
             ]
          },
          {
             "name": "Leg",
-            "health": 15,
-            "maxHealth": 15,
-            "size": 15,
-            "mass": 15,
+            "health": 10,
+            "maxHealth": 10,
+            "size": 10,
+            "mass": 10,
             "moving": 1
          },
          {
             "name": "Leg",
-            "health": 15,
-            "maxHealth": 15,
-            "size": 15,
-            "mass": 15,
+            "health": 10,
+            "maxHealth": 10,
+            "size": 10,
+            "mass": 10,
             "moving": 1
          },
          {
-            "name": "Hand",
+            "name": "Claw",
             "health": 10,
             "maxHealth": 10,
-            "size": 2,
-            "mass": 2,
+            "size": 8,
+            "mass": 8,
             "manipulation": true
          },
          {
-            "name": "Hand",
+            "name": "Claw",
             "health": 10,
             "maxHealth": 10,
-            "size": 2,
-            "mass": 2,
+            "size": 8,
+            "mass": 8,
             "manipulation": true
          }
       ],

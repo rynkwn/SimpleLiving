@@ -22,7 +22,7 @@
    "baseLabor": {
    	  "naturalism": 100.0,
    	  "engineering": 0.0,
-        "mining": 60.0
+      "mining": 60.0
    },
    "initialBodyStructure": {
       "species": "Volch",
