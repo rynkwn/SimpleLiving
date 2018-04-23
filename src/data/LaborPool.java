@@ -10,39 +10,34 @@ import java.util.ArrayList;
  * class.
  */
 public class LaborPool {
-	public static final String TYPE_NATURALISM = "Naturalism";
-	public static final String TYPE_ENGINEERING = "Engineering";
-	public static final String TYPE_MINING = "Mining";
+	public static final String TYPE_UNSKILLED = "Unskilled";
+	public static final String TYPE_SKILLED = "Skilled";
+	public static final String TYPE_SPECIALIST = "Specialist";
 	
-	// Labor related to getting biological products from the environment. (Gathering/hunting).
-	public double naturalism;
-	
-	// Labor related to building anything.
-	public double engineering;
-
-	// Labor related to mining~
-	public double mining;
+	public double unskilled;
+	public double skilled;
+	public double specialist;
 	
 	public LaborPool(double initialValue) {
-		this.naturalism = initialValue;
-		this.engineering = initialValue;
-		this.mining = initialValue;
+		this.unskilled = initialValue;
+		this.skilled = initialValue;
+		this.specialist = initialValue;
 	}
 	
-	public LaborPool(double naturalism,
-					 double engineering,
-					 double mining
+	public LaborPool(double unskilled,
+					 double skilled,
+					 double specialist
 					 ) {
 		
-		this.naturalism = naturalism;
-		this.engineering = engineering;
-		this.mining = mining;
+		this.unskilled = unskilled;
+		this.skilled = skilled;
+		this.specialist = specialist;
 	}
 	
 	public LaborPool(LaborPool lp) {
-		this.naturalism = lp.naturalism;
-		this.engineering = lp.engineering;
-		this.mining = lp.mining;
+		this.unskilled = lp.unskilled;
+		this.skilled = lp.skilled;
+		this.specialist = lp.specialist;
 	}
 	
 	/*
@@ -51,9 +46,9 @@ public class LaborPool {
 	 * as a percentage), and may be based on the physical state of the entity.
 	 */
 	public void updateLabor(LaborPool baseLabor, SkillPool skills, double modifier) {
-		this.naturalism = baseLabor.get(TYPE_NATURALISM) * ((skills.get(SkillPool.SKILL_NATURALISM) * .1) + .5) * modifier;
-		this.engineering = baseLabor.get(TYPE_ENGINEERING) * ((skills.get(SkillPool.SKILL_ENGINEERING) * .1) + .5) * modifier;
-		this.mining = baseLabor.get(TYPE_MINING) * ((skills.get(SkillPool.SKILL_MINING) * .1) + .5) * modifier;
+//		this.unskilled = baseLabor.get(TYPE_UNSKILLED) * ((skills.get(SkillPool.TYPE_UNSKILLED) * .1) + .5) * modifier;
+//		this.skilled = baseLabor.get(TYPE_SKILLED) * ((skills.get(SkillPool.TYPE_SKILLED) * .1) + .5) * modifier;
+//		this.specialist = baseLabor.get(TYPE_SPECIALIST) * ((skills.get(SkillPool.TYPE_SPECIALIST) * .1) + .5) * modifier;
 	}
 	
 	/*
@@ -61,12 +56,12 @@ public class LaborPool {
 	 */
 	public double get(String type) {
 		switch(type) {
-		case TYPE_NATURALISM:
-			return naturalism;
-		case TYPE_ENGINEERING:
-			return engineering;
-		case TYPE_MINING:
-			return mining;
+		case TYPE_UNSKILLED:
+			return unskilled;
+		case TYPE_SKILLED:
+			return skilled;
+		case TYPE_SPECIALIST:
+			return specialist;
 		}
 		
 		return 0;
@@ -77,14 +72,14 @@ public class LaborPool {
 	 */
 	public void set(String type, Double value) {
 		switch(type) {
-		case TYPE_NATURALISM:
-			naturalism = value;
+		case TYPE_UNSKILLED:
+			unskilled = value;
 			break;
-		case TYPE_ENGINEERING:
-			engineering = value;
+		case TYPE_SKILLED:
+			skilled = value;
 			break;
-		case TYPE_MINING:
-			mining = value;
+		case TYPE_SPECIALIST:
+			specialist = value;
 			break;
 		}
 	}
@@ -194,9 +189,9 @@ public class LaborPool {
 	public static ArrayList<String> laborList() {
 		ArrayList<String> laborTypes = new ArrayList<String>();
 		
-		laborTypes.add(TYPE_NATURALISM);
-		laborTypes.add(TYPE_ENGINEERING);
-		laborTypes.add(TYPE_MINING);
+		laborTypes.add(TYPE_UNSKILLED);
+		laborTypes.add(TYPE_SKILLED);
+		laborTypes.add(TYPE_SPECIALIST);
 		
 		return laborTypes;
 	}

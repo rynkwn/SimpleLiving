@@ -41,7 +41,7 @@ public class Subpop {
 		this.adult = adultPop;
 		this.elderly = elderlyPop;
 		
-		this.popBuildUp = 0.0;
+		this.popBuildUp = this.childToJuvenile = this.juvenileToAdult = this.adultToElderly = 0.0;
 	}
 	
 	/*
@@ -140,7 +140,7 @@ public class Subpop {
 	/*
 	 * Returns the amount of labor produced by this subpop for this turn.
 	 */
-	public LaborPool(?) getLabor() {
+	public LaborPool getLabor() {
 		
 	}
 
