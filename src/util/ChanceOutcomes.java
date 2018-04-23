@@ -27,6 +27,16 @@ public class ChanceOutcomes<T> {
 		rand = new Random();
 	}
 	
+	public HashMap<T, Double> getReverseMap() {
+		HashMap<T, Double> reverseMap = new HashMap<T, Double>();
+		
+		for (Double chance : events.keySet()) {
+			reverseMap.put(events.get(chance), chance);
+		}
+		
+		return reverseMap;
+	}
+	
 	// Checks if a given TreeMap is a valid event space.
 	public boolean checkValidEventSpace(TreeMap<Double, T> probabilities) {
 		double totalProb = 0;
