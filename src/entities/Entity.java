@@ -74,14 +74,14 @@ public class Entity {
 		if(canReproduce() && timeSinceLastBirth >= entitySpecies.gestationPeriod) {
 			timeSinceLastBirth = 0;
 			
-			group.addMembers(entitySpecies.reproduce());
+			//group.addMembers(entitySpecies.reproduce());
 			
 		} else {
 			timeSinceLastBirth ++;
 		}
 		
-		LaborPool speciesLabor = SpeciesReader.getSpecies(species).baseLabor;
-		labor.updateLabor(speciesLabor, skills, calculateLaborModifier());
+		//LaborPool speciesLabor = SpeciesReader.getSpecies(species).baseLabor;
+		//labor.updateLabor(speciesLabor, skills, calculateLaborModifier());
 	}
 
 	/*

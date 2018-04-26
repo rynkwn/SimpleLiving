@@ -1,27 +1,20 @@
 {
    "name": "Volch Minor",
+   "description": "A large grub-like offshot of the Volch. Displays no communicative ability, but widely prized for its ability to regularly produce nutritious bulbs, commonly called 'buds'.",
+   "tags": [
+      "CAN_FILTER_FEED",
+      "STERILE"
+   ],
    "gestationPeriod": 80,
-   "numberOffspringProduced": {
-      "min": 1,
-      "max": 1
-   },
+   "numberOffspringProduced": 0,
    "initialSize": 50,
    "finalSize": 3000,
    "timeTillMaturation": 312,
    "offspring": {
-      "rand": {
-         "seed": 26024898472093,
-         "nextNextGaussian": 0,
-         "haveNextNextGaussian": false
-      },
-      "events": {
          "1.0": "Volch"
-      }
    },
-   "baseLabor": {
-   	  "naturalism": 0.0,
-   	  "engineering": 0.0
-   },
+   "baseLabor": 0,
+   "educationAffinity": 0,
    "initialBodyStructure": {
       "species": "Volch Minor",
       "age": 0,
@@ -165,9 +158,5 @@
          "productionRatio": 0.01,
          "timeToProduce": 4
       }
-   },
-   "tags": [
-      "CAN_FILTER_FEED",
-      "STERILE"
-   ]
+   }
 }

@@ -1,28 +1,19 @@
 {
    "name": "Cheryh",
+   "description": "A small bipedal beetle-like species. Prone to puffiness and lacking the hard exoskeleton of pre-sampling insects, they nevertheless can be quite competent. Also can't touch their toes.",
+   "tags": [
+      "INTELLIGENT"
+   ],
    "gestationPeriod": 48,
-   "numberOffspringProduced": {
-      "min": 2,
-      "max": 6
-   },
+   "numberOffspringProduced": 4,
    "initialSize": 10,
    "finalSize": 500,
    "timeTillMaturation": 1344,
    "offspring": {
-      "rand": {
-         "seed": 167349440984929,
-         "nextNextGaussian": 0,
-         "haveNextNextGaussian": false
-      },
-      "events": {
-         "1.0": "Cheryh"
-      }
+   	  "Cheryh": "1.0"
    },
-   "baseLabor": {
-   	  "naturalism": 20.0,
-   	  "engineering": 20.0,
-      "mining": 30.0
-   },
+   "baseLabor": 8.0,
+   "educationAffinity": 1.0,
    "initialBodyStructure": {
       "species": "Cheryh",
       "age": 0,
@@ -142,8 +133,5 @@
       }
    },
    "behaviorFile": "generic_pastoral.behavior",
-   "products": {},
-   "tags": [
-      "INTELLIGENT"
-   ]
+   "products": {}
 }

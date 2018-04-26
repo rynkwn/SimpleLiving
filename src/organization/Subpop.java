@@ -98,8 +98,7 @@ public class Subpop {
 		// First, increase popBuildUp.
 		// gestPeriod determines normal growth. Specifically just 1/gestPeriod.
 		int gestPeriod = spec.gestationPeriod;
-		Range numOffspringProduced = spec.numberOffspringProduced;
-		int averageOffspring = (numOffspringProduced.max - numOffspringProduced.min) / 2;
+		double averageOffspring = spec.numberOffspringProduced;
 		
 		// Then, you multiply by Number of Pops * numberOffspringProduced
 		// Then for each Offspring Species, you produce a number.
@@ -109,7 +108,7 @@ public class Subpop {
 		long newPops = (long) popBuildUp;
 		popBuildUp -= newPops;
 
-		HashMap<String, Double> offspringSpecies = spec.offspring.getReverseMap();
+		HashMap<String, Double> offspringSpecies = spec.offspring;
 		for(String specName : offspringSpecies.keySet()) {
 			pops.put(specName, (long) (newPops * offspringSpecies.get(specName)));
 		}

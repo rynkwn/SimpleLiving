@@ -221,10 +221,9 @@ public class Body {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		Species spec = SpeciesReader.getSpecies(species);
+		sb.append("Species: " + species);
 		
 		sb.append("Age: " + age + "\n");
-		sb.append("Maturity at: " + spec.timeTillMaturation + "\n");
 		sb.append("Mass: " + mass + "\n");
 		sb.append("Nutritional Health: " + nutritionalHealth + "\n");
 		sb.append("Moving: " + moving + "\n");

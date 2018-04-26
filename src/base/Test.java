@@ -15,8 +15,16 @@ import behavior.*;
 import com.google.gson.Gson;
 
 public class Test {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		
+		Gson gson = new Gson();
+		Species species = gson.fromJson(new FileReader(new File("src/data/species/cheryh.species")), Species.class);
+		
+		species.processJSON();
+		
+		System.out.println(species.toString());
 
+		/*
 		Gson gson = new Gson();
 
 		String name = "testInfra";
@@ -34,6 +42,10 @@ public class Test {
 		Infrastructure infra = new Infrastructure(name, weight, quantity, projectName, lp, rawMats, nutr, products);
 
 		System.out.println(gson.toJson(infra));
+		*/
 		// Creating an Infrastructure Object.
+		
+		
+		
 	}
 }

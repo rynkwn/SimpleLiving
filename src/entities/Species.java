@@ -15,7 +15,7 @@ public class Species {
 	public HashMap<String, Double> offspring; // Species -> Probabillity offspring is that spec.
 	
 	public double baseLabor;
-	public HashMap<String, Double> laborAffinity;
+	public double educationAffinity;
 	
 	public Body initialBodyStructure;
 	
@@ -35,7 +35,7 @@ public class Species {
 				   HashMap<String, Double> offspring,
 				   
 				   double baseLabor,
-				   HashMap<String, Double> laborAffinity,
+				   double educationAffinity,
 				   
 				   Body initialBodyStructure,
 				   
@@ -56,7 +56,7 @@ public class Species {
 		this.offspring = offspring;
 		
 		this.baseLabor = baseLabor;
-		this.laborAffinity = laborAffinity;
+		this.educationAffinity = educationAffinity;
 		
 		this.initialBodyStructure = initialBodyStructure;
 		
@@ -85,7 +85,7 @@ public class Species {
 		sb.append("finalSize: " + finalSize + "\n");
 		sb.append("offspring: " + offspring.toString() + "\n");
 		sb.append("baseLabor: " + baseLabor + "\n");
-		sb.append("Labor affinities: " + laborAffinity + "\n");
+		sb.append("educationAffinity: " + educationAffinity + "\n");
 		sb.append("initialBodyStructure: " + initialBodyStructure.toString() + "\n");
 		sb.append("behaviorFile: " + behaviorFile + "\n");
 		sb.append("bio products: " + products.toString() + "\n");

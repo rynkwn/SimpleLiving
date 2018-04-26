@@ -1,29 +1,21 @@
 {
    "name": "Volch",
+   "description": "A large creature covered in fine scales. A burly chest sits atop an abdomen, from which jut six legs. It has two reasonably prehensile appendages ending in wicked raptor claws. A child's nightmare of spider and dinosaur.",
+   "tags": [
+      "CAN_GROW_NEW_LIMBS",
+      "INTELLIGENT"
+   ],
    "gestationPeriod": 80,
-   "numberOffspringProduced": {
-      "min": 1,
-      "max": 3
-   },
+   "numberOffspringProduced": 2,
    "initialSize": 50,
    "finalSize": 1200,
    "timeTillMaturation": 312,
    "offspring": {
-      "rand": {
-         "seed": 167349440984929,
-         "nextNextGaussian": 0,
-         "haveNextNextGaussian": false
-      },
-      "events": {
          "0.25": "Volch Minor",
          "0.75": "Volch"
-      }
    },
-   "baseLabor": {
-   	  "naturalism": 100.0,
-   	  "engineering": 0.0,
-      "mining": 60.0
-   },
+   "baseLabor": 15,
+   "educationAffinity": .2,
    "initialBodyStructure": {
       "species": "Volch",
       "age": 0,
@@ -105,6 +97,13 @@
             ]
          },
          {
+            "name": "Abdomen",
+            "health": 40,
+            "maxHealth": 40,
+            "size": 60,
+            "mass": 60
+         },
+         {
             "name": "Leg",
             "health": 20,
             "maxHealth": 20,
@@ -175,9 +174,5 @@
       }
    },
    "behaviorFile": "generic_pastoral.behavior",
-   "products": {},
-   "tags": [
-      "CAN_GROW_NEW_LIMBS",
-      "INTELLIGENT"
-   ]
+   "products": {}
 }
