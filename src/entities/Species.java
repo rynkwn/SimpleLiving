@@ -12,6 +12,8 @@ public class Species {
 	public long initialSize;
 	public long finalSize;
 	public int timeTillMaturation;
+	public int timeTillElderly;
+	public int averageLifespan;
 	public HashMap<String, Double> offspring; // Species -> Probabillity offspring is that spec.
 	
 	public double baseLabor;
@@ -32,6 +34,8 @@ public class Species {
 				   long initialSize,
 				   long finalSize,
 				   int timeTillMaturation,
+				   int timeTillElderly,
+				   int averageLifespan,
 				   HashMap<String, Double> offspring,
 				   
 				   double baseLabor,
@@ -53,6 +57,8 @@ public class Species {
 		this.initialSize = initialSize;
 		this.finalSize = finalSize;
 		this.timeTillMaturation = timeTillMaturation;
+		this.timeTillElderly = timeTillElderly;
+		this.averageLifespan = averageLifespan;
 		this.offspring = offspring;
 		
 		this.baseLabor = baseLabor;

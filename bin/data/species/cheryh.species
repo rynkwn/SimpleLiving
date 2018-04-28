@@ -8,7 +8,9 @@
    "numberOffspringProduced": 4,
    "initialSize": 10,
    "finalSize": 500,
-   "timeTillMaturation": 1344,
+   "timeTillMaturation": 260,
+   "timeTillElderly": 1560,
+   "averageLifespan": 1760,
    "offspring": {
    	  "Cheryh": "1.0"
    },

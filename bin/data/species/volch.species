@@ -10,6 +10,8 @@
    "initialSize": 50,
    "finalSize": 1200,
    "timeTillMaturation": 312,
+   "timeTillElderly": 1560,
+   "averageLifespan": 1760,
    "offspring": {
          "0.25": "Volch Minor",
          "0.75": "Volch"
