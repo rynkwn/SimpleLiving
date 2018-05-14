@@ -11,29 +11,14 @@ public class Macronutrient {
 	public static final double BAD_FLAG = -9999999;
 	
 	public double water;
-	public double carbon;
-	public double nitrogen;
-	public double potassium;
-	public double calcium;
-	public double phosphorus;
-	public double salt;
+	public double fertility;
 	
 	public Macronutrient(double water,
-			double carbon,
-			double nitrogen,
-			double potassium,
-			double calcium,
-			double phosphorus,
-			double salt
+			double fertility
 			) {
 		
 		this.water = water;
-		this.carbon = carbon;
-		this.nitrogen = nitrogen;
-		this.potassium = potassium;
-		this.calcium = calcium;
-		this.phosphorus = phosphorus;
-		this.salt = salt;
+		this.fertility = fertility;
 	}
 	
 	// A cloning method.
@@ -45,34 +30,19 @@ public class Macronutrient {
 	
 	public Macronutrient(HashMap<String, Double> nutrients) {
 		water = nutrients.get("water");
-		carbon = nutrients.get("carbon");
-		nitrogen = nutrients.get("nitrogen");
-		potassium = nutrients.get("potassium");
-		calcium = nutrients.get("calcium");
-		phosphorus = nutrients.get("phosphorus");
-		salt = nutrients.get("salt");
+		fertility = nutrients.get("fertility");
 	}
 	
 	public Macronutrient(double initialValue) {
-		water = carbon = nitrogen = potassium = calcium = phosphorus = salt = initialValue;
+		water = fertility = initialValue;
 	}
 	
 	public double get(String key) {
 		switch(key) {
 		case "water": 
 			return water;
-		case "carbon":
-			return carbon;
-		case "nitrogen":
-			return nitrogen;
-		case "potassium":
-			return potassium;
-		case "calcium":
-			return calcium;
-		case "phosphorus":
-			return phosphorus;
-		case "salt":
-			return salt;
+		case "fertility":
+			return fertility;
 		}
 		
 		return Macronutrient.BAD_FLAG;
@@ -83,23 +53,8 @@ public class Macronutrient {
 		case "water": 
 			water = value;
 			break;
-		case "carbon":
-			carbon = value;
-			break;
-		case "nitrogen":
-			nitrogen = value;
-			break;
-		case "potassium":
-			potassium = value;
-			break;
-		case "calcium":
-			calcium = value;
-			break;
-		case "phosphorus":
-			phosphorus = value;
-			break;
-		case "salt":
-			salt = value;
+		case "fertility":
+			fertility = value;
 			break;
 		}
 	}
@@ -211,12 +166,7 @@ public class Macronutrient {
 	
 	public String toString() {
 		return "water: " + water + 
-				", carbon: " + carbon + 
-				", nitrogen: " + nitrogen + 
-				", potassium: " + potassium + 
-				", calcium: " + calcium +
-				", phosphorus: " + phosphorus +
-				", salt: " + salt;
+				", fertility: " + fertility;
 	}
 	
 	/*
@@ -226,12 +176,7 @@ public class Macronutrient {
 		ArrayList<String> nutrients = new ArrayList<String>();
 		
 		nutrients.add("water");
-		nutrients.add("carbon");
-		nutrients.add("nitrogen");
-		nutrients.add("potassium");
-		nutrients.add("calcium");
-		nutrients.add("phosphorus");
-		nutrients.add("salt");
+		nutrients.add("fertility");
 		
 		return nutrients;
 	}
