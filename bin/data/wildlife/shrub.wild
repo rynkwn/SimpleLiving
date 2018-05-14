@@ -12,31 +12,12 @@
       "max": 30
    },
    "nutrientRequirements": {
-      "water": 5,
-      "carbon": 3,
-      "nitrogen": 2,
-      "potassium": 2,
-      "calcium": 2,
-      "phosphorus": 0.3,
-      "salt": 0.05
-   },
-   "turnNutrition": {
-      "water": 0.001,
-      "carbon": 0.002,
-      "nitrogen": 0.001,
-      "potassium": 5.0E-4,
-      "calcium": 5.0E-4,
-      "phosphorus": 5.0E-4,
-      "salt": 0
+      "water": 2,
+      "fertility": .1,
    },
    "deathNutrition": {
-      "water": 5,
-      "carbon": 3,
-      "nitrogen": 2,
-      "potassium": 2,
-      "calcium": 2,
-      "phosphorus": 0.3,
-      "salt": 0.05
+      "water": 2,
+      "fertility": .1,
    },
    "power": 1
 }
